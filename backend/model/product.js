@@ -66,7 +66,7 @@ const productSchema = new mongoose.Schema({
     },
     reviews: [
         {
-            name: {
+            username: {
                 type: String,
                 required: true
             },
@@ -75,7 +75,7 @@ const productSchema = new mongoose.Schema({
                 required: true,
                 maxlength: 5,
             },
-            comment: {
+            review: {
                 type: String,
                 required: true
             }
@@ -102,11 +102,13 @@ const productSchema = new mongoose.Schema({
                 'others'
             ],
             message: 'Please select through the option listed.'
+         }
     },
     createdAt: {
         type: Date,
         default: Date.now
     }
+   
 });
     
 exports = mongoose.model('Product', productSchema); 
