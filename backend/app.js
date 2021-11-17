@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-const errorMiddleware = require("./middleware/error");
+const errorMiddleware = require("./middlewares/errors");
 
 app.use(express.json());
 
