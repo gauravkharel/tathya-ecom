@@ -1,10 +1,12 @@
-const User = require('../models/user');
+const User = require('../model/user'); // Import User Model Schema
 
-const ErrorHandler = require('../utils/errorHandler');
-const catchAsyncError = ErrorHandler.catchAsyncError;
+const ErrorHandler = require('../utils/errorHandler'); // Importing ErrorHandler from utils
+const { use } = require('../routes/auth'); // Importing route to redirect
+const sendToken = require('../utils/jwtToken');  // Importing sendToken from utils
+const catchAsyncErrors = require('../middlewares/catchAsyncErrors'); // Importing catchAsyncErrors from middlewares
 
 //registering a new user => POST /api/v1/auth/register
-exports.registerUser = catchAsyncError(async (req, res, next) => {
+exports.registerUser = catchAsyncErrors(async (req, res, next) => {
     const { name, email, password, role } = req.body;
     const user = await User.create({ 
         name, 
@@ -17,16 +19,12 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
         role 
     });
 
-    //send the token to the user
-    const token = user.getJwtToken();
-    res.status(201).json({
-        status: 'success',
-        token,
-    });
+    //send token to client
+    sendToken(user, 200, res);
 });
 
 //login a user => POST /api/v1/auth/login
-exports.loginUser = catchAsyncError(async (req, res, next) => {
+exports.loginUser = catchAsyncErrors(async (req, res, next) => {
     const { email, password } = req.body;
     //1) check if user typed both credentials
     if (!email || !password) {
@@ -52,5 +50,19 @@ exports.loginUser = catchAsyncError(async (req, res, next) => {
         token,
     });
 });
+
+// logout a user => POST /api/v1/auth/logout
+exports.logoutUser = catchAsyncErrors(async (req, res, next) => {
+    res.cookies('token', null, {
+        expires: new Date(Date.now()),
+        httpOnly: true,
+    })
+
+    res.status(200).json({
+        status: 'success',
+        message: 'Logged Out'
+    });
+});
+
  
 

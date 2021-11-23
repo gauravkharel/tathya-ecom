@@ -1,9 +1,12 @@
 const express = require("express");
 const app = express();
 
+// Middleware
+const cookieParser = require("cookie-parser");
 const errorMiddleware = require("./middlewares/errors");
 
 app.use(express.json());
+app.use(cookieParser());
 
 //Import all the routes
 const products = require("./routes/product");

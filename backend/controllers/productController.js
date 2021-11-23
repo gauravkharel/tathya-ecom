@@ -1,7 +1,7 @@
-const Product = require("../model/product");
-const ErrorHandler = require("../utils/errorHandler");
-const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
-const APIFeatures = require("../utils/apiFeatures");
+const Product = require("../model/product"); // Import Product Model Schema
+const ErrorHandler = require("../utils/errorHandler"); // Importing ErrorHandler from utils
+const catchAsyncErrors = require("../middlewares/catchAsyncErrors"); // Importing catchAsyncErrors from middlewares
+const APIFeatures = require("../utils/apiFeatures"); // Importing APIFeatures from utils
 
 // Create a new product
 exports.newProduct = catchAsyncErrors(async (req, res, next) => {
@@ -16,15 +16,16 @@ exports.newProduct = catchAsyncErrors(async (req, res, next) => {
 //Getting all products by /api/v1/products?keyword=
 exports.getProducts = catchAsyncErrors(async (req, res, next) => {
 
-  const resPerPage = 4;
+  const resPerPage = 4; // results per page
   
-  const productCount = await Product.countDocuments();
-  const apiFeatures = new APIFeatures(Product.find(), req.query)
-    .search()
-    .filter()
-    .pagination(resPerPage);
-  const products = await apiFeatures.query;
+  const productCount = await Product.countDocuments(); // Count the number of documents in the collection
+  const apiFeatures = new APIFeatures(Product.find(), req.query) // Pass the query to the APIFeatures class
+    .search() // Search the query
+    .filter() // Filter the query
+    .pagination(resPerPage); // Paginate the query
+  const products = await apiFeatures.query; // Execute the query
 
+  // Send response
   res.status(200).json({
     success: true,
     count: products.length,
@@ -51,16 +52,19 @@ exports.getSingleProduct = catchAsyncErrors(async (req, res, next) => {
 exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
   let product = await Product.findById(req.params.id);
 
+  // Check if product exists
   if (!product) {
     return next(new ErrorHandler(404, "Product not found"));
   }
 
+  // Check if user is authorized to update product
   product = await Product.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
     userFindAndModify: false,
   });
 
+  // Send response
   res.status(200).json({
     success: true,
     product,
@@ -71,12 +75,15 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
 exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
   let product = await Product.findById(req.params.id);
 
+  // Check if product exists
   if (!product) {
     return next(new ErrorHandler(404, "Product not found"));
   }
 
+  // Check if user is authorized to delete product
   product = await Product.findByIdAndDelete(req.params.id);
 
+  // Send response
   res.status(200).json({
     success: true,
     product,
