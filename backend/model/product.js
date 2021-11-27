@@ -18,6 +18,9 @@ const productSchema = new mongoose.Schema({
   description: {
     type: String,
     required: true,
+    trim: true, 
+    minlength: 3,
+    maxlength: 255,
   },
   ratings: {
     type: Number,
@@ -96,6 +99,11 @@ const productSchema = new mongoose.Schema({
       ],
       message: "Please select through the option listed.",
     },
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
   },
   createdAt: {
     type: Date,
