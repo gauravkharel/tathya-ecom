@@ -1,5 +1,4 @@
 // generate token and save it in the cookies
-
 const { reset } = require("nodemon");
 
 const sentToken = (user, statusCode, res) => {

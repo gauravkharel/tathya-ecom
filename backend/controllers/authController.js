@@ -6,17 +6,13 @@ const sendToken = require('../utils/jwtToken');  // Importing sendToken from uti
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors'); // Importing catchAsyncErrors from middlewares
 const sendEmail = require('../utils/sendEmail'); // Importing sentEmail from utils
 
-//registering a new user => POST /api/v1/auth/register
+//registering a new user => POST /api/v1/register
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
     const { name, email, password, role } = req.body;
     const user = await User.create({
         name,
         email,
         password,
-        avatar: {
-            public_id: '',
-            url: '',
-        },
         role
     });
 
@@ -24,7 +20,7 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
     sendToken(user, 200, res);
 });
 
-//login a user => POST /api/v1/auth/login
+//login a user => POST /api/v1/login
 exports.loginUser = catchAsyncErrors(async (req, res, next) => {
     const { email, password } = req.body;
     //1) check if user typed both credentials
@@ -34,7 +30,7 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
 
     //2) check if email and password exist
     const user = await User.findOne({ email }).select('+password');
-    if (!user || !(await user.isPasswordMatch(password, user.password))) {
+    if (!user ) {
         return next(new ErrorHandler('Input credentials do not match. ', 401));
     }
 
@@ -53,7 +49,7 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
 });
 
 //forget password => POST /api/v1/auth/forget-password
-exports.forgetPassword = catchAsyncErrors(async (req, res, next) => {
+exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
     const { email } = req.body;
     //1) check if user typed email
     if (!email) {
@@ -105,6 +101,4 @@ exports.logoutUser = catchAsyncErrors(async (req, res, next) => {
     })
 
 });
-
-
 

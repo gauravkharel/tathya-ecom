@@ -17,7 +17,6 @@ const productSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    required: true,
     trim: true, 
     minlength: 3,
     maxlength: 255,
@@ -30,29 +29,24 @@ const productSchema = new mongoose.Schema({
     {
       public_id: {
         type: String,
-        required: true,
       },
       url: {
         type: String,
-        required: true,
       },
     },
   ],
   category: {
     type: String,
-    required: true,
     enum: {
       values: ["clothing", "accessories", "shoes", "bags", "others"],
       message: "Please select the mentioned category.",
     },
   },
   seller: {
-    type: String,
-    required: true,
+    type: String,    
   },
   stock: {
     type: Number,
-    required: true,
     maxlength: 5,
     default: 0,
   },
@@ -64,7 +58,6 @@ const productSchema = new mongoose.Schema({
     {
       username: {
         type: String,
-        required: true,
       },
       rating: {
         type: Number,
@@ -103,7 +96,6 @@ const productSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: true,
   },
   createdAt: {
     type: Date,

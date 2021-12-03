@@ -3,6 +3,7 @@ const app = express();
 
 // Middleware
 const cookieParser = require("cookie-parser");
+
 const errorMiddleware = require("./middlewares/errors");
 
 app.use(express.json());
@@ -15,7 +16,7 @@ const auth = require("./routes/auth");
 app.use("/api/v1", products);
 app.use("/api/v1", auth);
 
-//
+//Error handling middleware
 app.use(errorMiddleware);
 
 module.exports = app;
