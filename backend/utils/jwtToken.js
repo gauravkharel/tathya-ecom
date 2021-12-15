@@ -1,23 +1,24 @@
-// generate token and save it in the cookies
-const { reset } = require("nodemon");
+// Create and send token and save in the cookie.
+const sendToken = (user, statusCode, res) => {
 
-const sentToken = (user, statusCode, res) => {
-  //Create JWT Token
-  const token = user.getJwtToken();
+    // Create Jwt token
+    const token = user.getJwtToken();
 
-  //options for cookies
-  const options = {
-    expires: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRES_TIME * 24 * 60 * 60 * 1000
-    ),
-    httpOnly: true, //only http can access the cookie
-  };
+    // Options for cookie
+    const options = {
+        expires: new Date(
+            Date.now() + process.env.COOKIE_EXPIRES_TIME * 24 * 60 * 60 * 1000
+        ),
+        httpOnly: true
+    }
 
-  res.status(statusCode).cookie("token", token, options).json({
-    status: "success",
-    user,
-    token,
-  });
-};
 
-module.exports = sentToken;
+    res.status(statusCode).cookie('token', token, options).json({
+        success: true,
+        token,
+        user
+    })
+
+}
+
+module.exports = sendToken;
