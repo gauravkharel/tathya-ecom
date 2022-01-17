@@ -9,7 +9,7 @@ const {
     updateOrder,
     deleteOrder
 
-} = require('../controllers/orderController')
+} = require('../controllers/order.controller.js')
 
 const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth')
 

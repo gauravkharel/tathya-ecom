@@ -4,7 +4,7 @@ const router = express.Router();
 const {
     processPayment,
     sendStripApi
-} = require('../controllers/paymentController')
+} = require('../controllers/payment.controller')
 
 const { isAuthenticatedUser } = require('../middlewares/auth')
 
