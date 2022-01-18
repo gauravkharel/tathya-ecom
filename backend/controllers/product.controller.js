@@ -5,10 +5,10 @@ const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 const APIFeatures = require('../utils/apiFeatures')
 const cloudinary = require('cloudinary')
 
-// Create new product   =>   /api/v1/product/new
+// Create new product   =>   /api/v1/admin/product/new
 exports.newProduct = catchAsyncErrors(async (req, res, next) => {
 
-    let images = [] 
+    let images = []
     if (typeof req.body.images === 'string') {
         images.push(req.body.images)
     } else {
@@ -19,7 +19,7 @@ exports.newProduct = catchAsyncErrors(async (req, res, next) => {
 
     for (let i = 0; i < images.length; i++) {
         const result = await cloudinary.v2.uploader.upload(images[i], {
-            folder: 'products-gallery'
+            folder: 'products'
         });
 
         imagesLinks.push({
@@ -79,7 +79,7 @@ exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
 
 })
 
-// Get single product details   =>   /api/admin/v1/product/:id
+// Get single product details   =>   /api/v1/product/:id
 exports.getSingleProduct = catchAsyncErrors(async (req, res, next) => {
 
     const product = await Product.findById(req.params.id);
@@ -87,6 +87,7 @@ exports.getSingleProduct = catchAsyncErrors(async (req, res, next) => {
     if (!product) {
         return next(new ErrorHandler('Product not found', 404));
     }
+
 
     res.status(200).json({
         success: true,

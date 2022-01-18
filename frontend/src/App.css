@@ -1,3 +1,5 @@
+
+
 html,
 body {
   font-family: 'Amazon Ember';
@@ -47,7 +49,7 @@ nav {
 
 #login_btn,
 #view_btn {
-  background-color: #febd69;
+  background-color: #548CFF;
   padding: 0.4rem 1.8rem;
   font-family: calibri;
 }
@@ -58,7 +60,7 @@ nav {
 }
 
 #cart_count {
-  background-color: #febd69;
+  background-color: #548CFF;
   padding: 0.2rem 0.5rem;
   border-radius: 0.2rem;
   color: black;
@@ -80,7 +82,7 @@ nav {
 }
 
 .card-title a:hover {
-  color: #fa9c23;
+  color: #548CFF;
   text-decoration: none;
 }
 
@@ -93,7 +95,7 @@ nav {
 }
 
 #view_btn {
-  background-color: #fa9c23;
+  background-color: #548CFF;
   color: white;
 }
 
@@ -104,7 +106,7 @@ nav {
 
 .ratings {
   font-size: 1.2rem;
-  color: #fdcc0d;
+  color: #548CFF;
 }
 
 #no_of_reviews {
@@ -127,7 +129,7 @@ footer {
   display: inline-block;
   position: relative;
   font-family: FontAwesome;
-  color: #fdcc0d;
+  color: #548CFF;
 }
 
 .rating-outer::before {
@@ -145,7 +147,7 @@ footer {
 
 .rating-inner::before {
   content: '\f005 \f005 \f005 \f005 \f005';
-  color: #f8ce0b;
+  color: #548CFF;
 }
 
 /* Product Details Page */
@@ -162,7 +164,7 @@ footer {
 #cart_btn,
 #review_btn {
   border-radius: 2rem;
-  background-color: #fa9c23;
+  background-color: #548CFF;
   border: none;
   padding: 0.5rem 2rem;
 }
@@ -207,8 +209,8 @@ footer {
   height: 64px;
   margin: 8px;
   border-radius: 50%;
-  border: 6px solid #fa9c23;
-  border-color: #fa9c23 transparent;
+  border: 6px solid #548CFF;
+  border-color: #548CFF transparent;
   animation: lds-dual-ring 1.2s linear infinite;
 }
 @keyframes lds-dual-ring {
@@ -240,22 +242,22 @@ footer {
 }
 
 #card_item_price {
-  color: #febd69;
+  color: #548CFF;
   font-weight: bold;
   font-size: 1.4rem;
 }
 
 #checkout_btn,
 .review-btn {
-  background-color: #fa9c23;
-  border-color: #fa9c23;
+  background-color: #548CFF;
+  border-color: #548CFF;
   margin-top: 2rem;
   border-radius: 5rem;
 }
 
 #view_order_details {
-  background-color: #fa9c23;
-  border-color: #fa9c23;
+  background-color: #548CFF;
+  border-color: #548CFF;
 }
 
 #order_summary {
@@ -307,8 +309,8 @@ footer {
 }
 
 .wrapper form .btn {
-  background-color: #fa9c23;
-  border-color: #fa9c23;
+  background-color: #548CFF;
+  border-color: #548CFF;
   color: white;
   margin-top: 2.5rem;
 }
@@ -387,7 +389,7 @@ footer {
 }
 
 .active-step {
-  background: #fa9c23;
+  background: #548CFF;
   color: #fff;
 }
 
@@ -395,7 +397,7 @@ footer {
   float: left;
   width: 0;
   border-top: 20px solid transparent;
-  border-left: 15px solid #fa9c23;
+  border-left: 15px solid #548CFF;
   border-bottom: 20px solid transparent;
   margin-left: -1px;
 }
@@ -403,9 +405,9 @@ footer {
 .triangle2-active {
   width: 0;
   float: left;
-  border-top: 20px solid #fa9c23;
+  border-top: 20px solid #548CFF;
   border-left: 15px solid #fff;
-  border-bottom: 20px solid #fa9c23;
+  border-bottom: 20px solid #548CFF;
   margin-right: -1px;
 }
 
@@ -445,8 +447,8 @@ footer {
 }
 
 #edit_profile {
-  background-color: #fa9c23;
-  border-color: #fa9c23;
+  background-color: #548CFF;
+  border-color: #548CFF;
 }
 
 /* Confirm Order */
@@ -457,8 +459,8 @@ footer {
 }
 
 .update-btn {
-  background-color: #fa9c23;
-  border-color: #fa9c23;
+  background-color: #548CFF;
+  border-color: #548CFF;
   color: white;
 }
 
@@ -468,16 +470,16 @@ footer {
 
 /* Pagination */
 .page-item.active .page-link {
-  background-color: #fa9c23;
-  border-color: #fa9c23;
+  background-color: #548CFF;
+  border-color: #548CFF;
 }
 
 .page-link {
-  color: #fa9c23;
+  color: #548CFF;
 }
 
 .page-link:hover {
-  color: #fa9c23;
+  color: #548CFF;
 }
 
 /* Admin Sidebar */
@@ -603,11 +605,11 @@ ul.CTAs a {
 }
 
 .orange {
-  color: #fa9c23;
+  color: #548CFF;
 }
 
 .yellow {
-  color: #fdcc0d;
+  color: #548CFF;
 }
 
 .review_user {
