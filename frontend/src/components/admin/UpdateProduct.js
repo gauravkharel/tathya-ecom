@@ -22,12 +22,18 @@ const UpdateProduct = ({ match, history }) => {
     const [imagesPreview, setImagesPreview] = useState([])
 
     const categories = [
-        'Men',
-        'Women',
-        'Kids',
-        'Toodlers',
+        'Electronics',
+        'Cameras',
+        'Laptops',
+        'Accessories',
+        'Headphones',
+        'Food',
+        "Books",
+        'Clothes/Shoes',
+        'Beauty/Health',
         'Sports',
-        'Beauty/Health'
+        'Outdoor',
+        'Home'
     ]
 
     const alert = useAlert();
