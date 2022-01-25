@@ -15,13 +15,13 @@ if (process.env.NODE_ENV !== 'PRODUCTION') require('dotenv').config({ path: 'bac
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
+app.use(cookieParser())
 app.use(fileUpload());
 
 
 // Import all routes
 const products = require('./routes/product.route');
-const auth = require('./routes/auth.routes');
+const auth = require('./routes/auth.route');
 const payment = require('./routes/payment.route');
 const order = require('./routes/order.route');
 

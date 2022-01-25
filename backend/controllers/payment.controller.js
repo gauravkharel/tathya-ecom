@@ -8,6 +8,7 @@ exports.processPayment = catchAsyncErrors(async (req, res, next) => {
     const paymentIntent = await stripe.paymentIntents.create({
         amount: req.body.amount,
         currency: 'usd',
+
         metadata: { integration_check: 'accept_a_payment' }
     });
 
@@ -15,6 +16,7 @@ exports.processPayment = catchAsyncErrors(async (req, res, next) => {
         success: true,
         client_secret: paymentIntent.client_secret
     })
+
 })
 
 // Send stripe API Key   =>   /api/v1/stripeapi
