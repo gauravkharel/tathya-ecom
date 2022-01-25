@@ -1,18 +1,19 @@
 # Tathya E-commerce Project
 
-### Env Variables
+### Install Dependencies (Backend)
 
-Add your config variables values in the config.env file in backend/config folder as shown in the course.
+```
+npm i
+npm run dev
+```
 
 ### Install Dependencies (Frontend)
 
 ```
 cd frontend
 npm i
+npm start dev
 ```
 
-### Install Dependencies (Backend)
 
-```
-npm i
-```
+
