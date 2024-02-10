@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  postgres:
+    container_name: tathya-ecomm-db
+    image: postgres:10.3
+    ports:
+      - 5432:5432
+    volumes: 
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: tathyadb
+      POSTGRES_PASSWORD: tathyadb
+
+volumes:
+  postgres_data:
