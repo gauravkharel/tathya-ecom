@@ -19,9 +19,7 @@ const handleNewUser = async (req, res) => {
   if (findUser) return res.sendStatus(409);
   try {
     const salt = randomBytes(32).toString("hex")
-    // const hashedPassword = await bcrypt.hash(password, salt);
     const hashedPassword = createHmac("sha256", salt).update(password).digest("hex");    
-    console.log(salt, hashedPassword)
     const addUser = await prisma.user.create({
       data: {
         firstName: fname,

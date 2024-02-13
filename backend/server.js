@@ -28,11 +28,8 @@ app.use("/", express.static(path.join(__dirname, "/public")));
 //routes
 app.get("/users", async (req, res) => {});
 app.use("/register", require("./routes/register"));
-app.post("/test", async (req, res) => {
-  const { fname} = req.body;
-  console.log(req.body);
-  res.status(201).json({'success': `New user ${fname} is created. Please login again.`})
-});
+app.use("/login", require("./routes/login"));
+
 
 app.use(errorHandler);
 
