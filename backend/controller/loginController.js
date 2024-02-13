@@ -37,9 +37,6 @@ const handleLogin = async (req, res) => {
     res.status(401).json("Sorry, password do not match. Try again, please.");
   }
 
-//   res.status(200).json(`${foundUser.firstName} is logged in sucessfully`);
-
-  //generate token
 };
 
 module.exports = { handleLogin };
