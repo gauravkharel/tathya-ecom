@@ -3,10 +3,7 @@ const {createHmac, randomBytes} = require("node:crypto")
 const bcrypt = require('bcrypt')
 
 const handleNewUser = async (req, res) => {
-  const { fname, lname, email, password, profileImageUrl } = req.body;
-  console.log(req.body)
-
-  
+  const { fname, lname, email, password, profileImageUrl } = req.body;  
   if (!email || !password) 
   return res.status(400).json({ message: "Please add all the required credentials." });
   
