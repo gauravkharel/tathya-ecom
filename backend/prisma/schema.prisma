@@ -11,13 +11,73 @@ datasource db {
 }
 
 model User {
-  id String @id @default(uuid())
-  firstName String @map("first_name")
-  lastName String? @map("last_name")
+  id              String  @id @default(uuid())
+  firstName       String  @map("first_name")
+  lastName        String? @map("last_name")
   profileImageUrl String? @map("profile_image_url")
-  email String @unique
-  password String
-  salt String
+  email           String  @unique
+  password        String
+  salt            String
+
+  refreshToken RefreshToken[]
+  cartItem     CartItem[]
+  order        Order[]
 
   @@map("users")
+}
+
+// Define the RefreshToken model to store refresh tokens associated with user sessions
+model RefreshToken {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  token     String
+  expiresAt DateTime
+}
+
+model Clothing {
+  id          Int         @id @default(autoincrement())
+  name        String
+  description String?
+  price       Float
+  imageUrl    String?
+  brand       String
+  colors      String
+  sizes       String
+  agegroup    String
+  cartItem    CartItem[]
+  orderItem   OrderItem[]
+}
+
+// Define the CartItem model to represent the items added to a user's shopping cart
+model CartItem {
+  id         Int      @id @default(autoincrement())
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  clothing   Clothing @relation(fields: [clothingId], references: [id])
+  clothingId Int
+  quantity   Int
+  createdAt  DateTime @default(now())
+}
+
+// Define the Order model to store information about completed orders
+model Order {
+  id          Int         @id @default(autoincrement())
+  user        User        @relation(fields: [userId], references: [id])
+  userId      String
+  totalAmount Float
+  createdAt   DateTime    @default(now())
+  // Define the relationship with order items
+  items       OrderItem[]
+}
+
+// Define the OrderItem model to represent the individual items within each order
+model OrderItem {
+  id         Int      @id @default(autoincrement())
+  order      Order    @relation(fields: [orderId], references: [id])
+  orderId    Int
+  clothing   Clothing @relation(fields: [clothingId], references: [id])
+  clothingId Int
+  quantity   Int
+  price      Float
 }

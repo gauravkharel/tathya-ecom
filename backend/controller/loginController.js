@@ -12,25 +12,43 @@ const handleLogin = async (req, res) => {
   if (!password)
     return res.status(400).json({ message: "Password is required." });
 
-  const foundUser = await prisma.user.findUnique({
-    where: { email: email },
-  });
+    const findUser = await prisma.user.findUnique({
+      where: {
+        email: email
+      },
+    });
 
-  if (!foundUser) {
+  if (!findUser) {
     res.status(404).json("User not found. Please try again with valid email.");
   }
-  const userSalt = foundUser.salt;
+  const userSalt = findUser.salt;
   const userHashPassword = createHmac("sha256", userSalt)
     .update(password)
     .digest("hex");
 
-  if (userHashPassword == foundUser.password) {
+  if (userHashPassword == findUser.password) {
     // create jwt
     const accessToken = jwt.sign(
-      { firstName: foundUser.firstName },
+      { firstName: findUser.firstName },
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: "200s" }
     );
+
+    const refreshToken = jwt.sign(
+      {username: findUser.firstName},
+      process.env.REFRESH_TOKEN_SECRET,
+      {expiresIn: '2h'}
+    )
+
+    //task: you save the refresh token in the db
+    
+    // to deal with cors related issue we add more info to the responding cookie
+    res.cookie("jwt", refreshToken, {
+      httpOnly: true,
+      sameSite: "None",
+      secure: true,
+      maxAge: 24 * 60 * 60 * 100
+    })
 
     res.json({accessToken})
   } else {
