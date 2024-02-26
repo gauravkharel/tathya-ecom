@@ -305,3 +305,16 @@
 20240218	11:38:22	b93ad3ef-690d-4500-b99e-44c134b936f6	POST	undefined	/login
 20240218	11:39:02	3784dffa-15fb-4bf1-94d9-0338fc32915d	POST	undefined	/login
 20240218	11:39:20	fd13596f-df38-43e5-adc0-82255454ac49	POST	undefined	/login
+20240218	12:58:13	451ce0b0-fa92-4497-b1f8-83c23d08be19	POST	undefined	/login
+20240218	13:27:10	715d9d23-8dc2-4ccb-8984-115234886610	POST	undefined	/register
+20240218	13:27:26	59c570d9-73b0-4200-9bda-6c3be3a22097	POST	undefined	/register
+20240218	13:27:38	1cfacc1f-5e4c-472b-8e86-2b44afe24efa	POST	undefined	/register
+20240218	13:28:19	73b8bd90-80cc-4219-b96e-53653e4f370f	POST	undefined	/login
+20240225	10:41:55	af45cb56-e7c1-4315-aba5-ec50f6bbefb8	POST	undefined	/login
+20240225	11:25:51	7d33c874-7494-4bb2-8a8c-3543f55f0f3d	POST	undefined	/login
+20240226	12:11:52	67acb6de-163a-4d72-bd7c-7bd1240b60df	GET	undefined	/login
+20240226	12:11:57	fb82c1e5-812d-4b1f-9adc-e5b0d101e1b2	GET	undefined	/login
+20240226	12:39:46	57bb3965-5542-4bd9-b246-0b3af028b022	OPTIONS	http://localhost:3000	/login
+20240226	12:39:46	c80ea40d-a523-4327-9b22-57b6f8c82764	POST	http://localhost:3000	/login
+20240226	12:56:19	df9892af-3fbe-42df-afac-1ebf3c604992	OPTIONS	http://localhost:3000	/login
+20240226	12:56:19	69279244-f621-4ee5-90eb-24a3675d6b14	POST	http://localhost:3000	/login

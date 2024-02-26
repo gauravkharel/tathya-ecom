@@ -3,8 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { useMutation } from '@tanstack/react-query'
-
+// import { useMutation } from '@tanstack/react-query'
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -17,24 +16,12 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { UserRequest, UserValidator } from "@/lib/validators/user"
-import { signUpUserFn } from "@/lib/authApi"
+// import { signUpUserFn } from "@/lib/authApi"
 import axios from "axios"
 
 type FormData = z.infer<typeof UserValidator>
 
-
-export function ProfileForm() {
-
-  // const {mutate, isLoading} = useMutation(
-  //   (userData: any) => signUpUserFn(userData),
-  //   {
-
-  //   }
-  // )
-  
-
-
-
+export function RegsiterUserForm() {
   const form = useForm<UserRequest>({
     resolver: zodResolver(UserValidator),
     defaultValues: {
@@ -46,14 +33,14 @@ export function ProfileForm() {
     },
   })
 
-  const onSubmit =async (values: UserRequest ) => {
+  const onSubmit = async (values: UserRequest) => {
     console.log('registered values', values)
-    const {firstname, lastname, email, password, profileimageurl} = values
+    const { firstname, lastname, email, password, profileimageurl } = values
 
     try {
       const response = await axios.post('http://localhost:3500/register',
-        JSON.stringify({fname: firstname, lname: lastname, email: email, password: password, profileImageUrl: profileimageurl}), {
-        headers: { 'Content-Type': 'application/json'}
+        JSON.stringify({ fname: firstname, lname: lastname, email: email, password: password, profileImageUrl: profileimageurl }), {
+        headers: { 'Content-Type': 'application/json' }
       })
       console.log(JSON.stringify(response))
     } catch (err) {

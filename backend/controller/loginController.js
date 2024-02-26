@@ -1,7 +1,7 @@
 const prisma = require("../lib/db");
 const { createHmac } = require("node:crypto");
 const bcrypt = require("bcrypt");
-const jwt = require('jsonwebtoken')
+const jwt = require("jsonwebtoken");
 
 const handleLogin = async (req, res) => {
   const { email, password } = req.body;
@@ -12,11 +12,11 @@ const handleLogin = async (req, res) => {
   if (!password)
     return res.status(400).json({ message: "Password is required." });
 
-    const findUser = await prisma.user.findUnique({
-      where: {
-        email: email
-      },
-    });
+  const findUser = await prisma.user.findUnique({
+    where: {
+      email: email,
+    },
+  });
 
   if (!findUser) {
     res.status(404).json("User not found. Please try again with valid email.");
@@ -35,26 +35,25 @@ const handleLogin = async (req, res) => {
     );
 
     const refreshToken = jwt.sign(
-      {username: findUser.firstName},
+      { username: findUser.firstName },
       process.env.REFRESH_TOKEN_SECRET,
-      {expiresIn: '2h'}
-    )
+      { expiresIn: "2h" }
+    );
 
     //task: you save the refresh token in the db
-    
+      
     // to deal with cors related issue we add more info to the responding cookie
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
       sameSite: "None",
       secure: true,
-      maxAge: 24 * 60 * 60 * 100
-    })
+      maxAge: 24 * 60 * 60 * 100,
+    });
 
-    res.json({accessToken})
+    res.json({ accessToken });
   } else {
     res.status(401).json("Sorry, password do not match. Try again, please.");
   }
-
 };
 
 module.exports = { handleLogin };

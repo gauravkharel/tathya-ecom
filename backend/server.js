@@ -8,9 +8,12 @@ const errorHandler = require("./middleware/errorHandler");
 const cookieParser = require("cookie-parser");
 const path = require("path");
 const bodyParser = require('body-parser');
+const credentials = require('./middleware/credentials');
 
 
 app.use(logger);
+app.use(credentials);
+
 
 app.use(cors(corsOptions));
 

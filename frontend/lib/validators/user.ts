@@ -14,4 +14,12 @@ export const UserValidator =z.object({
     profileimageurl: z.string().url()
   })
 
-export type UserRequest = z.infer<typeof UserValidator>
+  export const LoginValidator =z.object({
+    email: z.string().email(),
+    password: z.string().min(10, {
+      message: "Please atleast 10 characters."
+    })
+  })
+
+  export type UserRequest = z.infer<typeof UserValidator>
+  export type LoginRequest = z.infer<typeof LoginValidator>

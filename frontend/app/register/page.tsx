@@ -1,4 +1,4 @@
-import { ProfileForm } from "@/components/exampleform"
+import { RegsiterUserForm } from "@/components/Register"
 import {
   Card,
   CardContent,
@@ -8,25 +8,21 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
-interface pageProps {
-
-}
-
 const page = ({ }) => {
   return (
     <div>
-<Card className="w-[300px]">
-  <CardHeader>
-    <CardTitle>Sign Up</CardTitle>
-    <CardDescription>To be part of it.</CardDescription>
-  </CardHeader>
-  <CardContent>
-      <ProfileForm />
-  </CardContent>
-  <CardFooter>
-    <p>Have a account? Login Here</p>
-  </CardFooter>
-</Card>
+      <Card className="w-[300px]">
+        <CardHeader>
+          <CardTitle>Sign Up</CardTitle>
+          <CardDescription>To be part of it.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <RegsiterUserForm />
+        </CardContent>
+        <CardFooter>
+          <p>Have a account? Login Here</p>
+        </CardFooter>
+      </Card>
     </div>
   )
 }
