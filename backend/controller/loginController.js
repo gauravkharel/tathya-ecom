@@ -19,21 +19,27 @@ const handleLogin = async (req, res) => {
   });
 
   if (!findUser) {
-    res.status(404).json("User not found. Please try again with valid email.");
+    return res
+      .status(404)
+      .json("User not found. Please try again with valid email.");
   }
   const userSalt = findUser.salt;
   const userHashPassword = createHmac("sha256", userSalt)
     .update(password)
     .digest("hex");
 
+  if (userHashPassword !== findUser.password) {
+    return res
+      .status(400)
+      .json("Password is Invalid. Please enter correct password.");
+  }
   if (userHashPassword == findUser.password) {
     // create jwt
     const accessToken = jwt.sign(
       { firstName: findUser.firstName },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: "200s" }
+      { expiresIn: Math.floor(Date.now() / 1000) + (60 * 60) }
     );
-
     const refreshToken = jwt.sign(
       { username: findUser.firstName },
       process.env.REFRESH_TOKEN_SECRET,
@@ -41,7 +47,7 @@ const handleLogin = async (req, res) => {
     );
 
     //task: you save the refresh token in the db
-      
+
     // to deal with cors related issue we add more info to the responding cookie
     res.cookie("jwt", refreshToken, {
       httpOnly: true,

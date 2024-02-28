@@ -47,6 +47,9 @@ model Clothing {
   agegroup    String
   cartItem    CartItem[]
   orderItem   OrderItem[]
+
+  @@map("clothing")
+
 }
 
 // Define the CartItem model to represent the items added to a user's shopping cart
@@ -58,6 +61,8 @@ model CartItem {
   clothingId Int
   quantity   Int
   createdAt  DateTime @default(now())
+
+  @@map("cart")
 }
 
 // Define the Order model to store information about completed orders
@@ -69,6 +74,8 @@ model Order {
   createdAt   DateTime    @default(now())
   // Define the relationship with order items
   items       OrderItem[]
+
+  @@map("order")
 }
 
 // Define the OrderItem model to represent the individual items within each order

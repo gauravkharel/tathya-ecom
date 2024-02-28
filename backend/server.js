@@ -9,6 +9,7 @@ const cookieParser = require("cookie-parser");
 const path = require("path");
 const bodyParser = require('body-parser');
 const credentials = require('./middleware/credentials');
+const verifyJWT = require("./middleware/verifyJWT");
 
 
 app.use(logger);
@@ -33,6 +34,8 @@ app.get("/users", async (req, res) => {});
 app.use("/register", require("./routes/register"));
 app.use("/login", require("./routes/login"));
 
+app.use(verifyJWT)
+app.use("/products", require("./routes/apis/clothing"))
 
 app.use(errorHandler);
 
