@@ -9,8 +9,19 @@ const getAllClothings = async (req, res) => {
 };
 
 const createNewClothing = async (req, res) => {
-  // const newClothing = await prisma.clothing.create({})
-  res.json({ "product-created": "hi" });
+  // const {name, description, price, imageUrl, brand, colors, sizes, agegroup} = req.body
+  // const newClothing = await prisma.clothing.create({
+  //   data: {
+  //     name: name,
+  //     description: description,
+  //     price: price,
+  //     imageUrl: imageUrl,
+  //     brand: brand,
+  //     colors: colors,
+  //     sizes: sizes,
+  //   }
+  // })
+  // res.json({ "product-created": "hi" });
 };
 
 const updateClothing = async (req, res) => {

@@ -38,7 +38,7 @@ const handleLogin = async (req, res) => {
     const accessToken = jwt.sign(
       { firstName: findUser.firstName },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: Math.floor(Date.now() / 1000) + (60 * 60) }
+      { expiresIn: Math.floor(Date.now() / 1000) + 60 * 60 }
     );
     const refreshToken = jwt.sign(
       { username: findUser.firstName },
@@ -46,17 +46,27 @@ const handleLogin = async (req, res) => {
       { expiresIn: "2h" }
     );
 
-    //task: you save the refresh token in the db
+    const newRefreshToken = await prisma.refreshToken.create({
+      data: {
+        user: {
+          connect: {
+            id: findUser.id
+          }
+        },
+        token: refreshToken,
+        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days from now
+      }
+    })
 
     // to deal with cors related issue we add more info to the responding cookie
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
       sameSite: "None",
       secure: true,
-      maxAge: 24 * 60 * 60 * 100,
+      maxAge: 24 * 60 * 60 * 100 // seven days
     });
 
-    res.json({ accessToken });
+    res.json({ accessToken, newRefreshToken });
   } else {
     res.status(401).json("Sorry, password do not match. Try again, please.");
   }

@@ -19,7 +19,7 @@ model User {
   password        String
   salt            String
 
-  refreshToken RefreshToken[]
+  refreshToken RefreshToken?
   cartItem     CartItem[]
   order        Order[]
 
@@ -30,9 +30,12 @@ model User {
 model RefreshToken {
   id        Int      @id @default(autoincrement())
   user      User     @relation(fields: [userId], references: [id])
-  userId    String
-  token     String
-  expiresAt DateTime
+  userId    String   @unique
+  token     String   @unique
+  expiresAt DateTime @default(dbgenerated("now()"))
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("refreshtoken")
 }
 
 model Clothing {
