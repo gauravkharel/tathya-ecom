@@ -411,3 +411,6 @@
 20240306	11:53:57	e112d8c6-d8d8-4124-a807-376eb213010a	POST	undefined	/register
 20240306	14:43:48	e6051c3b-ff0e-48ae-b576-c4709c46ff45	POST	undefined	/register
 20240306	14:44:40	1e609704-9414-4fa6-90f7-581fa3a1f792	POST	undefined	/login
+20240306	14:46:46	cc1c8af2-fcbc-473f-b019-97b27f5e6e76	GET	undefined	/products
+20240306	15:27:07	b48833ec-efe1-412a-8166-0cf0e494884f	OPTIONS	http://localhost:3000	/register
+20240306	15:27:07	947b5112-f7a0-4866-a874-0cd7ae0e5e12	POST	http://localhost:3000	/register
