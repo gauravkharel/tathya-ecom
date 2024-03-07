@@ -18,10 +18,16 @@ import { Input } from "@/components/ui/input"
 import { UserRequest, UserValidator } from "@/lib/validators/user"
 // import { signUpUserFn } from "@/lib/authApi"
 import axios from "axios"
+import { useQueryClient } from "@tanstack/react-query"
+import { Router } from "next/router"
+import { useToast } from "./ui/use-toast"
+import { useRouter } from "next/navigation"
 
 type FormData = z.infer<typeof UserValidator>
 
 export function RegsiterUserForm() {
+  const { toast } = useToast()
+  const router = useRouter();
   const form = useForm<UserRequest>({
     resolver: zodResolver(UserValidator),
     defaultValues: {
@@ -29,22 +35,38 @@ export function RegsiterUserForm() {
       lastname: "",
       email: "",
       password: "",
-      profileimageurl: ""
     },
   })
 
   const onSubmit = async (values: UserRequest) => {
     console.log('registered values', values)
-    const { firstname, lastname, email, password, profileimageurl } = values
+    const { firstname, lastname, email, password } = values
 
     try {
-      const response = await axios.post('http://localhost:3500/register',
-        JSON.stringify({ fname: firstname, lname: lastname, email: email, password: password, profileImageUrl: profileimageurl }), {
-        headers: { 'Content-Type': 'application/json' }
+      const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/register`;
+      console.log(url)
+      // const url = 'http://localhost:3500/register'
+      const response = await axios.post(
+        url,
+        JSON.stringify({ fname: firstname, lname: lastname, email: email, password: password }),
+        { headers: { 'Content-Type': 'application/json' } }
+      )
+      toast({
+        title: `Welcome ${values.firstname}`,
+        description: "You can now login with your credentials."
       })
-      console.log(JSON.stringify(response))
+      router.push('/login')
+
+
     } catch (err) {
       console.log(err)
+      toast({
+        //@ts-ignore
+        title: err.name + ': ' + err.code,
+        //@ts-ignore
+        description: err.message,
+        variant: 'destructive'
+      })
     }
   }
   return (
@@ -106,19 +128,19 @@ export function RegsiterUserForm() {
           )}
         />
 
-        <FormField
+        {/* <FormField
           control={form.control}
           name='profileimageurl'
           render={({ field }) => (
             <FormItem>
               <FormLabel>Upload File</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input type="file" placeholder="shadcn" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
 
         <Button type="submit">Submit</Button>
       </form>

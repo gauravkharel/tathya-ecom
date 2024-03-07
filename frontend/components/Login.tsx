@@ -17,10 +17,13 @@ import {
 import { Input } from "@/components/ui/input"
 import { LoginRequest, LoginValidator, UserRequest, UserValidator } from "@/lib/validators/user"
 import axios from "axios"
+import { useRouter } from "next/navigation"
 
 type FormData = z.infer<typeof UserValidator>
 
 export function LoginForm() {
+    const router = useRouter();
+
     const form = useForm<LoginRequest>({
         resolver: zodResolver(LoginValidator),
         defaultValues: {
@@ -33,11 +36,13 @@ export function LoginForm() {
         console.log('Login details',values)
         const { email, password } = values
         try {
-            const response = await axios.post('http://localhost:3500/login',
+            const response = await axios.post((process.env.SERVER_URL,'/login'),
                 JSON.stringify({ email: email, password: password }), {
                 headers: { 'Content-Type': 'application/json' }
             })
-            console.log(JSON.stringify(response))
+            router.push('/products')
+
+
         } catch (err) {
             console.log(err)
         }
