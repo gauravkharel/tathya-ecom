@@ -1,4 +1,4 @@
-import { RegsiterUserForm } from "@/components/Register"
+import { RegsiterUserForm } from "@/components/auth/Register"
 import {
   Card,
   CardContent,
@@ -6,7 +6,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/Card"
 
 const page = ({ }) => {
   return (

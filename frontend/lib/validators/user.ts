@@ -1,5 +1,8 @@
 import {z} from 'zod'
 
+const MAX_UPLOAD_SIZE = 5000000;
+const ACCEPTED_FILE_TYPES= ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+
 export const UserValidator =z.object({
     firstname: z.string().min(2, {
       message: "Can't have your name with just two characters."
@@ -11,7 +14,14 @@ export const UserValidator =z.object({
     password: z.string().min(10, {
       message: "Please atleast 10 characters."
     }),
-    profileimageurl: z.string().url()
+    profileimageurl: z.instanceof(File)
+    .optional()
+    .refine((file) => {
+      return !file || file.size <= MAX_UPLOAD_SIZE;
+    }, 'File size must be less than 5MB')
+    .refine((file) => {
+      return !file || ACCEPTED_FILE_TYPES.includes(file.type);
+    }, 'File must be a PNG')
   })
 
   export const LoginValidator =z.object({

@@ -1,4 +1,4 @@
-import { LoginForm } from "@/components/Login"
+import { LoginForm } from "@/components/auth/Login"
 import {
     Card,
     CardContent,
@@ -6,7 +6,7 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/Card"
 
 interface pageProps {
 

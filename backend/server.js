@@ -33,7 +33,7 @@ app.use("/login", require("./routes/login"));
 // app.use("/logout", require("./routes/logout"));
 
 app.use(verifyJWT);
-// app.use("/products", require("./routes/apis/clothing"));
+app.use("/products", require("./routes/api/clothing"));
 
 app.use(errorHandler);
 

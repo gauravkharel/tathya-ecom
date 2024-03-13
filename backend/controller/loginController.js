@@ -43,7 +43,7 @@ const handleLogin = async (req, res) => {
     const refreshToken = jwt.sign(
       { username: findUser.firstName },
       process.env.REFRESH_TOKEN_SECRET,
-      { expiresIn: "2h" }
+      { expiresIn: "7d" }
     );
 
     const newRefreshToken = await prisma.refreshToken.create({
@@ -63,10 +63,10 @@ const handleLogin = async (req, res) => {
       httpOnly: true,
       sameSite: "None",
       secure: true,
-      maxAge: 24 * 60 * 60 * 100 // seven days
+      maxAge: 24 * 60 * 60 * 100 // 7 days
     });
 
-    res.json({ accessToken, newRefreshToken });
+    res.json({ accessToken });
   } else {
     res.status(401).json("Sorry, password do not match. Try again, please.");
   }

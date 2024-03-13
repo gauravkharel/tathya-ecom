@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 // import { useMutation } from '@tanstack/react-query'
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/Button"
 import {
   Form,
   FormControl,
@@ -13,14 +13,13 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+} from "@/components/ui/Form"
+import { Input } from "@/components/ui/Input"
 import { UserRequest, UserValidator } from "@/lib/validators/user"
 // import { signUpUserFn } from "@/lib/authApi"
 import axios from "axios"
-import { useQueryClient } from "@tanstack/react-query"
-import { Router } from "next/router"
-import { useToast } from "./ui/use-toast"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useToast } from "../../hooks/use-toast"
 import { useRouter } from "next/navigation"
 
 type FormData = z.infer<typeof UserValidator>
@@ -37,15 +36,14 @@ export function RegsiterUserForm() {
       password: "",
     },
   })
+  const queryClient = useQueryClient()
+  
+
 
   const onSubmit = async (values: UserRequest) => {
-    console.log('registered values', values)
     const { firstname, lastname, email, password } = values
-
     try {
       const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/register`;
-      console.log(url)
-      // const url = 'http://localhost:3500/register'
       const response = await axios.post(
         url,
         JSON.stringify({ fname: firstname, lname: lastname, email: email, password: password }),
@@ -56,7 +54,6 @@ export function RegsiterUserForm() {
         description: "You can now login with your credentials."
       })
       router.push('/login')
-
 
     } catch (err) {
       console.log(err)
@@ -69,6 +66,27 @@ export function RegsiterUserForm() {
       })
     }
   }
+
+  // function useSignup() {
+  //   const {mutate} = useMutation({
+  //     firstname,
+  //     lastname,
+  //     email,
+  //     password
+  //   }) => onSubmit(firstname, lastname, email, password), {
+  //     onSuccess: (data) =>{
+  //       toast({
+  //         title: `Welcome ${values.firstname}`,
+  //         description: "You can now login with your credentials."
+  //       })
+  //       router.push('/login')
+  //     },
+  //     onError: (error) => {
+        
+  //     }
+  //   }
+  // }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
