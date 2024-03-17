@@ -16,9 +16,8 @@ import {
 } from "@/components/ui/Form"
 import { Input } from "@/components/ui/Input"
 import { UserRequest, UserValidator } from "@/lib/validators/user"
-// import { signUpUserFn } from "@/lib/authApi"
 import axios from "axios"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useMutation } from "@tanstack/react-query"
 import { useToast } from "../../hooks/use-toast"
 import { useRouter } from "next/navigation"
 
@@ -36,9 +35,6 @@ export function RegsiterUserForm() {
       password: "",
     },
   })
-  const queryClient = useQueryClient()
-  
-
 
   const onSubmit = async (values: UserRequest) => {
     const { firstname, lastname, email, password } = values
@@ -66,26 +62,6 @@ export function RegsiterUserForm() {
       })
     }
   }
-
-  // function useSignup() {
-  //   const {mutate} = useMutation({
-  //     firstname,
-  //     lastname,
-  //     email,
-  //     password
-  //   }) => onSubmit(firstname, lastname, email, password), {
-  //     onSuccess: (data) =>{
-  //       toast({
-  //         title: `Welcome ${values.firstname}`,
-  //         description: "You can now login with your credentials."
-  //       })
-  //       router.push('/login')
-  //     },
-  //     onError: (error) => {
-        
-  //     }
-  //   }
-  // }
 
   return (
     <Form {...form}>

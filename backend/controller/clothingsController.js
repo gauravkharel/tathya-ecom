@@ -11,6 +11,14 @@ const getAllClothings = async (req, res) => {
   }
 };
 
+const getSingleClothing = async(req,res) => {
+  try{
+
+  } catch{
+    
+  }
+}
+
 const createNewClothing = async (req, res) => {
   const { name, description, price, imageUrl, brand, colors, sizes, agegroup } =
     req.body;

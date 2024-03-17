@@ -10,7 +10,7 @@ interface MenubarProps {
 
 const Navbar = ({ }) => {
   return (
-    <header className="fixed top-0 inset-x-0 h-fit bg-white border-b border-zinc-300 z-[10] py-2">
+    <header className=" sticky overflow-hidden top-0 inset-x-0 h-fit bg-white border-b border-zinc-300 z-[10] py-2">
       {/* ads above navbar */}
       <div className="container text-base  max-w-7xl h-full mx-auto flex items-center justify-between gap-2">
         <Link href='/'>
@@ -23,7 +23,7 @@ const Navbar = ({ }) => {
           />
         </Link>
         {/* for small devices */}
-        <div className='sm:hidden flex items-center gap-6 '>
+        <div className='sm:hidden flex items-center gap-6  '>
           <div className='place-self-center'>
             <MapPin size={26}>Find a store</MapPin>
             Stores

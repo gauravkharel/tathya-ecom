@@ -1,6 +1,6 @@
 import { ZodNumber } from 'zod'
 import products from '../../../mock/mock.json'
-import Product from '@/components/Product'
+import Product from '@/components/product/Product'
 
 interface PageProps {
     params: {
