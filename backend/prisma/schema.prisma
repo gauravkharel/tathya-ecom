@@ -23,7 +23,18 @@ model User {
   cartItem     CartItem[]
   order        Order[]
 
+  role   Role @relation(fields: [roleId], references: [id])
+  roleId Int
+
   @@map("users")
+}
+
+model Role {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  users User[]
+
+  @@map("roles")
 }
 
 // Define the RefreshToken model to store refresh tokens associated with user sessions
@@ -35,24 +46,51 @@ model RefreshToken {
   expiresAt DateTime @default(dbgenerated("now()"))
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
   @@map("refreshtoken")
 }
 
+// using denormalized approach for now for sizes and, colors. 
+// if it needs to improvised later, we will do that. 
+
+model Brand {
+  id       Int        @id @default(autoincrement())
+  name     String     @unique
+  clothing Clothing[]
+}
+
+model Gender {
+  id       Int        @id @default(autoincrement())
+  name     String     @unique
+  clothing Clothing[]
+}
+
+model Category {
+  id       Int        @id @default(autoincrement())
+  name     String     @unique
+  clothing Clothing[]
+}
+
 model Clothing {
-  id          Int         @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   name        String
   description String?
   price       Float
   imageUrl    String?
-  brand       String
-  colors      String
-  sizes       String
-  agegroup    String
-  cartItem    CartItem[]
-  orderItem   OrderItem[]
+
+  brand   Brand @relation(fields: [brandId], references: [id])
+  brandId Int
+
+  gender   Gender @relation(fields: [genderId], references: [id])
+  genderId Int
+
+  category Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+
+  cartItem  CartItem[]
+  orderItem OrderItem[]
 
   @@map("clothing")
-
 }
 
 // Define the CartItem model to represent the items added to a user's shopping cart
