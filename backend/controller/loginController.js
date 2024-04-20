@@ -34,6 +34,20 @@ const handleLogin = async (req, res) => {
       .json("Password is Invalid. Please enter correct password.");
   }
   if (userHashPassword == findUser.password) {
+    // findUser role extract here
+    // we create a object
+    // const roles = Object.values(findUser.roles)
+    // { firstName: findUser.firstName },
+    // replacing this to
+    /**
+     * {
+     *  "UserInfo": {
+     *    "firstName": findUser.firstName,
+     *    "roles": roles
+     * }
+     * }
+     *
+     */
     // create jwt
     const accessToken = jwt.sign(
       { firstName: findUser.firstName },
@@ -46,24 +60,27 @@ const handleLogin = async (req, res) => {
       { expiresIn: "7d" }
     );
 
-    const newRefreshToken = await prisma.refreshToken.create({
-      data: {
-        user: {
-          connect: {
-            id: findUser.id
-          }
-        },
+    const userId = findUser.id
+
+    const newRefreshToken = await prisma.refreshToken.upsert({
+      where: { userId },
+      update: {
         token: refreshToken,
-        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days from now
-      }
-    })
+        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+      },
+      create: {
+        userId,
+        token: refreshToken,
+        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+      },
+    });
 
     // to deal with cors related issue we add more info to the responding cookie
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
       sameSite: "None",
       secure: true,
-      maxAge: 24 * 60 * 60 * 100 // 7 days
+      maxAge: 24 * 60 * 60 * 100, // 7 days
     });
 
     res.json({ accessToken });
