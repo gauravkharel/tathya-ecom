@@ -17,6 +17,9 @@ const handleNewUser = async (req, res) => {
   try {
     const salt = randomBytes(32).toString("hex")
     const hashedPassword = createHmac("sha256", salt).update(password).digest("hex");    
+//     we add roles here 
+//    "role": {User: 1001}
+
     const addUser = await prisma.user.create({
       data: {
         firstName: fname,
@@ -24,7 +27,9 @@ const handleNewUser = async (req, res) => {
         email: email,
         password: hashedPassword,
         salt: salt,
-        profileImageUrl: profileImageUrl
+        profileImageUrl: profileImageUrl,
+        //setting user by default normal  user and, only db admin can set user to admin
+        roleId: 1
       },
     });
 

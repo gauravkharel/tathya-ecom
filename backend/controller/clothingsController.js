@@ -11,29 +11,71 @@ const getAllClothings = async (req, res) => {
   }
 };
 
-const getSingleClothing = async(req,res) => {
-  try{
-
-  } catch{
-    
+const getSingleClothing = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const clothing = await prisma.clothing.findUnique({
+      where: {
+        id: id,
+      },
+    });
+  } catch {
+    res.status(204).json({ message: "No clothing found." });
   }
-}
+};
 
+// to create new product/clothing product
 const createNewClothing = async (req, res) => {
-  const { name, description, price, imageUrl, brand, colors, sizes, agegroup } =
-    req.body;
-  const newClothing = await prisma.clothing.create({
-    data: {
-      name: name,
-      description: description,
-      price: price,
-      imageUrl: imageUrl,
-      brand: brand,
-      colors: colors,
-      sizes: sizes,
-    },
-  });
-  res.json({ "product-created": "hi" });
+  try {
+    const { name, description, price, imageUrl, brand, gender, category } =
+      req.body;
+
+    // Validate the incoming data
+    if (!name || !price || !brand || !gender || !category) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
+
+    // Check if brand, genders, and category already exist, if not create them
+    const [existingBrand, existingGender, existingCategory] =
+      await Promise.all([
+        prisma.brand.findUnique({ where: { name: brand } }),
+        prisma.gender.findUnique({ where: { name: gender } }),
+        prisma.category.findUnique({ where: { name: category } }),
+      ]);
+
+    const brandData = existingBrand
+      ? { connect: { id: existingBrand.id } }
+      : { create: { name: brand } };
+    const genderData = existingGender
+      ? { connect: { id: existingGender.id } }
+      : { create: { name: gender } };
+    const categoryData = existingCategory
+      ? { connect: { id: existingCategory.id } }
+      : { create: { name: category } };
+
+    // Create new clothing item
+    const newClothing = await prisma.clothing.create({
+      data: {
+        name,
+        description,
+        price,
+        imageUrl,
+        brand: brandData,
+        gender: genderData, // Filter out empty objects
+        category: categoryData,
+      },
+      include: {
+        brand: true,
+        gender: true,
+        category: true,
+      },
+    });
+
+    res.status(201).json({newClothing, message: "New product created"});
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
 };
 
 const updateClothing = async (req, res) => {

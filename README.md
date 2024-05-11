@@ -15,6 +15,10 @@
 
 [3. Mutation in React Query](https://tkdodo.eu/blog/mastering-mutations-in-react-query)
 
+[4. Separate API Layers in react](https://profy.dev/article/react-architecture-api-layer)
+
+[5. Error Handling in Express](https://www.turing.com/kb/how-to-master-express-js-error-handling)
+
 ### Developing feature by feature from backend to frontend (Also, product flow or, say, user story.)
 Customer end:
 1. Authentication with JWT
