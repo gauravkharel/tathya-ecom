@@ -8,7 +8,9 @@ interface PageProps {
     }
 }
 const page = ({params}: PageProps) => {
-    return <>hi</>
+    return <>
+    <Product />
+    </>
 }
 
 export default page

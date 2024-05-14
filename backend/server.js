@@ -5,6 +5,9 @@ const corsOptions = require("./config/corsOptions");
 const PORT = process.env.PORT || 3500;
 const { logger } = require("./middleware/logEvents");
 const errorHandler = require("./middleware/errorHandler");
+const errorLogger = require("./middleware/errorLogger")
+const errorNotFound = require("./middleware/errorNotFound")
+
 const cookieParser = require("cookie-parser");
 const path = require("path");
 const bodyParser = require("body-parser");
@@ -35,6 +38,6 @@ app.use("/login", require("./routes/login"));
 app.use(verifyJWT);
 app.use("/products", require("./routes/api/clothing"));
 
-app.use(errorHandler);
+app.use(errorHandler, errorLogger, errorNotFound);
 
 app.listen(PORT, () => console.log(`Server running at port ${PORT}`));

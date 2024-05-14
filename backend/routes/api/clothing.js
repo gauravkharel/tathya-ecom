@@ -5,10 +5,12 @@ const clothingsController = require("../../controller/clothingsController");
 router
   .route("/")
   .get(clothingsController.getAllClothings)
-  .post(clothingsController.createNewClothing)
-  .put(clothingsController.updateClothing)
-  .delete(clothingsController.deleteClothing);
+  .post(clothingsController.createNewClothing);
 
-// router.route("/:id").get(clothingsController.getclothing);
+router
+  .route("/:id")
+  .put(clothingsController.updateClothing)
+  .delete(clothingsController.deleteClothing)
+  .get(clothingsController.getSingleClothing)
 
 module.exports = router;

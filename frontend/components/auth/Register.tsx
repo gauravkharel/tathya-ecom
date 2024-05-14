@@ -39,9 +39,7 @@ export function RegsiterUserForm() {
   const onSubmit = async (values: UserRequest) => {
     const { firstname, lastname, email, password } = values
     try {
-      const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/register`;
-      const response = await axios.post(
-        url,
+      const response = await axios.post("/register",
         JSON.stringify({ fname: firstname, lname: lastname, email: email, password: password }),
         { headers: { 'Content-Type': 'application/json' } }
       )

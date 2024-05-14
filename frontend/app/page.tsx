@@ -1,5 +1,9 @@
+import {FilterBy} from "@/components/product/FilterOption";
+
 export default function Home() {
   return (
-    <main>jo</main>
+    <>
+      {/* <FilterBy /> */}
+    </>
   );
 }

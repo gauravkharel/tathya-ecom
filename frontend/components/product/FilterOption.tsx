@@ -1,7 +1,8 @@
 "use client"
 
-import { Check, ChevronsUpDown } from "lucide-react"
-import { cn } from "@/lib/utils"
+import * as React from "react"
+
+import { useMediaQuery } from "usehooks-ts"
 import { Button } from "@/components/ui/Button"
 import {
   Command,
@@ -9,82 +10,115 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
+  CommandList,
 } from "@/components/ui/Command"
+import {
+  Drawer,
+  DrawerContent,
+  DrawerTrigger,
+} from "@/components/ui/Drawer"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/Popover"
-import { useState } from "react"
 
-const frameworks = [
+type Status = {
+  value: string
+  label: string
+}
+
+const statuses: Status[] = [
   {
-    value: "next.js",
-    label: "Next.js",
+    value: "backlog",
+    label: "Backlog",
   },
   {
-    value: "sveltekit",
-    label: "SvelteKit",
+    value: "todo",
+    label: "Todo",
   },
   {
-    value: "nuxt.js",
-    label: "Nuxt.js",
+    value: "in progress",
+    label: "In Progress",
   },
   {
-    value: "remix",
-    label: "Remix",
+    value: "done",
+    label: "Done",
   },
   {
-    value: "astro",
-    label: "Astro",
+    value: "canceled",
+    label: "Canceled",
   },
 ]
 
-export default function FiterInput() {
-  const [open, setOpen] = useState(false)
-  const [value, setValue] = useState("")
+export function ComboBoxResponsive() {
+  const [open, setOpen] = React.useState(false)
+  const isDesktop = useMediaQuery("(min-width: 768px)")
+  const [selectedStatus, setSelectedStatus] = React.useState<Status | null>(
+    null
+  )
+
+  if (isDesktop) {
+    return (
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button variant="outline" className="w-[150px] justify-start">
+            {selectedStatus ? <>{selectedStatus.label}</> : <>+ Set status</>}
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-[200px] p-0" align="start">
+          <StatusList setOpen={setOpen} setSelectedStatus={setSelectedStatus} />
+        </PopoverContent>
+      </Popover>
+    )
+  }
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="w-[200px] justify-between"
-        >
-          {value
-            ? frameworks.find((framework) => framework.value === value)?.label
-            : "Select framework..."}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+    <Drawer open={open} onOpenChange={setOpen}>
+      <DrawerTrigger asChild>npx shadcn-ui@latest add popover
+
+        <Button variant="outline" className="w-[150px] justify-start">
+          {selectedStatus ? <>{selectedStatus.label}</> : <>+ Set status</>}
         </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
-        <Command>
-          <CommandInput placeholder="Search framework..." />
-          <CommandEmpty>No framework found.</CommandEmpty>
-          <CommandGroup>
-            {frameworks.map((framework) => (
-              <CommandItem
-                key={framework.value}
-                value={framework.value}
-                onSelect={(currentValue) => {
-                  setValue(currentValue === value ? "" : currentValue)
-                  setOpen(false)
-                }}
-              >
-                <Check
-                  className={cn(
-                    "mr-2 h-4 w-4",
-                    value === framework.value ? "opacity-100" : "opacity-0"
-                  )}
-                />
-                {framework.label}
-              </CommandItem>
-            ))}
-          </CommandGroup>
-        </Command>
-      </PopoverContent>
-    </Popover>
+      </DrawerTrigger>
+      <DrawerContent>
+        <div className="mt-4 border-t">
+          <StatusList setOpen={setOpen} setSelectedStatus={setSelectedStatus} />
+        </div>
+      </DrawerContent>
+    </Drawer>
+  )
+}
+
+function StatusList({
+  setOpen,
+  setSelectedStatus,
+}: {
+  setOpen: (open: boolean) => void
+  setSelectedStatus: (status: Status | null) => void
+}) {
+  return (
+    <Command>
+      <CommandInput placeholder="Filter status..." />
+      <CommandList>
+        <CommandEmpty>No results found.</CommandEmpty>
+        <CommandGroup>
+          {statuses.map((status) => (
+            <CommandItem
+              key={status.value}
+              value={status.value}
+              onSelect={(value) => {
+                setSelectedStatus(
+                  statuses.find((priority) => priority.value === value) || null
+                )
+                setOpen(false)
+              }}
+            >
+              {status.label}
+            </CommandItem>
+          ))}
+        </CommandGroup>
+      </CommandList>
+    </Command>
   )
 }

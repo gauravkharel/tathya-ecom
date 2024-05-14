@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 // import { useMutation } from '@tanstack/react-query'
 import { Button } from "@/components/ui/Button"
+
 import {
     Form,
     FormControl,
@@ -23,6 +24,7 @@ import { User } from "@/lib/types"
 type FormData = z.infer<typeof UserValidator>
 
 const LoginForm = () => {
+    console.log("email: wokeantro@gmail.com", "password: 2817928913131")
     const router = useRouter();
     const { toast } = useToast()
     const form = useForm<LoginRequest>({
@@ -39,15 +41,18 @@ const LoginForm = () => {
         try {
             const response = await axios.post((process.env.SERVER_URL, '/login'),
                 JSON.stringify({ email: email, password: password }), {
-                headers: { 'Content-Type': 'application/json' }
+                headers: { 'Content-Type': 'application/json' },
+                withCredentials: true
             })
+
+            const accessToken = response?.data?.accessToken;
+            const roles = response?.data?.roles;
             toast({
                 title: 'Successful login.',
                 variant: 'default'
             })
 
             router.push('/products')
-
 
         } catch (err) {
             console.log(err)

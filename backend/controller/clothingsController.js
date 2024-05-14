@@ -1,4 +1,3 @@
-// to CRUD clothing products
 const prisma = require("../lib/db");
 
 const getAllClothings = async (req, res) => {
@@ -13,12 +12,17 @@ const getAllClothings = async (req, res) => {
 
 const getSingleClothing = async (req, res) => {
   try {
-    const { id } = req.body;
-    const clothing = await prisma.clothing.findUnique({
-      where: {
-        id: id,
-      },
+    const { id } = req.params;
+
+    const existingClothing = await prisma.clothing.findUnique({
+      where: { id: parseInt(id) },
     });
+
+    if (!existingClothing) {
+      return res.status(404).json({ error: "Clothing item not found" });
+    }
+
+    res.status(200).json(existingClothing);
   } catch {
     res.status(204).json({ message: "No clothing found." });
   }
@@ -36,12 +40,13 @@ const createNewClothing = async (req, res) => {
     }
 
     // Check if brand, genders, and category already exist, if not create them
-    const [existingBrand, existingGender, existingCategory] =
-      await Promise.all([
+    const [existingBrand, existingGender, existingCategory] = await Promise.all(
+      [
         prisma.brand.findUnique({ where: { name: brand } }),
         prisma.gender.findUnique({ where: { name: gender } }),
         prisma.category.findUnique({ where: { name: category } }),
-      ]);
+      ]
+    );
 
     const brandData = existingBrand
       ? { connect: { id: existingBrand.id } }
@@ -71,7 +76,7 @@ const createNewClothing = async (req, res) => {
       },
     });
 
-    res.status(201).json({newClothing, message: "New product created"});
+    res.status(201).json({ newClothing, message: "New product created" });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Internal server error" });
@@ -79,11 +84,62 @@ const createNewClothing = async (req, res) => {
 };
 
 const updateClothing = async (req, res) => {
-  res.json({ message: "1" });
+  try {
+    const { id } = req.params;
+    const { name, description, price, imageUrl, brandId, genderId, categoryId } =
+      req.body;
+
+    const existingClothing = await prisma.clothing.findUnique({
+      where: { id: parseInt(id) },
+    });
+
+    if (!existingClothing) {
+      return res.status(404).json({ error: "Clothing item not found" });
+    }
+
+    const updatedProduct = await prisma.clothing.update({
+      where: { id: parseInt(id) },
+      data: {
+        name: name || existingClothing.name,
+        description: description || existingClothing.description,
+        price: price || existingClothing.price,
+        imageUrl: imageUrl || existingClothing.imageUrl,
+        brandId: brandId || existingClothing.brandId,
+        genderId: genderId || existingClothing.genderId,
+        categoryId: categoryId || existingClothing.categoryId,
+      },
+    });
+
+    res
+      .status(200)
+      .json({ message: "Product updated succesfully.", updatedProduct });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
 };
 
 const deleteClothing = async (req, res) => {
-  res.json({ message: "1" });
+  try {
+    const { id } = req.params;
+
+    const existingClothing = await prisma.clothing.findUnique({
+      where: { id: parseInt(id) },
+    });
+
+    if (!existingClothing) {
+      return res.status(404).json({ error: "Clothing item not found" });
+    }
+
+    const deleteSelected = await prisma.clothing.delete({
+      where: { id: parseInt(id) },
+    });
+
+    res.status(200).json({ message: "Deleted Sucessfully." });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
 };
 
 module.exports = {
@@ -91,4 +147,5 @@ module.exports = {
   createNewClothing,
   updateClothing,
   deleteClothing,
+  getSingleClothing,
 };

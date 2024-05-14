@@ -57,18 +57,23 @@ model Brand {
   id       Int        @id @default(autoincrement())
   name     String     @unique
   clothing Clothing[]
+
+  @@map("brand")
 }
 
 model Gender {
   id       Int        @id @default(autoincrement())
   name     String     @unique
   clothing Clothing[]
+  @@map("gender")
 }
 
 model Category {
   id       Int        @id @default(autoincrement())
   name     String     @unique
   clothing Clothing[]
+
+  @@map("category")
 }
 
 model Clothing {
