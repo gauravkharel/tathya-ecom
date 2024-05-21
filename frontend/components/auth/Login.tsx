@@ -3,13 +3,10 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-// import { useMutation } from '@tanstack/react-query'
 import { Button } from "@/components/ui/Button"
-
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -17,15 +14,19 @@ import {
 } from "@/components/ui/Form"
 import { Input } from "@/components/ui/Input"
 import { LoginRequest, LoginValidator, UserRequest, UserValidator } from "@/lib/validators/user"
-import axios from "axios"
-import { useRouter } from "next/navigation"
+
 import { useToast } from "../../hooks/use-toast"
-import { User } from "@/lib/types"
-type FormData = z.infer<typeof UserValidator>
+import useAuth from "@/hooks/use-auth"
+import axios from "@/api/axios"
+import { useState } from "react"
+import { ErrorResponse } from "@/lib/types"
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const LoginForm = () => {
     console.log("email: wokeantro@gmail.com", "password: 2817928913131")
     const router = useRouter();
+    // const searchParams = useSearchParams();
+    // const from = searchParams.get('from') || '/products';
     const { toast } = useToast()
     const form = useForm<LoginRequest>({
         resolver: zodResolver(LoginValidator),
@@ -35,16 +36,23 @@ const LoginForm = () => {
         }
     })
 
+    const { auth, setAuth } = useAuth()
+    // const [errMsg, setErrMsg] = useState('');
+
 
     const onSubmit = async (values: LoginRequest) => {
         const { email, password } = values
         try {
-            const response = await axios.post((process.env.SERVER_URL, '/login'),
-                JSON.stringify({ email: email, password: password }), {
+            const response = await axios.post(('/login'),
+                JSON.stringify({ email, password }), 
+                {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true
-            })
+                }
+            )
 
+
+            console.log(JSON.stringify(response?.data));
             const accessToken = response?.data?.accessToken;
             const roles = response?.data?.roles;
             toast({
@@ -52,15 +60,25 @@ const LoginForm = () => {
                 variant: 'default'
             })
 
+            setAuth({ email, accessToken, roles });
+
             router.push('/products')
 
         } catch (err) {
-            console.log(err)
+            //@ts-ignore
+            const { status, data } = err.response;
+            toast({
+                description: data,
+                variant: 'destructive'
+            })
         }
     }
 
+
+
     return (
         <Form {...form}>
+
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                 <FormField
                     control={form.control}
@@ -69,7 +87,7 @@ const LoginForm = () => {
                         <FormItem>
                             <FormLabel>Email</FormLabel>
                             <FormControl>
-                                <Input placeholder="shadcn" {...field} />
+                                <Input type="email" placeholder="Your email please" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -83,13 +101,12 @@ const LoginForm = () => {
                         <FormItem>
                             <FormLabel>Password</FormLabel>
                             <FormControl>
-                                <Input placeholder="shadcn" {...field} />
+                                <Input type="password" placeholder="Your password please" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
-
                 <Button type="submit">Submit</Button>
             </form>
         </Form>

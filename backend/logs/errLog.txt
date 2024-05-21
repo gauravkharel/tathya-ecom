@@ -62,3 +62,13 @@
 20240215	21:09:29	eb54c6a9-a959-425f-97fa-48b23827c2d8	Error: Not allowed by CORS
 20240215	21:09:47	aceb5c8b-928b-4196-a115-318d48c041c3	Error: Not allowed by CORS
 20240215	21:09:47	6454b576-d0c8-46d6-9f5c-cec97c0b4dc7	Error: Not allowed by CORS
+20240520	14:25:14	2392b76a-ca6c-4fff-99f6-874cfa522e54	TypeError: Cannot read properties of undefined (reading 'username')
+20240520	14:25:43	bce2b3c9-2380-437c-aefd-fac67f4e69d7	TypeError: Cannot read properties of undefined (reading 'username')
+20240521	15:36:47	61305e31-09c6-4364-98a6-b85b0346ac4c	TypeError: Cannot set properties of undefined (setting 'email')
+20240521	15:36:47	b85d76ed-682a-4df7-b1c4-cc8c19a8b512	TypeError: Cannot set properties of undefined (setting 'email')
+20240521	15:38:34	6a52986f-c97a-40eb-9f6f-a4887bdaf1f6	TypeError: Cannot set properties of undefined (setting 'email')
+20240521	15:38:57	2a61b17f-bbb4-4723-90fd-235be7bb1988	TypeError: Cannot set properties of undefined (setting 'email')
+20240521	15:41:30	d2266d0a-b449-475c-ac48-39953aeb9973	TypeError: Cannot set properties of undefined (setting 'email')
+20240521	15:41:31	74022fbb-553f-456f-8353-02458e67da16	TypeError: Cannot set properties of undefined (setting 'email')
+20240521	15:41:31	03764010-74c1-48da-92ae-2ba084a90937	TypeError: Cannot set properties of undefined (setting 'email')
+20240521	15:41:31	5f74e491-0d2e-428f-8fb6-49a984899698	TypeError: Cannot set properties of undefined (setting 'email')

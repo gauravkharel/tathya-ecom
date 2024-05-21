@@ -1,37 +1,30 @@
-const usersDB = {
-    users: require('../model/users.json'),
-    setUsers: function (data) { this.users = data }
-}
-const jwt = require('jsonwebtoken');
-require('dotenv').config();
+const prisma = require("../lib/db");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
-const handleRefreshToken = (req, res) => {
-    const cookies = req.cookies;
-    if (!cookies?.jwt) return res.sendStatus(401);
-    const refreshToken = cookies.jwt;
+const handleRefreshToken = async (req, res) => {
+  const cookies = req.cookies;
+  if (!cookies?.jwt) return res.sendStatus(401);
+  const cookieToken = cookies.jwt;
+  const foundToken = await prisma.refreshToken.findUnique({
+    where: { token: cookieToken },
+    select: {
+      user: true,
+    },
+  });
 
-    const foundUser = usersDB.users.find(person => person.refreshToken === refreshToken);
-    if (!foundUser) return res.sendStatus(403); //Forbidden 
-    // evaluate jwt 
-    jwt.verify(
-        refreshToken,
-        process.env.REFRESH_TOKEN_SECRET,
-        (err, decoded) => {
-            if (err || foundUser.username !== decoded.username) return res.sendStatus(403);
-            const roles = Object.values(foundUser.roles);
-            const accessToken = jwt.sign(
-                {
-                    "UserInfo": {
-                        "username": decoded.username,
-                        "roles": roles
-                    }
-                },
-                process.env.ACCESS_TOKEN_SECRET,
-                { expiresIn: '30s' }
-            );
-            res.json({ accessToken })
-        }
+  if (!foundToken) return res.sendStatus(403);
+  // evaluate jwt
+  jwt.verify(cookieToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
+    if (err || foundToken.user.email !== decoded.email)
+      return res.sendStatus(403);
+    const accessToken = jwt.sign(
+      { email: decoded.email },
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: Math.floor(Date.now() / 1000) + 30 * 60 }
     );
-}
+    res.json({ accessToken });
+  });
+};
 
-module.exports = { handleRefreshToken }
+module.exports = { handleRefreshToken };

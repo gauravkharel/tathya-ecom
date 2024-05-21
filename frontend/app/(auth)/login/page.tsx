@@ -8,7 +8,7 @@ import {
     CardTitle,
 } from "@/components/ui/Card"
 import Image from "next/image"
-import Banner from '../../public/banne.jpg'
+import Banner from '../../../public/banne.jpg'
 interface pageProps {
 
 }

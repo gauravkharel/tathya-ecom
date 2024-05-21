@@ -1,4 +1,3 @@
-import AddProductForm from '@/components/admin/AddProductForm'
 import { FC } from 'react'
 
 interface pageProps {
@@ -6,7 +5,7 @@ interface pageProps {
 }
 
 const page: FC<pageProps> = ({}) => {
-  return <div><AddProductForm /></div>
+  return <div>csz</div>
 }
 
 export default page

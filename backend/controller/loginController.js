@@ -50,28 +50,28 @@ const handleLogin = async (req, res) => {
      */
     // create jwt
     const accessToken = jwt.sign(
-      { firstName: findUser.firstName },
+      { email: findUser.email },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: Math.floor(Date.now() / 1000) + 60 * 60 }
+      { expiresIn: Math.floor(Date.now() / 1000) + 30 * 60 }
     );
     const refreshToken = jwt.sign(
-      { username: findUser.firstName },
+      { email: findUser.email },
       process.env.REFRESH_TOKEN_SECRET,
-      { expiresIn: "7d" }
+      { expiresIn: Math.floor(Date.now() / 1000) + 10 * 60 * 60 }
     );
 
-    const userId = findUser.id
+    const userId = findUser.id;
 
     const newRefreshToken = await prisma.refreshToken.upsert({
       where: { userId },
       update: {
         token: refreshToken,
-        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        expiresAt: new Date(Date.now() + 10 * 60 * 60 * 1000),
       },
       create: {
         userId,
         token: refreshToken,
-        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        expiresAt: new Date(Date.now() + 10 * 60 * 60 * 1000),
       },
     });
 
@@ -79,11 +79,17 @@ const handleLogin = async (req, res) => {
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
       sameSite: "None",
+      //Thunder client extension in VS code does not recognise localhost development server urls
+      //as protected routes (https or http secure) (for example http://localhost:3500/refresh and http://localhost:3500/auth),
+      //hence it will not make the token available for requests. So the only option is to set the secure
+      //option to "false" to allow it to pass.
+
+      // true when testing with the frontend.
       secure: true,
-      maxAge: 24 * 60 * 60 * 100, // 7 days
+      maxAge: 10 * 60 * 60 * 1000, // 10 hours
     });
 
-    res.json({ accessToken });
+    res.json({ accessToken, email });
   } else {
     res.status(401).json("Sorry, password do not match. Try again, please.");
   }

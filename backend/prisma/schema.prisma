@@ -58,7 +58,7 @@ model Brand {
   name     String     @unique
   clothing Clothing[]
 
-  @@map("brand")
+  @@map("brand")  
 }
 
 model Gender {

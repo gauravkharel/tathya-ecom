@@ -1,13 +1,47 @@
 "use client"
-
 import Link from 'next/link'
-import products from '../../mock/mock.json'
 import Image from 'next/image'
-
+import useAxiosPrivate from '@/hooks/use-axios-interceptor'
+import { useEffect, useState } from 'react'
+import { ProductType } from '@/lib/types'
+import axios from 'axios'
 const Products = (): JSX.Element => {
+    const [products, setProducts] = useState<ProductType>()
+    const axiosPrivate = useAxiosPrivate()
+    useEffect(() => {
+        let isMounted = true;
+        const controller = new AbortController();
+        const getProducts = async () => {
+            try {
+                const response = await axiosPrivate.get('/products', {
+                    signal: controller.signal
+                })
+                const data = response.data
+                if (isMounted) {
+                    console.log(data)
+                }
+                console.log(products)
+            } catch (err) {
+                if (axios.isCancel(err)) {
+                    console.log('Request canceled', err.message);
+                  } else {
+                    console.log('Error fetching products', err);
+                  }
+            }
+        }
+
+        getProducts()
+        return () => {
+            isMounted = false;
+            controller.abort();
+        }
+    }, [])
+
+
     return (
         <>
-            {products.map(product => {
+            hi
+            {/* {products.map(product => {
                 return (
                     <Product
                         key={product.id}
@@ -19,7 +53,7 @@ const Products = (): JSX.Element => {
                         review='3.4'
                     />
                 )
-            })}
+            })} */}
         </>
 
     )

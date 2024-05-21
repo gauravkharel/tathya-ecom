@@ -4,9 +4,9 @@ const getAllClothings = async (req, res) => {
   try {
     const clothings = await prisma.clothing.findMany();
     res.json(clothings);
-    console.log("Fetched clothings");
+    console.log("Fetched clothings", clothings);
   } catch (err) {
-    res.status(204).json({ message: "No clothings found." });
+    res.status(402).json({ message: "No clothings found." });
   }
 };
 
@@ -86,8 +86,15 @@ const createNewClothing = async (req, res) => {
 const updateClothing = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, description, price, imageUrl, brandId, genderId, categoryId } =
-      req.body;
+    const {
+      name,
+      description,
+      price,
+      imageUrl,
+      brandId,
+      genderId,
+      categoryId,
+    } = req.body;
 
     const existingClothing = await prisma.clothing.findUnique({
       where: { id: parseInt(id) },
