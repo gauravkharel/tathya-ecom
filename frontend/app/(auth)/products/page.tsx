@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import products from '../../mock/mock.json'
 import { Card } from '@/components/ui/Card'
 import Products from '@/components/product/Products'
 import Category from '@/components/product/Category'

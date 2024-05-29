@@ -13,8 +13,11 @@ const verifyJWT = (req, res, next) => {
     token,
     process.env.ACCESS_TOKEN_SECRET,
     (err, decoded) => {
-        if (err) return res.sendStatus(403); //invalid token
+        if (err) return res.sendStatus(403, "here it comes"); //invalid token
         req.email= decoded.email;
+        console.log(
+          "re: ",req.email, "de", decoded.email
+        )
         next();
     }
 );

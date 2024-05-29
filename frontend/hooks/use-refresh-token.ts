@@ -1,20 +1,31 @@
 import axios from "@/api/axios";
 import useAuth from "./use-auth";
+import { useToast } from "./use-toast";
 
 const useRefreshToken = () => {
-    const {auth, setAuth} = useAuth()
+  const {toast} = useToast()
+  const {auth, setAuth} = useAuth();
 
-    const refresh = async () => {
-        const response = await axios.get('/refresh', {
-            withCredentials: true
-        })
-        setAuth(prev => {
-            return {...prev, accessToken: response.data.accessToken }
-        })
-        return response.data.accessToken
-    }
+  const refresh = async () => {
+    const response = await axios.get("/refresh", {
+      withCredentials: true,
+    });
+    setAuth((prev) => {
+      return { ...prev, accessToken: response.data.accessToken };
+    });
 
-    return refresh
-}
+    console.log(auth)
+    toast({
+      title: `Welcome to Tathya Shopping Experience.`,
+      description: "Have a good time :)",
+      variant: "default"
+    })
+    return response.data.accessToken;
+  };
 
-export default useRefreshToken
+
+
+  return refresh;
+};
+
+export default useRefreshToken;

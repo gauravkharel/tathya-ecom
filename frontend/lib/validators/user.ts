@@ -1,7 +1,7 @@
 import {z} from 'zod'
 
-const MAX_UPLOAD_SIZE = 5000000;
-const ACCEPTED_FILE_TYPES= ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+export const MAX_UPLOAD_SIZE = 5000000;
+export const ACCEPTED_FILE_TYPES= ["image/jpeg", "image/jpg", "image/png", "image/webp"];
 
 export const UserValidator =z.object({
     firstname: z.string().min(2, {
@@ -30,6 +30,6 @@ export const UserValidator =z.object({
       message: "Please atleast 10 characters."
     })
   })
-
+  
   export type UserRequest = z.infer<typeof UserValidator>
   export type LoginRequest = z.infer<typeof LoginValidator>

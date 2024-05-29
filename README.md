@@ -19,8 +19,12 @@
 
 [5. Error Handling in Express](https://www.turing.com/kb/how-to-master-express-js-error-handling)
 
+[6. Uploadthing working as a wrapper for S3: Illustration](https://github.com/pingdotgg/uploadthing/blob/main/assets/Diagram.png)
+
+
+
 ### Developing feature by feature from backend to frontend (Also, product flow or, say, user story.)
-Customer end:
+#### Customer end:
 1. Authentication with JWT
 - User register with required credentials and, get redirected to login page. Once the login is done, than the user is redirected to home page to browse products and, product details. 
 - Roles based authentication.
@@ -32,3 +36,12 @@ Customer end:
         
 3. Cart and, orders
 - User can add anything to card and, have option to select product from cart to later, order. 
+
+#### Employers end
+1. Product management
+2. Order managment
+3. Dashboard
+
+### Just JWT stuff
+![How JWT is implemented](images/jwt.png)
+

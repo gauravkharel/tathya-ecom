@@ -82,7 +82,7 @@ model Clothing {
   description String?
   price       Float
   imageUrl    String?
-
+  
   brand   Brand @relation(fields: [brandId], references: [id])
   brandId Int
 

@@ -2,7 +2,13 @@ const prisma = require("../lib/db");
 
 const getAllClothings = async (req, res) => {
   try {
-    const clothings = await prisma.clothing.findMany();
+    const clothings = await prisma.clothing.findMany({
+      include: {
+        brand: true,
+        gender: true,
+        category: true,
+      },
+    });
     res.json(clothings);
     console.log("Fetched clothings", clothings);
   } catch (err) {

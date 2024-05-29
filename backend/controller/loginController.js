@@ -86,7 +86,7 @@ const handleLogin = async (req, res) => {
 
       // true when testing with the frontend.
       secure: true,
-      maxAge: 10 * 60 * 60 * 1000, // 10 hours
+      maxAge: new Date(Date.now() + 10 * 60 * 60 * 1000), // 10 hours
     });
 
     res.json({ accessToken, email });

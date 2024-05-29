@@ -13,7 +13,7 @@ const handleRefreshToken = async (req, res) => {
     },
   });
 
-  if (!foundToken) return res.sendStatus(403);
+  if (!foundToken) return res.sendStatus(403, "Here.");
   // evaluate jwt
   jwt.verify(cookieToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
     if (err || foundToken.user.email !== decoded.email)
