@@ -6,6 +6,7 @@ import Sidebar from "@/components/Sidebar";
 import Providers from "@/providers/QueryProvider";
 import { Toaster } from "@/components/ui/Toaster";
 import AuthProviders from "@/providers/AuthProvider";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 const inter = Inter({ subsets: ["latin"],   display: 'swap'});
 
@@ -30,6 +31,8 @@ export default function RootLayout({
               {children}
             </div>
             <Toaster />
+            <ReactQueryDevtools />
+
           </Providers>
         </AuthProviders>
       </body>

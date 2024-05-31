@@ -14,7 +14,6 @@ const useRefreshToken = () => {
       return { ...prev, accessToken: response.data.accessToken };
     });
 
-    console.log(auth)
     toast({
       title: `Welcome to Tathya Shopping Experience.`,
       description: "Have a good time :)",
@@ -22,9 +21,6 @@ const useRefreshToken = () => {
     })
     return response.data.accessToken;
   };
-
-
-
   return refresh;
 };
 

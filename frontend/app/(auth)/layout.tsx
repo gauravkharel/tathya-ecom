@@ -14,7 +14,7 @@ export default function Layout({
 }>) {
     return (
         <>
-            {/* <PersistLogin /> */}
+            <PersistLogin />
             {children}
         </>
 

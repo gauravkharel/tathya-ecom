@@ -1,74 +1,37 @@
 "use client"
 import Link from 'next/link'
 import Image from 'next/image'
-import useAxiosPrivate from '@/hooks/use-axios-interceptor'
-import { useEffect, useState } from 'react'
-import { ProductType } from '@/lib/types'
-import axios from 'axios'
-import { useGetProducts } from '@/hooks/use-get-products'
+import { useGetProducts } from '@/api/products'
 const Products = (): JSX.Element => {
-    const [products, setProducts] = useState([])
-    const axiosPrivate = useAxiosPrivate()
-    useEffect(() => {
-        let isMounted = true;
-        const controller = new AbortController();
-        const getProducts = async () => {
-            try {
-                const response = await axiosPrivate.get('/products', {
-                    signal: controller.signal
-                })
-                {
-                    isMounted &&
-                    setProducts(response.data)
-                    console.log(products)
-                }
-            } catch (err) {
-                if (axios.isCancel(err)) {
-                    console.log('Request canceled', err.message);
-                } else {
-                    console.log('mujiiiiii', err);
-                }
-            }
-        }
-
-        getProducts()
-        return () => {
-            controller.abort();
-        }
-    }, [])
-
-
-    // const { data: products, error, isLoading } = useGetProducts();
-
-    // console.log(products)
-
+    const { data, isLoading, error } = useGetProducts()
     return (
         <>
-            {/* {
+            {
                 isLoading && <div>Loading</div>
             }
             {
                 error && <div>Erorr loading products : {error.message}</div>
             }
-            {!isLoading && !error && products && <div>Hello to the loaded</div>} */}
-            {products.map(product =>
-                <Product
-                    imageUrl="https://utfs.io/f/ced4bad0-115a-407a-beb1-73334facd263-yguxs3.jpeg"
-                    key={product.id}
-                    name={product.name}
-                    id={product.id}
-                    brand={product.brand}
-                    price={product.price}
-                />
-            )}
+            {
+                data && data.map(product =>
+                    <Product
+                        imageUrl="https://utfs.io/f/ced4bad0-115a-407a-beb1-73334facd263-yguxs3.jpeg"
+                        key={product.name}
+                        name={product.name}
+                        id={product.name}
+                        brand={product.brand}
+                        price={product.price}
+                    />
+                )
+            }
         </>
 
     )
 }
 
 // @ts-ignore
-const Product = ({ id,imageUrl, name,  brand, price }) => {
-    const {name: brandName} = brand
+const Product = ({ id, imageUrl, name, brand, price }) => {
+    const { name: brandName } = brand
     return (
         <>
             <Link href={`/products/${id}`} key={id}>

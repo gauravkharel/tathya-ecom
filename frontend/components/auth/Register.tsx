@@ -14,6 +14,7 @@ import axios from "axios"
 import { useToast } from "../../hooks/use-toast"
 import { useRouter } from "next/navigation"
 import FormInput from "../form/FormInput"
+import { useRegister } from "@/api/auth"
 
 type FormData = z.infer<typeof UserValidator>
 
@@ -57,30 +58,12 @@ export function RegsiterUserForm() {
     },
   })
 
+  const {mutate: register, isPending, isError, error} = useRegister()
 
   const onSubmit = async (values: UserRequest) => {
     const { firstname, lastname, email, password } = values
-    try {
-      const response = await axios.post("/register",
-        JSON.stringify({ fname: firstname, lname: lastname, email: email, password: password }),
-        { headers: { 'Content-Type': 'application/json' } }
-      )
-      toast({
-        title: `Welcome ${values.firstname}`,
-        description: "You can now login with your credentials."
-      })
-      router.push('/login')
-
-    } catch (err) {
-      console.log(err)
-      toast({
-        //@ts-ignore
-        title: err.name + ': ' + err.code,
-        //@ts-ignore
-        description: err.message,
-        variant: 'destructive'
-      })
-    }
+    register({ firstname, lastname, email, password })
+    router.push('/login')
   }
 
   return (

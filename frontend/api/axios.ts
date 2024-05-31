@@ -10,9 +10,11 @@ assert(
 export default Axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_BASE_URL
 })
+const controller = new AbortController();
 
 export const axiosPrivate = Axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+    signal: controller.signal,
     headers: { 'Content-Type': 'application/json' },
     withCredentials: true
 })

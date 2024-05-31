@@ -4,7 +4,7 @@ import { AuthContextType, AuthType } from "@/lib/types";
 import { createContext, useState } from "react"
 
 export const AuthContext = createContext<{ auth: AuthType; setAuth: React.Dispatch<React.SetStateAction<AuthType>> }>({
-    auth: { email: "", password: "", accessToken: "" },
+    auth: { email: "", accessToken: "" },
     setAuth: () => {}
   });
 
