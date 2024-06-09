@@ -1,27 +1,22 @@
-const prisma = require('../lib/db')
+const prisma = require("../lib/db");
+
+const getCarts = async (req, res) => {};
+
+const getCartItem = async (req, res) => {};
 
 const addProductToCart = async (req, res) => {
-    const {productId, cartId} = req.body
-}
+  const { productId, cartId } = req.body;
+};
+const deleteCartItem = async (req, res) => {};
 
-const getCarts = async (req, res) => {
+const deleteCarts = async (req, res) => {};
 
-}
+const updateCartItem = async (req, res) => {};
 
-const clearCart = async(req, res) => {
-
-}
-
-const removeCartItem = async (req, res) => {
-
-}
-
-const deleteAllCarts = async(req, res) => {
-
-}
-
-const updateCartItem = async(req, res) => {
-
-}
-
-
+module.exports = {
+  addProductToCart,
+  getCarts,
+  deleteCartItem,
+  deleteCarts,
+  updateCartItem,
+};
