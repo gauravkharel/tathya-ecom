@@ -3,14 +3,13 @@ const router = express.Router();
 const cartController = require("../../controller/cartController");
 
 router
-  .route("/")
-  .get(cartController.getCarts)
-  .delete(cartConrtoller.deleteCarts);
+  .route("/").get(cartController.getCarts)
+//   .delete(cartController.deleteCarts);
 
-router
-  .route("/:id")
-  .put(clothingsController.updateCartItem)
-  .delete(clothingsController.deletCartItem)
-  .get(clothingsController.getCartItem);
+// router
+//   .route("/:id")
+//   .put(cartController.updateCartItem)
+//   .delete(cartController.deletCartItem)
+//   .get(cartController.getCartItem);
 
 module.exports = router;
