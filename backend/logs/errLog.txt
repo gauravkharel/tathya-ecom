@@ -72,3 +72,14 @@
 20240521	15:41:31	74022fbb-553f-456f-8353-02458e67da16	TypeError: Cannot set properties of undefined (setting 'email')
 20240521	15:41:31	03764010-74c1-48da-92ae-2ba084a90937	TypeError: Cannot set properties of undefined (setting 'email')
 20240521	15:41:31	5f74e491-0d2e-428f-8fb6-49a984899698	TypeError: Cannot set properties of undefined (setting 'email')
+20240604	16:48:01	de9b44f9-ea47-4735-9087-1cfe2538fb85	MulterError: Unexpected field
+20240604	16:48:54	28b9fc3e-13c6-48e3-8584-a932d5b5fbc2	MulterError: Unexpected field
+20240607	18:00:17	b4f8706d-733a-4088-9802-6051383d239f	MulterError: Unexpected field
+20240607	18:00:36	5a0bcaef-3746-4781-8471-65e41952d272	MulterError: Unexpected field
+20240607	18:00:48	4c710203-a0ea-425a-af2b-44d433b640ee	MulterError: Unexpected field
+20240607	18:00:50	c40c5a99-56d4-4d80-b98f-5192235101f1	MulterError: Unexpected field
+20240607	18:01:09	9318b301-bc46-4619-aad1-88c668486c02	MulterError: Unexpected field
+20240607	18:03:06	4f0436bf-3ec2-45a2-b1aa-a56ac00a346c	MulterError: Unexpected field
+20240607	18:03:43	59a2f97a-b49f-4d91-beca-aed3bb00c494	MulterError: Unexpected field
+20240613	10:58:53	88cf09ae-096c-4c04-89b4-4d60785fc9d5	SyntaxError: Expected ',' or '}' after property value in JSON at position 128
+20240614	14:35:53	367d8597-d39e-4a45-b383-326ded0c7cc8	SyntaxError: Expected double-quoted property name in JSON at position 60
