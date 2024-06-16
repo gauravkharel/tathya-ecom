@@ -153,7 +153,7 @@ enum PaymentStatus {
 }
 
 enum PaymentMethod {
-  CREDIT_CARD
+  
   ESEWA
   BANK_TRANSFER
 }

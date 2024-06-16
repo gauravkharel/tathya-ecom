@@ -1,0 +1,306 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "tathya-v2-api",
+    "collectionId": "867fbe39-d21a-4322-8727-8050b414337e",
+    "dateExported": "2024-06-12T12:12:43.109Z",
+    "version": "1.2",
+    "folders": [
+        {
+            "_id": "711ea1d6-7c86-470f-9133-d0bc3de2f629",
+            "name": "cart",
+            "containerId": "",
+            "created": "2024-06-12T06:46:55.624Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "09ce4cf7-b4ea-4214-980f-0c2e275144e3",
+            "name": "product",
+            "containerId": "",
+            "created": "2024-06-12T12:04:54.451Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "167aa7be-3475-4711-a788-2803ff0f671d",
+            "name": "auth",
+            "containerId": "",
+            "created": "2024-06-12T12:05:21.910Z",
+            "sortNum": 30000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "4944d02b-df76-4e1e-ae0b-5ae09bec986f",
+            "colId": "867fbe39-d21a-4322-8727-8050b414337e",
+            "containerId": "167aa7be-3475-4711-a788-2803ff0f671d",
+            "name": "Regsiter new user POST",
+            "url": "http://localhost:3500/register",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-02-12T09:26:41.752Z",
+            "modified": "2024-04-20T06:06:36.901Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"fname\": \"Sankar\",\n  \"lname\": \"Madahavan\",\n  \"email\": \"wokeantro@gmail.com\",\n  \"password\": \"2817928913131\",\n  \"profileImageUrl\": \"well.com\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "d110ccf6-ea2c-4a26-86df-1a9804a9e651",
+            "colId": "867fbe39-d21a-4322-8727-8050b414337e",
+            "containerId": "09ce4cf7-b4ea-4214-980f-0c2e275144e3",
+            "name": "Get all the products",
+            "url": "http://localhost:3500/products",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2024-02-28T07:47:43.568Z",
+            "modified": "2024-05-09T09:23:58.291Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJTYW5rYXIiLCJpYXQiOjE3MTUyNDY2MDEsImV4cCI6MzQzMDQ5NjgwMn0.tA_Q7tOy0gjt758r2v4CP_khoIqGB4DJ8rChEbVvWys"
+            }
+        },
+        {
+            "_id": "3e07378c-01f1-48b3-bb5b-c4fc104e6945",
+            "colId": "867fbe39-d21a-4322-8727-8050b414337e",
+            "containerId": "711ea1d6-7c86-470f-9133-d0bc3de2f629",
+            "name": "Get all cart",
+            "url": "http://localhost:3500/carts",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2024-06-11T08:07:37.859Z",
+            "modified": "2024-06-12T04:06:34.624Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Indva2VhbnRyb0BnbWFpbC5jb20iLCJpYXQiOjE3MTgxNjUxNjgsImV4cCI6MzQzNjMzMjEzNn0.6YM3Mq1GubkCpdQRO0mojZ3HbTiFl_gYAER-g6orOyE"
+            }
+        },
+        {
+            "_id": "b317a421-5487-4794-90da-49b781a76110",
+            "colId": "867fbe39-d21a-4322-8727-8050b414337e",
+            "containerId": "167aa7be-3475-4711-a788-2803ff0f671d",
+            "name": "Login User POST",
+            "url": "http://localhost:3500/login",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-02-13T05:03:18.312Z",
+            "modified": "2024-04-20T06:07:10.228Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"wokeantro@gmail.com\",\n  \"password\": \"2817928913131\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "89f0933f-c4d6-439a-a10e-42cb898af688",
+            "colId": "867fbe39-d21a-4322-8727-8050b414337e",
+            "containerId": "09ce4cf7-b4ea-4214-980f-0c2e275144e3",
+            "name": "Create New Product",
+            "url": "http://localhost:3500/products",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-05-09T09:07:58.169Z",
+            "modified": "2024-06-12T12:06:39.992Z",
+            "headers": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "name",
+                        "value": "Gucci from V2"
+                    },
+                    {
+                        "name": "description",
+                        "value": "The making of new design vest."
+                    },
+                    {
+                        "name": "brand",
+                        "value": "Go-ga-gu"
+                    },
+                    {
+                        "name": "category",
+                        "value": "Mens - Strictly"
+                    },
+                    {
+                        "name": "gender",
+                        "value": "Men"
+                    },
+                    {
+                        "name": "price",
+                        "value": "457"
+                    }
+                ],
+                "files": [
+                    {
+                        "name": "file",
+                        "value": "/home/gauray/Videos/Snapchat-494781812.jpg"
+                    }
+                ]
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJTYW5rYXIiLCJpYXQiOjE3MTUyNDM4NjUsImV4cCI6MzQzMDQ5MTMzMH0.LanJj_i-XBqn-9gc-Cey8JvSz54IVv6Fainry9U-Q4U"
+            }
+        },
+        {
+            "_id": "52aa4483-2df9-4665-9cf7-daca95070fa1",
+            "colId": "867fbe39-d21a-4322-8727-8050b414337e",
+            "containerId": "711ea1d6-7c86-470f-9133-d0bc3de2f629",
+            "name": "Get all cart by cartid",
+            "url": "http://localhost:3500/carts/7",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-06-12T12:06:55.036Z",
+            "modified": "2024-06-12T12:07:13.693Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Indva2VhbnRyb0BnbWFpbC5jb20iLCJpYXQiOjE3MTgxNjUxNjgsImV4cCI6MzQzNjMzMjEzNn0.6YM3Mq1GubkCpdQRO0mojZ3HbTiFl_gYAER-g6orOyE"
+            }
+        },
+        {
+            "_id": "ee5ee7d6-41ad-4eb8-91d1-04b08c022eff",
+            "colId": "867fbe39-d21a-4322-8727-8050b414337e",
+            "containerId": "09ce4cf7-b4ea-4214-980f-0c2e275144e3",
+            "name": "Updating a existing product",
+            "url": "http://localhost:3500/products/8",
+            "method": "PUT",
+            "sortNum": 30000,
+            "created": "2024-05-11T03:26:01.017Z",
+            "modified": "2024-05-12T02:47:17.106Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"1\",\n  \"description\": \"From departure\",\n  \"price\": 200,\n  \"brand\":\"Amuse by the light\",\n  \"gender\": \"Female\",\n  \"category\": \"Sneakers\",\n  \"imageUrl\": \"fhfshf.ciiUD\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJTYW5rYXIiLCJpYXQiOjE3MTUyNDM4NjUsImV4cCI6MzQzMDQ5MTMzMH0.LanJj_i-XBqn-9gc-Cey8JvSz54IVv6Fainry9U-Q4U"
+            }
+        },
+        {
+            "_id": "5e280098-d8c4-4257-ab02-6eca745daa21",
+            "colId": "867fbe39-d21a-4322-8727-8050b414337e",
+            "containerId": "167aa7be-3475-4711-a788-2803ff0f671d",
+            "name": "Refresh Token /refresh",
+            "url": "http://localhost:3500/refresh",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-05-15T10:42:10.913Z",
+            "modified": "2024-05-17T08:36:05.070Z",
+            "headers": []
+        },
+        {
+            "_id": "fdbe6cd4-cb66-4c43-9e81-107718bcd34b",
+            "colId": "867fbe39-d21a-4322-8727-8050b414337e",
+            "containerId": "09ce4cf7-b4ea-4214-980f-0c2e275144e3",
+            "name": "Delete a single product item",
+            "url": "http://localhost:3500/products/5",
+            "method": "DELETE",
+            "sortNum": 40000,
+            "created": "2024-05-12T02:36:49.475Z",
+            "modified": "2024-05-12T02:42:55.680Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJTYW5rYXIiLCJpYXQiOjE3MTUyNDM4NjUsImV4cCI6MzQzMDQ5MTMzMH0.LanJj_i-XBqn-9gc-Cey8JvSz54IVv6Fainry9U-Q4U"
+            }
+        },
+        {
+            "_id": "e59d9fe3-c602-41ee-951e-b18edc10dccc",
+            "colId": "867fbe39-d21a-4322-8727-8050b414337e",
+            "containerId": "09ce4cf7-b4ea-4214-980f-0c2e275144e3",
+            "name": "Get single product",
+            "url": "http://localhost:3500/products/6",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2024-05-12T02:46:13.148Z",
+            "modified": "2024-05-12T02:48:49.859Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJTYW5rYXIiLCJpYXQiOjE3MTUyNDM4NjUsImV4cCI6MzQzMDQ5MTMzMH0.LanJj_i-XBqn-9gc-Cey8JvSz54IVv6Fainry9U-Q4U"
+            }
+        },
+        {
+            "_id": "8e8006b1-ed1f-48e9-b8bb-a4edb723d7af",
+            "colId": "867fbe39-d21a-4322-8727-8050b414337e",
+            "containerId": "711ea1d6-7c86-470f-9133-d0bc3de2f629",
+            "name": "Delete all carts",
+            "url": "http://localhost:3500/carts",
+            "method": "DELETE",
+            "sortNum": 115000,
+            "created": "2024-06-12T11:27:46.191Z",
+            "modified": "2024-06-12T11:31:12.434Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Indva2VhbnRyb0BnbWFpbC5jb20iLCJpYXQiOjE3MTgxNjUxNjgsImV4cCI6MzQzNjMzMjEzNn0.6YM3Mq1GubkCpdQRO0mojZ3HbTiFl_gYAER-g6orOyE"
+            }
+        },
+        {
+            "_id": "a7cb0815-0c8a-43d2-838c-b61adfae8bf4",
+            "colId": "867fbe39-d21a-4322-8727-8050b414337e",
+            "containerId": "711ea1d6-7c86-470f-9133-d0bc3de2f629",
+            "name": "Create a new cart item",
+            "url": "http://localhost:3500/carts",
+            "method": "POST",
+            "sortNum": 120000,
+            "created": "2024-06-12T11:17:00.608Z",
+            "modified": "2024-06-12T11:19:46.358Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"userId\": \"ca2e9e68-f805-4a69-95c6-ab5e512caa2b\",\n  \"productId\": 1,\n  \"quantity\": 4\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Indva2VhbnRyb0BnbWFpbC5jb20iLCJpYXQiOjE3MTgxNjUxNjgsImV4cCI6MzQzNjMzMjEzNn0.6YM3Mq1GubkCpdQRO0mojZ3HbTiFl_gYAER-g6orOyE"
+            }
+        },
+        {
+            "_id": "b24d2600-3465-44b0-8a7b-2f6c3ce6242d",
+            "colId": "867fbe39-d21a-4322-8727-8050b414337e",
+            "containerId": "711ea1d6-7c86-470f-9133-d0bc3de2f629",
+            "name": "Delete cart item by id",
+            "url": "http://localhost:3500/carts/7",
+            "method": "DELETE",
+            "sortNum": 125000,
+            "created": "2024-06-12T12:04:32.480Z",
+            "modified": "2024-06-12T12:06:41.700Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Indva2VhbnRyb0BnbWFpbC5jb20iLCJpYXQiOjE3MTgxNjUxNjgsImV4cCI6MzQzNjMzMjEzNn0.6YM3Mq1GubkCpdQRO0mojZ3HbTiFl_gYAER-g6orOyE"
+            }
+        },
+        {
+            "_id": "d0345152-e158-4c0d-bda3-6519e0c373ab",
+            "colId": "867fbe39-d21a-4322-8727-8050b414337e",
+            "containerId": "711ea1d6-7c86-470f-9133-d0bc3de2f629",
+            "name": "Update cart quantity",
+            "url": "http://localhost:3500/carts/7",
+            "method": "PUT",
+            "sortNum": 130000,
+            "created": "2024-06-12T11:32:03.518Z",
+            "modified": "2024-06-12T11:55:53.311Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\"quantity\": 55}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Indva2VhbnRyb0BnbWFpbC5jb20iLCJpYXQiOjE3MTgxNjUxNjgsImV4cCI6MzQzNjMzMjEzNn0.6YM3Mq1GubkCpdQRO0mojZ3HbTiFl_gYAER-g6orOyE"
+            }
+        }
+    ],
+    "ref": "q6ID-ASQZxpmmF64-c_cH3HH4fn6sIHoPTF7Eos_0p_eLY9DU3nJthiA0XKkpc7hV6EanQ4zAH9zqOSKosy2ZQ"
+}
