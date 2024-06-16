@@ -10,6 +10,16 @@ const getAllOrder = async (req, res) => {
         req.query.take = 1;
       }
     }
+
+    if (!req.query.skip) {
+      req.query.skip = 4;
+    } else {
+      req.query.skip = parseInt(req.query.skip, 4);
+      if (!Number.isInteger(req.query.skip)) {
+        req.query.skip = 1;
+      }
+    }
+    
     const skip = req.query.skip;
 
     const { orderStatus, paymentStatus, paymentMethod, email, orderId } =
@@ -49,9 +59,13 @@ const getOrderByOrderId = async (req, res) => {
       where: {
         id: id,
       },
+      include: {
+        clothing: true,
+        user: true,
+      }
     });
     if (!order) {
-      return res.status(204).json("No such entries for order.");
+      return res.status(404).json({message: "No such entries for order."});
     }
     res.status(200).json(order);
   } catch (err) {
@@ -63,7 +77,6 @@ const getOrderByOrderId = async (req, res) => {
 const createNewOrder = async (req, res) => {
     try {
       const {
-        userId,
         clothingId,
         quantity,
         shippingAddress,
@@ -78,13 +91,12 @@ const createNewOrder = async (req, res) => {
         comments
       } = req.body;
   
-      if (!userId || !clothingId || !quantity || !shippingAddress || !paymentMethod || !totalPrice || !taxAmount || !shippingCost) {
+      if ( !clothingId || !quantity || !shippingAddress || !paymentMethod || !totalPrice || !taxAmount || !shippingCost) {
         return res.status(400).json({ message: "Missing required fields" });
       }
   
       const newOrder = await prisma.orderItem.create({
         data: {
-          userId,
           clothingId,
           quantity,
           shippingAddress,
@@ -106,11 +118,7 @@ const createNewOrder = async (req, res) => {
       return res.status(500).json({ message: "Internal server error" });
     }
   };
-  
-  module.exports = {
-    createNewOrder
-  };
-  
+
 const updateOrderById = async (req, res) => {
     try {
       const { orderId } = req.params;

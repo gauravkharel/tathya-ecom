@@ -18,10 +18,30 @@ const getAllProducts = async (req, res) => {
         req.query.skip = 1;
       }
     }
-    const skip = req.query.skip;
+
+    const { category, brand, gender } = req.body;
+    const filters = {};
+
+    if (category) {
+      filters.category = {
+        name: category
+      };
+    }
+    if (brand) {
+      filters.brand = {
+        name: brand
+      };
+    }
+    if (gender) {
+      filters.gender = {
+        name: gender
+      };
+    }
+
     const products = await prisma.clothing.findMany({
-      skip: +skip,
+      skip: +req.query.skip,
       take: +req.query.take,
+      where: filters,
       include: {
         brand: true,
         gender: true,

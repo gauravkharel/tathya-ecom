@@ -35,9 +35,9 @@ const handleNewUser = async (req, res) => {
 
     const allUsers = await prisma.user.findMany();
     console.dir(allUsers, { depth: null });
-    res.status(201).json({'success': `New user ${fname} is created. Please login again.`})
+    return res.status(201).json({'success': `New user ${fname} is created. Please login again.`})
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: err.message });
   }
 };
 
