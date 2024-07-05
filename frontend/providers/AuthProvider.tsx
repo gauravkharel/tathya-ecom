@@ -3,16 +3,22 @@
 import { AuthContextType, AuthType } from "@/lib/types";
 import { createContext, useState } from "react"
 
-export const AuthContext = createContext<{ auth: AuthType; setAuth: React.Dispatch<React.SetStateAction<AuthType>> }>({
+export const AuthContext = createContext<AuthContextType | null>({
     auth: { email: "", accessToken: "" },
-    setAuth: () => {}
-  });
+    setAuth: () => { },
+    persist: false,
+    setPersist: () => { },
+});
+
+type PersistState = boolean;
+
 
 const AuthProviders = ({ children }: { children: React.ReactNode }) => {
-    const [auth, setAuth] = useState<AuthType>();
+    const [auth, setAuth] = useState<AuthType >({ email: "", accessToken: "" });
+    const [persist, setPersist] = useState<PersistState>(JSON.parse(localStorage.getItem("persist") || 'false') as PersistState);
+
     return (
-        //@ts-ignore
-        <AuthContext.Provider value={{auth, setAuth}}>
+        <AuthContext.Provider value={{ auth, setAuth, persist, setPersist }}>
             {children}
         </AuthContext.Provider>)
 }

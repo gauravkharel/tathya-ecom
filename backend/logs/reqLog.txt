@@ -13147,3 +13147,11 @@
 20240616	11:49:41	2b922b63-a1b7-414a-911c-66760489a141	GET	undefined	/logout
 20240616	11:50:09	6a0325dc-470c-47b3-861c-1cb118d8283e	POST	undefined	/login
 20240616	11:50:15	4907c010-b78d-45d0-b33a-85fc65876ab6	GET	undefined	/logout
+20240705	18:13:35	706b6db4-2ff5-4bdc-904b-6959f1e77fae	POST	undefined	/users
+20240705	18:13:53	79164dd0-255f-46ea-84d3-24688fe5ee21	POST	undefined	/users/login
+20240705	18:14:08	49cd82e3-ef1f-456a-a771-0b66155388f9	POST	undefined	/login
+20240705	18:14:30	d8794009-c7f6-4cf0-ae37-fb47e6b67c79	POST	undefined	/register
+20240705	18:17:22	7b69c66c-1876-4ba4-8fe9-a0916c29edfc	POST	undefined	/register
+20240705	18:17:28	44ef702c-8af5-41e1-a961-17a854363fdc	POST	undefined	/login
+20240705	18:18:24	6d3f7cb6-4c23-4f4a-9fe4-f003f98ac8a9	POST	undefined	/login
+20240705	18:22:32	bdcc59ec-a844-478f-b4ae-8c7a1852db91	POST	undefined	/login

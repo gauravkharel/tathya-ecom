@@ -85,7 +85,7 @@ const handleLogin = async (req, res) => {
       //option to "false" to allow it to pass.
 
       // true when testing with the frontend.
-      secure: true,
+      secure: false,
       maxAge: new Date(Date.now() + 10 * 60 * 60 * 1000), // 10 hours
     });
 
