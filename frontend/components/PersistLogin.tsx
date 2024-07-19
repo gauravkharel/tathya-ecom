@@ -13,7 +13,6 @@ const PersistLogin = ({ children }: Props) => {
     const [isLoading, setIsLoading] = useState(true)
     const refresh = useRefreshToken()
     const { auth, persist } = useAuth()
-    const { toast } = useToast()
 
     useEffect(() => {
         let isMounted = true;
@@ -33,17 +32,13 @@ const PersistLogin = ({ children }: Props) => {
         return () => {
             isMounted = false;
         }
-    }, [])
-
+    }, [auth?.accessToken, refresh])
 
     return (
         <>
-            {!persist
-                ? {children}
-                : isLoading
-                    ? <p>Loading...</p>
-                    : {children}
-            }
+            {!persist ? (children
+            ) : ( isLoading) ? (<p>Loading...</p>
+            ) : ( children || <div>No content available.</div>)}
         </>
     )
 }

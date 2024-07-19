@@ -4,12 +4,10 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { Button } from "@/components/ui/Button"
-import {
-  Form
-} from "@/components/ui/Form"
+import { Form } from "@/components/ui/Form"
 import { Input } from "@/components/ui/Input"
 import { LoginRequest, LoginValidator } from "@/lib/validators/user"
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation'
 import FormInput from "../form/FormInput"
 import { useLogin } from "@/api/auth"
 
@@ -38,13 +36,20 @@ const LoginForm = () => {
       password: ""
     }
   })
-  const { mutate: login, isPending, isError, error } = useLogin();
+  
+  const { mutate: login, isPending, isError, error } = useLogin({
+    onSuccess: () => {
+      router.push('/products')
+    },
+    onError: (error) => {
+      console.error(error)
+    }
+  });
 
   const onSubmit = async (values: LoginRequest) => {
-    const { email, password } = values
-    login({ email, password })
-    router.push('/products')
-  }
+    const { email, password } = values;
+    login({ email, password });
+  };
 
   return (
     <Form {...form}>
@@ -58,13 +63,14 @@ const LoginForm = () => {
           >
             <Input type={formEle.type} placeholder={formEle.placeholder} />
           </FormInput>
-        )
-        }
-        <Button type="submit" disabled={isPending}>{isPending ? 'Logging in...' : 'Login'}</Button>
+        )}
+        <Button type="submit" disabled={isPending}>
+          {isPending ? 'Logging in...' : 'Login'}
+        </Button>
         {isError && <div>{error?.message}</div>}
       </form>
     </Form>
-  )
-}
+  );
+};
 
-export default LoginForm
+export default LoginForm;

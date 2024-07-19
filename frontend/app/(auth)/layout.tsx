@@ -14,9 +14,11 @@ export default function Layout({
 }>) {
     return (
         <>
-            <PersistLogin />
+        <PersistLogin>
+          {/* @ts-ignore */}
             {children}
-        </>
+        </PersistLogin>
+        </> 
 
     );
 }

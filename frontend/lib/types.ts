@@ -25,13 +25,4 @@ export interface ErrorResponse {
     data: string;
 }
 
-export interface ProductType{
-  name: string;
-  description: string;
-  price: number;
-  imageUrl: string;
-  brandId: number;
-  genderId: number;
-  categoryId: number;
-}
-  
+
