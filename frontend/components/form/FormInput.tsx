@@ -38,7 +38,6 @@ interface FormFieldProps {
                     </FormControl>
                     <FormMessage />
                     {description && <FormDescription>{description}</FormDescription>}
-                    {error && <FormMessage>{error.message}</FormMessage>}
                 </FormItem>
             )}
         />

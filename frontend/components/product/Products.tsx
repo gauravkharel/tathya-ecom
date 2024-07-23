@@ -24,7 +24,7 @@ const Products = (): JSX.Element => {
         <>
             {data.map((product: ProductAPIType) => (
                 <Product
-                    imageUrl="https://utfs.io/f/ced4bad0-115a-407a-beb1-73334facd263-yguxs3.jpeg"
+                    imageUrl="https://picsum.photos/id/237/200/300"
                     key={product.id}
                     name={product.name}
                     id={product.id}
@@ -32,6 +32,8 @@ const Products = (): JSX.Element => {
                     price={product.price}
                 />
             ))}
+
+            
         </>
     )
 }
@@ -57,7 +59,7 @@ const Product = ({ id, imageUrl, name, brand, price }: ProductProps): JSX.Elemen
                     <div className='text-lg font-medium text-gray-600'>
                         {brand?.name}
                     </div>
-                    <div className='text-lg font-bold text-gray-500'>{price}</div>
+                    <div className='text-lg font-bold text-gray-500'>${price}</div>
                 </div>
             </div>
         </Link>

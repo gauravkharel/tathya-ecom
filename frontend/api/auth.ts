@@ -12,9 +12,7 @@ export function useLogin(options?: {
     onSuccess?: (data: LoginResponse) => void;
     onError?: (error: any) => void;
 }): UseMutationResult<LoginResponse, Error, LoginRequest> {
-    // const queryClient = useQueryClient();
     const { setAuth } = useAuth();
-
     const loginRequest = async (data: LoginRequest) => {
         const { email, password } = data;
         const response = await axios.post('login',
@@ -26,9 +24,7 @@ export function useLogin(options?: {
                 withCredentials: true
             }
         );
-        console.log('data: ', response.data)
         return response.data
-
     };
 
     return useMutation({
@@ -52,28 +48,34 @@ export function useLogin(options?: {
         }
     });
 }
-export function useRegister() {
-    const queryClient = useQueryClient();
+export function useRegister(options?: {
+    onSuccess?: (data: UserRequest) => void;
+    onError?: (error: any) => void;
+}): UseMutationResult<UserRequest, Error, UserRequest> {
     const registerRequest = async (data: UserRequest) => {
         const { firstname, lastname, email, password } = data
-
         const response = await axios.post('/register',
             JSON.stringify({ fname: firstname, lname: lastname, email: email, password: password }),
             { headers: { 'Content-Type': 'application/json' } }
         )
-
         return response.data;
     };
-
     return useMutation({
         mutationFn: registerRequest,
-        onSettled: async (_, error) => {
+        onSuccess: (data) => {
+            options?.onSuccess?.(data);
+        },
+        onError: (error) => {
+            console.error(error);
+            options?.onError?.(error);
+        },
+        onSettled: async (data, error) => {
             if (error) {
                 console.log(error);
+            } else {
+                // await queryClient.invalidateQueries({ queryKey: ['products'] });
+                options?.onSuccess?.(data);
             }
-            // } else {
-            //     await queryClient.invalidateQueries({ queryKey: ['products'] })
-            // }
         }
     });
 }

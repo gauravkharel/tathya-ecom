@@ -11,7 +11,7 @@ import {
 const page = ({ }) => {
   return (
     <div>
-      <Card className="w-[300px]">
+      <Card className="w-1/2 p-4 m-4">
         <CardHeader>
           <CardTitle>Sign Up</CardTitle>
           <CardDescription>To be part of it.</CardDescription>

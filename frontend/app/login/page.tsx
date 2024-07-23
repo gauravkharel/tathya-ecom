@@ -1,4 +1,4 @@
-import LoginForm from "@/components/auth/Login"
+import LoginForm, { BackgroundImage } from "@/components/auth/Login"
 import {
     Card,
     CardContent,
@@ -9,33 +9,40 @@ import {
 } from "@/components/ui/Card"
 import Image from "next/image"
 import Banner from '../../public/banne.jpg'
+import Link from "next/link"
+import MainLogo from '../../public/logo.svg'
+
 interface pageProps {
 
 }
 
 const page = ({ }) => {
     return (
-        <div className="flex flex-row gap-4">
-            <Card className="w-[2/4]">
-                <CardHeader>
-                    <CardTitle>Login</CardTitle>
-                    <CardDescription>Manage what is worthy.</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <LoginForm />
-                </CardContent>
-                <CardFooter>
-                    <p>Have a account? Login Here</p>
-                </CardFooter>
+        <div className="flex flex-row gap-4 divide-x  p-10">
+            <Card className=" w-[1000px] lg:w-1/2 lg:p-10">
+                <Card className="border-none flex flex-col justify-normal align-middle">
+                    <div className="px-[300px] visible sm:visible ">
+                        <Image
+                            priority
+                            src={MainLogo}
+                            alt='logo'
+                            width={50}
+                            height={50}
+                        />
+                    </div>
+                    <CardHeader>
+                        <CardTitle>Login</CardTitle>
+                        <CardDescription>Shop with peace</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <LoginForm />
+                    </CardContent>
+                    <CardFooter>
+                        <p>Not a family yet? <Link href="register" className="text-blue-400"> Please here is the adoption letter</Link></p>
+                    </CardFooter>
+                </Card>
             </Card>
-            <Card className="w-[2/4] rounded-lg">
-                <Image 
-                    sizes="70vw"
-                    style={{
-                        width: '100%',
-                        height: 'auto',
-                    }} src={Banner} alt="just another banner" />
-            </Card>
+            <BackgroundImage />
         </div>
     )
 }

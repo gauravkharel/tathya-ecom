@@ -52,13 +52,15 @@ const Navbar = ({ }) => {
         <div className='sm:flex hidden flex-row gap-2 '>
           <Heart size={28}>like</Heart>
           <User2Icon size={28}>user</User2Icon>
+          <Link href={'/cart'}>
           <ShoppingBag size={28}>cart</ShoppingBag>
+          </Link>
         </div>
       </div>
 
       <div className='pt-4 container text-lg border-b border-zinc-200 max-w-7xl h-full mx-auto sm:flex items-start justify-start gap-3 hidden'>
-        <div className='font-bold'>ALL</div>
-        <div >WOMEN</div>
+        <Link href={'/products'} className='font-bold'>ALL</Link>
+        <div>WOMEN</div>
         <div>MEN</div>
         <div>KIDS</div>
       </div>
