@@ -2,8 +2,9 @@
 import { Headset, Heart, HelpCircleIcon, MapIcon, MapPin, Search, ShoppingBag, Smile, StoreIcon, User2Icon } from 'lucide-react'
 import Link from 'next/link'
 import { FC } from 'react'
-import MainLogo from '../public/logo.svg'
+import MainLogo from '../public/Logo-lockup.png'
 import Image from 'next/image'
+import SearchBar from './product/SearchBar'
 interface MenubarProps {
 
 }
@@ -18,8 +19,8 @@ const Navbar = ({ }) => {
             priority
             src={MainLogo}
             alt='logo'
-            width={50}
-            height={50}
+            width={200}
+            height={200}
           />
         </Link>
         {/* for small devices */}
@@ -66,8 +67,8 @@ const Navbar = ({ }) => {
       </div>
       <div className='container text-base max-w-7xl h-full mx-auto sm:flex justify-between gap-2 hidden'>
         <div>Empty for now | nav later</div>
-        <div>Search</div>
-      </div>
+<SearchBar />
+     </div>
     </header>
   )
 }

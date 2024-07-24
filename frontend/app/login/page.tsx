@@ -8,7 +8,6 @@ import {
     CardTitle,
 } from "@/components/ui/Card"
 import Image from "next/image"
-import Banner from '../../public/banne.jpg'
 import Link from "next/link"
 import MainLogo from '../../public/logo.svg'
 
