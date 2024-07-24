@@ -5,12 +5,19 @@ import Providers from "@/providers/QueryProvider";
 import { Toaster } from "@/components/ui/Toaster";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import Navbar from "@/components/Navbar";
+import { icons } from "lucide-react";
 
-const inter = Inter({ subsets: ["latin"],   display: 'swap'});
+const inter = Inter({ subsets: ["latin"], display: 'swap' });
 
 export const metadata: Metadata = {
   title: "Tathya",
   description: "Your new shopping experience",
+  icons:
+    [
+      {
+        url: '/icon?<generated>'
+      }
+    ]
 };
 
 export default function RootLayout({
@@ -20,12 +27,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.className}>
-      <body >
-          <Providers>
-              {children}
-            <Toaster />
-            <ReactQueryDevtools />
-          </Providers>
+      <body suppressHydrationWarning={true} >
+        <Providers>
+          {children}
+          <Toaster />
+          <ReactQueryDevtools />
+        </Providers>
       </body>
     </html>
   );

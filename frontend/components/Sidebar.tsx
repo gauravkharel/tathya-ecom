@@ -6,8 +6,10 @@ import Link from "next/link"
 import { useContext, createContext, useState } from "react"
 import MainLogo from '../public/logo.svg'
 
+//@ts-ignore
 const SidebarContext = createContext()
-export default function Sidebar({ children }) {
+
+export default function Sidebar() {
     const [expanded, setExpanded] = useState(true)
     const [active, isActive] = useState(false)
     return (
@@ -92,7 +94,6 @@ export function SidebarItem({ icon, url, active, text, alert }) {
 
     return (
         <Link href={url} >
-
             <li className={`
                     relative flex items-center py-2 px-3 my-1
                     font-medium rounded-md cursor-pointer
@@ -100,7 +101,8 @@ export function SidebarItem({ icon, url, active, text, alert }) {
                     ${active
                         ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800"
                         : "hover:bg-indigo-50 text-gray-600"
-                    }`}
+                    }
+                    `}
              >
                 {icon}
                 <span className={`overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0" }`}>{text}</span>

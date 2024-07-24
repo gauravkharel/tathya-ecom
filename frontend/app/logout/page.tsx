@@ -3,9 +3,9 @@ interface pageProps {
 }
  
 const page = () => {
-    return ( <>
-    
-    </> );
+    return ( 
+        <>jsadoia</>
+     );
 }
  
 export default page;

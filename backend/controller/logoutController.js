@@ -4,10 +4,10 @@ require("dotenv").config();
 const cookies = require("cookie-parser");
 
 const handleLogout = async ( req, res ) => {
-  const {jwt} = req.cookies
-  console.log(jwt)
-  if (!jwt) return res.sendStatus(204);
-  const refreshToken = jwt;
+  const cookies = req.cookies
+  console.log(cookies.jwt)
+  if (!cookies.jwt) return res.sendStatus(204);
+  const refreshToken = cookies.jwt;
 
   const foundUser = await prisma.user.findFirst({
     where: {
@@ -16,6 +16,7 @@ const handleLogout = async ( req, res ) => {
       },
     },
   });
+  console.log('foundUser')
 
   if (!foundUser) {
     res.clearCookies("jwt", { httpOnly: true, sameSite: "None", secure: true });

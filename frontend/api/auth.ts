@@ -1,5 +1,5 @@
 import axios from './axios'
-import { UseMutationResult, useMutation, useQueryClient } from '@tanstack/react-query';
+import { UseMutationResult, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { LoginRequest, UserRequest } from '@/lib/validators/user';
 import useAuth from '@/hooks/use-auth';
 
@@ -48,6 +48,8 @@ export function useLogin(options?: {
         }
     });
 }
+
+
 export function useRegister(options?: {
     onSuccess?: (data: UserRequest) => void;
     onError?: (error: any) => void;
@@ -79,3 +81,15 @@ export function useRegister(options?: {
         }
     });
 }
+
+
+export function useLogout() {
+    const logout = async () => {
+      const response = await axios.get('/logout');
+      return response.data;
+    };
+  
+    return useMutation({
+        mutationFn: logout
+    });
+  }

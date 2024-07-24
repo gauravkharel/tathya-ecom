@@ -5,6 +5,7 @@ import { FC } from 'react'
 import MainLogo from '../public/Logo-lockup.png'
 import Image from 'next/image'
 import SearchBar from './product/SearchBar'
+import Logout from './auth/Logout'
 interface MenubarProps {
 
 }
@@ -52,9 +53,9 @@ const Navbar = ({ }) => {
         {/* login/profile component*/}
         <div className='sm:flex hidden flex-row gap-2 '>
           <Heart size={28}>like</Heart>
-          <User2Icon size={28}>user</User2Icon>
+          <Logout />
           <Link href={'/cart'}>
-          <ShoppingBag size={28}>cart</ShoppingBag>
+            <ShoppingBag size={28}>cart</ShoppingBag>
           </Link>
         </div>
       </div>
@@ -67,8 +68,8 @@ const Navbar = ({ }) => {
       </div>
       <div className='container text-base max-w-7xl h-full mx-auto sm:flex justify-between gap-2 hidden'>
         <div>Empty for now | nav later</div>
-<SearchBar />
-     </div>
+        <SearchBar />
+      </div>
     </header>
   )
 }

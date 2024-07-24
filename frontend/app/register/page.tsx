@@ -10,7 +10,12 @@ import {
 import Image from "next/image"
 import MainLogo from '../../public/logo.svg'
 import Link from "next/link"
-
+import type { Metadata } from 'next'
+ 
+export const metadata: Metadata = {
+  title: 'Register here | Tathya',
+  description: '...',
+}
 
 const page = ({ }) => {
   return (

@@ -18,6 +18,7 @@ export interface AuthContextType {
   setAuth: React.Dispatch<React.SetStateAction<AuthType>>;
   persist: boolean;
   setPersist: React.Dispatch<React.SetStateAction<boolean>>;
+  clearAuth: () => void;  
 }
 
 export interface ErrorResponse {
