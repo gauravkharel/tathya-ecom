@@ -7,11 +7,29 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/Card"
+import Image from "next/image"
+import MainLogo from '../../public/logo.svg'
+import Link from "next/link"
+import type { Metadata } from 'next'
+ 
+export const metadata: Metadata = {
+  title: 'Register here | Tathya',
+  description: '...',
+}
 
 const page = ({ }) => {
   return (
-    <div>
-      <Card className="w-[300px]">
+    <div className="flex justify-center align-middle">
+      <Card className="w-[400px] md:w-1/2 p-4 m-4">
+        <div className="flex justify-center align-middle visible sm:visible ">
+          <Image
+            priority
+            src={MainLogo}
+            alt='logo'
+            width={50}
+            height={50}
+          />
+        </div>
         <CardHeader>
           <CardTitle>Sign Up</CardTitle>
           <CardDescription>To be part of it.</CardDescription>
@@ -20,7 +38,7 @@ const page = ({ }) => {
           <RegsiterUserForm />
         </CardContent>
         <CardFooter>
-          <p>Have a account? Login Here</p>
+          <p>Already our family? <Link href="login" className="text-blue-400"> Login here</Link></p>
         </CardFooter>
       </Card>
     </div>

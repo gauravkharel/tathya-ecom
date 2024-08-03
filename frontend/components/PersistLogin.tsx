@@ -4,14 +4,16 @@ import useRefreshToken from "@/hooks/use-refresh-token"
 import useAuth from "@/hooks/use-auth"
 import { useState, useEffect } from 'react'
 import { useToast } from "@/hooks/use-toast"
-import { title } from "process"
+import { AuthContextType } from "@/lib/types"
+type Props = {
+    children: string | JSX.Element | JSX.Element[] | (() => JSX.Element)
+}
 
-const PersistLogin = () => {
+const PersistLogin = ({ children }: Props) => {
     const [isLoading, setIsLoading] = useState(true)
     const refresh = useRefreshToken()
-    const { auth } = useAuth()
-    const {toast} = useToast()
-    
+    const { auth, persist } = useAuth()
+
     useEffect(() => {
         let isMounted = true;
         const verifyRefreshToken = async () => {
@@ -27,18 +29,16 @@ const PersistLogin = () => {
         }
 
         !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false);
-        return () =>{
-             isMounted = false;
-            }
-    }, [])
-
+        return () => {
+            isMounted = false;
+        }
+    }, [auth?.accessToken, refresh])
 
     return (
         <>
-            {isLoading
-                ? <p>Loading...</p>
-                : <>Refetched</>
-            }
+            {!persist ? (children
+            ) : ( isLoading) ? (<p>Loading...</p>
+            ) : ( children || <div>No content available.</div>)}
         </>
     )
 }

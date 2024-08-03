@@ -2,16 +2,16 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { z } from "zod"
 import { Button } from "@/components/ui/Button"
-import {
-  Form
-} from "@/components/ui/Form"
+import { Form } from "@/components/ui/Form"
 import { Input } from "@/components/ui/Input"
 import { LoginRequest, LoginValidator } from "@/lib/validators/user"
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation'
 import FormInput from "../form/FormInput"
 import { useLogin } from "@/api/auth"
+import { Card, CardContent } from "../ui/Card"
+import Image from "next/image"
+import { useToast } from "@/hooks/use-toast"
 
 const formObj = [
   {
@@ -29,8 +29,9 @@ const formObj = [
 ]
 
 const LoginForm = () => {
-  console.log("email: wokeantro@gmail.com", "password: 2817928913131")
+  console.log("email: wokeantro@outlook.com", "password: 2817928913131")
   const router = useRouter();
+  const toast = useToast()
   const form = useForm<LoginRequest>({
     resolver: zodResolver(LoginValidator),
     defaultValues: {
@@ -38,13 +39,20 @@ const LoginForm = () => {
       password: ""
     }
   })
-  const { mutate: login, isPending, isError, error } = useLogin();
+
+  const { mutate: login, isPending, isError, error } = useLogin({
+    onSuccess: () => {
+      router.push('/products')
+    },
+    onError: (error) => {
+      console.error(error)
+    }
+  });
 
   const onSubmit = async (values: LoginRequest) => {
-    const { email, password } = values
-    login({ email, password })
-    router.push('/products')
-  }
+    const { email, password } = values;
+    login({ email, password });
+  };
 
   return (
     <Form {...form}>
@@ -58,13 +66,21 @@ const LoginForm = () => {
           >
             <Input type={formEle.type} placeholder={formEle.placeholder} />
           </FormInput>
-        )
-        }
-        <Button type="submit" disabled={isPending}>{isPending ? 'Logging in...' : 'Login'}</Button>
-        {isError && <div>{error?.message}</div>}
+        )}
+        <Button className="bg-blue-600 hover:bg-blue-500" type="submit" disabled={isPending}>
+          {isPending ? 'Logging in...' : 'Login'}
+        </Button>
+        {isError && <div className=" text-red-700">{error?.message}</div>}
       </form>
     </Form>
+  );
+};
+
+export const BackgroundImage = () => {
+  return (
+    <div className="bg-scroll bg-bg-login bg-cover opacity-75 w-1/2 rounded-lg invisible sm:invisible md:invisible lg:visible " >
+    </div>
   )
 }
 
-export default LoginForm
+export default LoginForm;

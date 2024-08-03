@@ -1,18 +1,41 @@
 "use client"
 
-import { AuthContextType, AuthType } from "@/lib/types";
-import { createContext, useState } from "react"
+import { AuthContextType, AuthType } from "@/lib/types"
+import { createContext, useEffect, useState } from "react"
 
-export const AuthContext = createContext<{ auth: AuthType; setAuth: React.Dispatch<React.SetStateAction<AuthType>> }>({
+export const AuthContext = createContext<AuthContextType | null>({
     auth: { email: "", accessToken: "" },
-    setAuth: () => {}
-  });
+    setAuth: () => { },
+    persist: false,
+    setPersist: () => { },
+    clearAuth: () => { }
+})
+
+type PersistState = boolean;
+
 
 const AuthProviders = ({ children }: { children: React.ReactNode }) => {
-    const [auth, setAuth] = useState<AuthType>();
+    const [auth, setAuth] = useState<AuthType >({ email: "", accessToken: "" })
+    const [persist, setPersist] = useState<PersistState>(false) ;
+    useEffect(() => {
+        if (typeof window !== "undefined") { 
+          const storedPersist = localStorage.getItem("persist")
+          if (storedPersist) {
+            setPersist(JSON.parse(storedPersist) as PersistState)
+          }
+        }
+      }, [auth])
+    
+      const clearAuth = () => {
+        setAuth({ email: "", accessToken: "" })
+        setPersist(false)
+        localStorage.removeItem("persist")
+        localStorage.removeItem("auth")
+        localStorage.removeItem("jwt")
+        
+    }
     return (
-        //@ts-ignore
-        <AuthContext.Provider value={{auth, setAuth}}>
+        <AuthContext.Provider value={{ auth, setAuth, persist, setPersist, clearAuth }}>
             {children}
         </AuthContext.Provider>)
 }

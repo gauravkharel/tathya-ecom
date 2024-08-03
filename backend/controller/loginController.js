@@ -71,7 +71,7 @@ const handleLogin = async (req, res) => {
       create: {
         userId,
         token: refreshToken,
-        expiresAt: new Date(Date.now() + 10 * 60 * 60 * 1000),
+          expiresAt: new Date(Date.now() + 10 * 60 * 60 * 1000),
       },
     });
 

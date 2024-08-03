@@ -1,4 +1,7 @@
-{
+INSERT INTO gender (id, name) VALUES
+(1, 'Men'),
+(2, 'Women'),
+(3, 'Unisex');{
     "clientName": "Thunder Client",
     "collectionName": "tathya-v2-api",
     "collectionId": "867fbe39-d21a-4322-8727-8050b414337e",

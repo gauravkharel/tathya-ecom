@@ -58,12 +58,19 @@ export function RegsiterUserForm() {
     },
   })
 
-  const {mutate: register, isPending, isError, error} = useRegister()
+  const {mutate: register, isPending, isError, error} = useRegister({
+    onSuccess: () => {
+      router.push('/products')
+    },
+    onError: (error) => {
+      console.error(error)
+    }
+  }
+  )
 
   const onSubmit = async (values: UserRequest) => {
     const { firstname, lastname, email, password } = values
     register({ firstname, lastname, email, password })
-    router.push('/login')
   }
 
   return (
@@ -80,7 +87,12 @@ export function RegsiterUserForm() {
           </FormInput>
         )
         }
-        <Button type="submit">Submit</Button>
+        <Button type="submit">
+        {isPending ? 'Signing up...' : 'Submit'}
+        </Button>
+        {isError && <div className="text-red-700">{error?.message}</div>}
+
+
       </form>
     </Form>
   )
