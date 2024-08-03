@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss"
+  import type { Config } from "tailwindcss"
 
 const config = {
   darkMode: ["class"],
@@ -18,6 +18,9 @@ const config = {
       },
     },
     extend: {
+      backgroundImage: {
+        'bg-login' : "url('../public/banne.jpg')",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

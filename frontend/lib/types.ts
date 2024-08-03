@@ -15,6 +15,10 @@ export interface AuthType {
 
 export interface AuthContextType {
   auth: AuthType;
+  setAuth: React.Dispatch<React.SetStateAction<AuthType>>;
+  persist: boolean;
+  setPersist: React.Dispatch<React.SetStateAction<boolean>>;
+  clearAuth: () => void;  
 }
 
 export interface ErrorResponse {
@@ -22,13 +26,4 @@ export interface ErrorResponse {
     data: string;
 }
 
-export interface ProductType{
-  name: string;
-  description: string;
-  price: number;
-  imageUrl: string;
-  brandId: number;
-  genderId: number;
-  categoryId: number;
-}
-  
+

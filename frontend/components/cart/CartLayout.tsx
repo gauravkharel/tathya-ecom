@@ -1,7 +1,6 @@
 "use client"
 import { FC, useState } from 'react'
 import { Card } from '../ui/Card'
-import Title from '../ui/Title'
 import CartItem from './CartItem'
 import { CartType } from '@/lib/type/cart.type'
 import { useCart } from '@/providers/CartProvider'

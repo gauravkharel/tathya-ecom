@@ -2,14 +2,11 @@
 import { Headset, Heart, HelpCircleIcon, MapIcon, MapPin, Search, ShoppingBag, ShoppingBagIcon, ShoppingCart, Smile, StoreIcon, User2Icon } from 'lucide-react'
 import Link from 'next/link'
 import { FC } from 'react'
-import MainLogo from '../public/logo.svg'
+import MainLogo from '../public/Logo-lockup.png'
 import Image from 'next/image'
-<<<<<<< refs/remotes/origin/feat/cart
-=======
 import SearchBar from './product/SearchBar'
 import Logout from './auth/Logout'
 import { useCart } from '@/providers/CartProvider'
->>>>>>> local
 interface MenubarProps {
 
 }
@@ -28,8 +25,8 @@ const Navbar = ({ }) => {
             priority
             src={MainLogo}
             alt='logo'
-            width={50}
-            height={50}
+            width={200}
+            height={200}
           />
         </Link>
         {/* for small devices */}
@@ -61,10 +58,7 @@ const Navbar = ({ }) => {
         {/* login/profile component*/}
         <div className='sm:flex hidden flex-row gap-4 '>
           <Heart size={28}>like</Heart>
-<<<<<<< refs/remotes/origin/feat/cart
-          <User2Icon size={28}>user</User2Icon>
-          <ShoppingBag size={28}>cart</ShoppingBag>
-=======
+
           <Logout />
           <Link href={'/cart'}>
             <ShoppingCart fill='white' size={28}>cart</ShoppingCart>
@@ -72,19 +66,18 @@ const Navbar = ({ }) => {
               <div className='relative z-[-1] left-4 bottom-9 w-5 h-5 rounded-full bg-red-600'><span className='relative bottom-1 pl-1.5 text-xs font-bold text-white'>{cart.length}</span></div>
             }
           </Link>
->>>>>>> local
         </div>
       </div>
 
       <div className='pt-4 container text-lg border-b border-zinc-200 max-w-7xl h-full mx-auto sm:flex items-start justify-start gap-3 hidden'>
-        <div className='font-bold'>ALL</div>
-        <div >WOMEN</div>
+        <Link href={'/products'} className='font-bold'>ALL</Link>
+        <div>WOMEN</div>
         <div>MEN</div>
         <div>KIDS</div>
       </div>
       <div className='container text-base max-w-7xl h-full mx-auto sm:flex justify-between gap-2 hidden'>
         <div>Empty for now | nav later</div>
-        <div>Search</div>
+        <SearchBar />
       </div>
     </header>
   )

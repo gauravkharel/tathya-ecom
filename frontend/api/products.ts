@@ -1,23 +1,18 @@
 import useAxiosPrivate from "@/hooks/use-axios-interceptor";
-import axios from "axios";
-import { ProductType } from "@/lib/validators/product";
-import { useQuery } from "@tanstack/react-query";
+import { ProductAPIType, ProductType } from "@/lib/validators/product";
+import { useMutation, UseMutationResult, useQuery } from "@tanstack/react-query";
+
 const Endpoint = "products";
 
-export function useGetProducts(){
+export function useGetProducts() {
   const axiosPrivate = useAxiosPrivate();
-
-  const getProducts = async(id:number) => {
-    return (await axiosPrivate.get<ProductType[]>(Endpoint)).data
+  const getProducts = async () => {
+    const response = await axiosPrivate.get<ProductAPIType[]>(Endpoint);
+    return response.data;
   }
-  
   return useQuery({
     queryKey: ['products'],
-    //@ts-ignore
     queryFn: getProducts,
-<<<<<<< refs/remotes/origin/feat/cart
-    refetchOnWindowFocus: false
-=======
     refetchOnWindowFocus: false,
     staleTime: Infinity
   })
@@ -69,29 +64,25 @@ export function useAddNewProduct(options?: {
       console.error(error);
       options?.onError?.(error);
     }
->>>>>>> local
+
   })
 }
 
 
-<<<<<<< refs/remotes/origin/feat/cart
-=======
 export function useDeleteProduct(options?: {
   onSuccess?: (data: ProductAPIType) => void;
   onError?: (error: any) => void;
 }): UseMutationResult<ProductAPIType, Error, ProductAPIType> {
   const axiosPrivate = useAxiosPrivate()
-
-  const deleteProduct = async (data: ProductAPIType) => {
+  const addProduct = async (data: ProductAPIType) => {
     const { id } = data;
     const response = await axiosPrivate.delete<ProductAPIType>(`products/${id}`
     )
     console.log('data: ', response.data)
     return response.data;
   }
-
   return useMutation({
-    mutationFn: deleteProduct,
+    mutationFn: addProduct,
     throwOnError: true,
     onSuccess: (data) => {
       options?.onSuccess?.(data);
@@ -104,4 +95,3 @@ export function useDeleteProduct(options?: {
   })
 }
 
->>>>>>> local

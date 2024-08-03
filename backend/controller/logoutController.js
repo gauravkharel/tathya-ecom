@@ -19,7 +19,7 @@ const handleLogout = async ( req, res ) => {
   console.log('foundUser')
 
   if (!foundUser) {
-    res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true });
+    res.clearCookies("jwt", { httpOnly: true, sameSite: "None", secure: true });
     return res.sendStatus(204);
   }
 

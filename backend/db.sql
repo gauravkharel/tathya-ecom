@@ -1,8 +1,5 @@
 INSERT INTO roles (name) VALUES ('user'), ('admin'),('editor');
 
-<<<<<<< refs/remotes/origin/feat/cart
-select u.email, r.name, r.id from users u full outer join roles r on u."roleId" = r.id where r.id = 1;
-=======
 select u.email, r.name, r.id from users u full outer join roles r on u."roleId" = r.id where r.id = 1;
 
 -- using chatgpt to generate sql data
@@ -72,51 +69,50 @@ INSERT INTO clothing (name, description, price, stock, "brandId", "genderId", "c
 
 
 -- Ensure the foreign key references are correct and present in your database.
--- User ID: c0906bf7-96d8-40f0-8674-08dab1bc8092
+-- User ID: 58cd9f7d-7534-4c75-ba17-4886fe7c47f4
 -- Clothing IDs: from 240 to 289
 
 INSERT INTO orderitem (id,"userId", "clothingId", quantity, "orderDate", "shippingAddress", "billingAddress", "orderStatus", "paymentStatus", "paymentMethod", "totalPrice", "taxAmount", "shippingCost", "discountAmount", "trackingNumber", "estimatedDeliveryDate", comments) VALUES
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 240, 2, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 100.00, 8.00, 5.00, NULL, 'TRACK12345', NULL, 'First order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 241, 1, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 50.00, 4.00, 5.00, NULL, 'TRACK12346', NULL, 'Second order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 242, 3, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 150.00, 12.00, 5.00, 10.00, 'TRACK12347', NULL, 'Third order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 243, 4, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 200.00, 16.00, 5.00, 15.00, 'TRACK12348', NULL, 'Fourth order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 244, 2, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 100.00, 8.00, 5.00, NULL, 'TRACK12349', NULL, 'Fifth order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 245, 1, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 60.00, 4.80, 5.00, NULL, 'TRACK12350', NULL, 'Sixth order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 246, 5, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 300.00, 24.00, 5.00, 20.00, 'TRACK12351', NULL, 'Seventh order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 247, 3, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 180.00, 14.40, 5.00, 10.00, 'TRACK12352', NULL, 'Eighth order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 248, 2, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 120.00, 9.60, 5.00, NULL, 'TRACK12353', NULL, 'Ninth order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 249, 4, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 250.00, 20.00, 5.00, 15.00, 'TRACK12354', NULL, 'Tenth order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 250, 2, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 100.00, 8.00, 5.00, NULL, 'TRACK12355', NULL, 'Eleventh order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 251, 1, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 60.00, 4.80, 5.00, NULL, 'TRACK12356', NULL, 'Twelfth order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 252, 5, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 300.00, 24.00, 5.00, 20.00, 'TRACK12357', NULL, 'Thirteenth order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 253, 3, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 180.00, 14.40, 5.00, 10.00, 'TRACK12358', NULL, 'Fourteenth order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 254, 2, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 120.00, 9.60, 5.00, NULL, 'TRACK12359', NULL, 'Fifteenth order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 255, 4, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 250.00, 20.00, 5.00, 15.00, 'TRACK12360', NULL, 'Sixteenth order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 256, 2, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 100.00, 8.00, 5.00, NULL, 'TRACK12361', NULL, 'Seventeenth order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 257, 1, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 60.00, 4.80, 5.00, NULL, 'TRACK12362', NULL, 'Eighteenth order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 258, 5, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 300.00, 24.00, 5.00, 20.00, 'TRACK12363', NULL, 'Nineteenth order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 259, 3, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 180.00, 14.40, 5.00, 10.00, 'TRACK12364', NULL, 'Twentieth order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 260, 2, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 100.00, 8.00, 5.00, NULL, 'TRACK12365', NULL, 'Twenty-first order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 261, 1, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 60.00, 4.80, 5.00, NULL, 'TRACK12366', NULL, 'Twenty-second order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 262, 5, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 300.00, 24.00, 5.00, 20.00, 'TRACK12367', NULL, 'Twenty-third order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 263, 3, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 180.00, 14.40, 5.00, 10.00, 'TRACK12368', NULL, 'Twenty-fourth order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 264, 2, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 120.00, 9.60, 5.00, NULL, 'TRACK12369', NULL, 'Twenty-fifth order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 265, 4, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 250.00, 20.00, 5.00, 15.00, 'TRACK12370', NULL, 'Twenty-sixth order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 266, 2, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 100.00, 8.00, 5.00, NULL, 'TRACK12371', NULL, 'Twenty-seventh order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 267, 1, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 60.00, 4.80, 5.00, NULL, 'TRACK12372', NULL, 'Twenty-eighth order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 268, 5, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 300.00, 24.00, 5.00, 20.00, 'TRACK12373', NULL, 'Twenty-ninth order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 269, 3, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 180.00, 14.40, 5.00, 10.00, 'TRACK12374', NULL, 'Thirtieth order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 270, 2, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 100.00, 8.00, 5.00, NULL, 'TRACK12375', NULL, 'Thirty-first order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 271, 1, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 60.00, 4.80, 5.00, NULL, 'TRACK12376', NULL, 'Thirty-second order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 272, 5, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 300.00, 24.00, 5.00, 20.00, 'TRACK12377', NULL, 'Thirty-third order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 273, 3, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 180.00, 14.40, 5.00, 10.00, 'TRACK12378', NULL, 'Thirty-fourth order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 274, 2, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 120.00, 9.60, 5.00, NULL, 'TRACK12379', NULL, 'Thirty-fifth order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 275, 4, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 250.00, 20.00, 5.00, 15.00, 'TRACK12380', NULL, 'Thirty-sixth order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 276, 2, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 100.00, 8.00, 5.00, NULL, 'TRACK12381', NULL, 'Thirty-seventh order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 277, 1, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 60.00, 4.80, 5.00, NULL, 'TRACK12382', NULL, 'Thirty-eighth order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 278, 5, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 300.00, 24.00, 5.00, 20.00, 'TRACK12383', NULL, 'Thirty-ninth order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 279, 3, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 180.00, 14.40, 5.00, 10.00, 'TRACK12384', NULL, 'Fortieth order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 280, 2, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 100.00, 8.00, 5.00, NULL, 'TRACK12385', NULL, 'Forty-first order comment'),
-(uuid_generate_v4(),'c0906bf7-96d8-40f0-8674-08dab1bc8092', 281, 1, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 60.00, 4.80, 5.00, NULL, 'TRACK12386', NULL, 'Forty-second order comment');
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 240, 2, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 100.00, 8.00, 5.00, NULL, 'TRACK12345', NULL, 'First order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 241, 1, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 50.00, 4.00, 5.00, NULL, 'TRACK12346', NULL, 'Second order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 242, 3, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 150.00, 12.00, 5.00, 10.00, 'TRACK12347', NULL, 'Third order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 243, 4, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 200.00, 16.00, 5.00, 15.00, 'TRACK12348', NULL, 'Fourth order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 244, 2, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 100.00, 8.00, 5.00, NULL, 'TRACK12349', NULL, 'Fifth order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 245, 1, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 60.00, 4.80, 5.00, NULL, 'TRACK12350', NULL, 'Sixth order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 246, 5, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 300.00, 24.00, 5.00, 20.00, 'TRACK12351', NULL, 'Seventh order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 247, 3, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 180.00, 14.40, 5.00, 10.00, 'TRACK12352', NULL, 'Eighth order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 248, 2, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 120.00, 9.60, 5.00, NULL, 'TRACK12353', NULL, 'Ninth order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 249, 4, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 250.00, 20.00, 5.00, 15.00, 'TRACK12354', NULL, 'Tenth order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 250, 2, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 100.00, 8.00, 5.00, NULL, 'TRACK12355', NULL, 'Eleventh order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 251, 1, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 60.00, 4.80, 5.00, NULL, 'TRACK12356', NULL, 'Twelfth order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 252, 5, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 300.00, 24.00, 5.00, 20.00, 'TRACK12357', NULL, 'Thirteenth order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 253, 3, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 180.00, 14.40, 5.00, 10.00, 'TRACK12358', NULL, 'Fourteenth order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 254, 2, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 120.00, 9.60, 5.00, NULL, 'TRACK12359', NULL, 'Fifteenth order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 255, 4, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 250.00, 20.00, 5.00, 15.00, 'TRACK12360', NULL, 'Sixteenth order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 256, 2, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 100.00, 8.00, 5.00, NULL, 'TRACK12361', NULL, 'Seventeenth order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 257, 1, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 60.00, 4.80, 5.00, NULL, 'TRACK12362', NULL, 'Eighteenth order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 258, 5, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 300.00, 24.00, 5.00, 20.00, 'TRACK12363', NULL, 'Nineteenth order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 259, 3, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 180.00, 14.40, 5.00, 10.00, 'TRACK12364', NULL, 'Twentieth order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 260, 2, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 100.00, 8.00, 5.00, NULL, 'TRACK12365', NULL, 'Twenty-first order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 261, 1, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 60.00, 4.80, 5.00, NULL, 'TRACK12366', NULL, 'Twenty-second order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 262, 5, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 300.00, 24.00, 5.00, 20.00, 'TRACK12367', NULL, 'Twenty-third order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 263, 3, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 180.00, 14.40, 5.00, 10.00, 'TRACK12368', NULL, 'Twenty-fourth order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 264, 2, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 120.00, 9.60, 5.00, NULL, 'TRACK12369', NULL, 'Twenty-fifth order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 265, 4, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 250.00, 20.00, 5.00, 15.00, 'TRACK12370', NULL, 'Twenty-sixth order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 266, 2, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 100.00, 8.00, 5.00, NULL, 'TRACK12371', NULL, 'Twenty-seventh order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 267, 1, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 60.00, 4.80, 5.00, NULL, 'TRACK12372', NULL, 'Twenty-eighth order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 268, 5, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 300.00, 24.00, 5.00, 20.00, 'TRACK12373', NULL, 'Twenty-ninth order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 269, 3, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 180.00, 14.40, 5.00, 10.00, 'TRACK12374', NULL, 'Thirtieth order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 270, 2, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 100.00, 8.00, 5.00, NULL, 'TRACK12375', NULL, 'Thirty-first order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 271, 1, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 60.00, 4.80, 5.00, NULL, 'TRACK12376', NULL, 'Thirty-second order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 272, 5, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 300.00, 24.00, 5.00, 20.00, 'TRACK12377', NULL, 'Thirty-third order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 273, 3, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 180.00, 14.40, 5.00, 10.00, 'TRACK12378', NULL, 'Thirty-fourth order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 274, 2, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 120.00, 9.60, 5.00, NULL, 'TRACK12379', NULL, 'Thirty-fifth order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 275, 4, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 250.00, 20.00, 5.00, 15.00, 'TRACK12380', NULL, 'Thirty-sixth order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 276, 2, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 100.00, 8.00, 5.00, NULL, 'TRACK12381', NULL, 'Thirty-seventh order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 277, 1, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 60.00, 4.80, 5.00, NULL, 'TRACK12382', NULL, 'Thirty-eighth order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 278, 5, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 300.00, 24.00, 5.00, 20.00, 'TRACK12383', NULL, 'Thirty-ninth order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 279, 3, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 180.00, 14.40, 5.00, 10.00, 'TRACK12384', NULL, 'Fortieth order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 280, 2, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'ESEWA', 100.00, 8.00, 5.00, NULL, 'TRACK12385', NULL, 'Forty-first order comment'),
+(uuid_generate_v4(),'58cd9f7d-7534-4c75-ba17-4886fe7c47f4', 281, 1, now(), '123 Shipping St.', '456 Billing Blvd.', 'PENDING', 'PENDING', 'CREDIT_CARD', 60.00, 4.80, 5.00, NULL, 'TRACK12386', NULL, 'Forty-second order comment');
 
->>>>>>> local

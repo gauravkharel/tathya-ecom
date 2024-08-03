@@ -63,15 +63,11 @@ const getAllProducts = async (req, res) => {
 
 const getSingleProduct = async (req, res) => {
   try {
-    const {id}  = req.params;
-    console.log('productId: ',id)
+
+    const { id } = req.params;
+
     const existingProduct = await prisma.clothing.findUnique({
       where: { id: parseInt(id) },
-      include: {
-        brand: true,
-        gender: true,
-        category: true,
-      },
     });
 
     if (!existingProduct) {

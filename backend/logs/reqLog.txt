@@ -12520,8 +12520,11 @@
 20240531	14:11:31	0a062473-276b-42b4-b685-0d5aa569abae	GET	http://localhost:3000	/refresh
 20240531	14:11:31	445925e5-a3d9-4e1a-83a2-ca3b24739448	GET	http://localhost:3000	/refresh
 20240531	14:11:31	267ee94c-98c9-4bf9-aa7a-7f5ffb0c4c5f	GET	http://localhost:3000	/products
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/feat/cart
 =======
+=======
+>>>>>>> main
 20240531	14:18:19	19a262cf-7f34-4e3f-b5e9-c5d16539fb01	GET	http://localhost:3000	/refresh
 20240531	14:18:19	4f27b3fe-d263-435c-bb16-b4a5e4c5a320	OPTIONS	http://localhost:3000	/products
 20240531	14:18:19	dbe93d65-7486-45c1-a48c-059a637c1b3d	GET	http://localhost:3000	/products
@@ -13896,6 +13899,7 @@
 20240724	12:19:08	1b0fa6a1-11f1-4fed-b026-5fb418982445	GET	http://localhost:3000	/refresh
 20240724	12:19:08	101673d5-7dac-4de2-9dd7-b66d02559d83	GET	http://localhost:3000	/products
 20240724	12:19:09	617dc0e4-cc2e-42c8-9b0b-493aeea0ecfa	GET	http://localhost:3000	/products
+<<<<<<< HEAD
 20240724	18:25:16	90e739d1-c32f-46bf-ac74-41ab2e81f563	GET	http://localhost:3000	/logout
 20240724	18:27:01	82705b75-d7ae-4e80-a633-02969c570035	OPTIONS	http://localhost:3000	/login
 20240724	18:27:01	e8fcdf7b-fb32-452d-b8de-9eae6e21c1b0	POST	http://localhost:3000	/login
@@ -15977,4 +15981,3 @@
 20240803	16:10:11	d3a3ccc7-46f8-4744-bc04-f8a5d2b70622	OPTIONS	http://localhost:3000	/carts
 20240803	16:10:11	7e3ec716-c8c4-41bc-9633-e7dbdbc91e2a	DELETE	http://localhost:3000	/carts
 20240803	16:10:11	84df027e-3df4-4cd0-a824-646727b4a977	GET	http://localhost:3000	/carts
->>>>>>> local

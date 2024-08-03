@@ -6,10 +6,12 @@ assert(
     process.env.NEXT_PUBLIC_API_BASE_URL,
     "env variable not set: NEXT_PUBLIC_API_BASE_URL"
 )
+Axios.defaults.withCredentials = true;
 
 export default Axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_BASE_URL
 })
+
 const controller = new AbortController();
 
 export const axiosPrivate = Axios.create({

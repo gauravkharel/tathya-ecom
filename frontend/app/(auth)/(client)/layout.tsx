@@ -1,12 +1,9 @@
 import type { Metadata } from "next";
 import PersistLogin from "@/components/PersistLogin";
 import AuthProviders from "@/providers/AuthProvider";
-import Providers from "@/providers/QueryProvider";
 import Navbar from "@/components/Navbar";
 import { Toaster } from "@/components/ui/Toaster";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { CartProvider } from "@/providers/CartProvider";
-
 
 export const metadata: Metadata = {
     title: "Products",

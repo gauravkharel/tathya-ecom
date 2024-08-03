@@ -1,34 +1,8 @@
-"use client";
-
-import { LucideArrowLeft, LucideArrowRight, LucideX } from "lucide-react";
-import { Button } from "../ui/Button";
-import { Card } from "../ui/Card";
-<<<<<<< refs/remotes/origin/feat/cart
-
-interface CartItemProps {
-    name: string,
-    id: number,
-    color: string,
-    size: number,
-    count: number,
-    price: number 
-}
-
-const CartItem = ({  name, id, color, size, count, price }: CartItemProps) => {
-  
-    return (
-     <>
-        <Card>
-            <h2>{name}</h2>
-            <p><span>{count}</span></p>
-        </Card>
-     </>
-    )
-=======
 import Image from "next/image";
 import { Input } from "../ui/Input";
 import { useCart } from "@/providers/CartProvider";
 import { useState } from "react";
+import { Card } from "../ui/Card";
 
 interface CartItemProps {
     name?: string,

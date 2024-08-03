@@ -1,8 +1,5 @@
 #### Tathya Fullstack Ecommerce App v2
-<<<<<<< refs/remotes/origin/feat/cart
-=======
-An Ecommerce App where businesses from Nepal sell products anywhere in the world. 
->>>>>>> local
+A basic ecommerce app but, with a lot of hope 😅
 
 ### Tech Stack Used (PERN Stack)
 - React
@@ -25,6 +22,7 @@ An Ecommerce App where businesses from Nepal sell products anywhere in the world
 
 [6. Uploadthing working as a wrapper for S3: Illustration](https://github.com/pingdotgg/uploadthing/blob/main/assets/Diagram.png)
 
+[7.How to push Docker Postgres image with persistent data?] (https://seration.medium.com/how-to-push-docker-postgres-image-with-persistent-data-777783df09cb)
 
 
 ### Developing feature by feature from backend to frontend (Also, product flow or, say, user story.)
@@ -39,11 +37,18 @@ An Ecommerce App where businesses from Nepal sell products anywhere in the world
         + Product detail layout with filters
         
 3. Cart and, orders
-- User can add anything to card and, have option to select product from cart to later, order. 
+- Users browse through products and, add items to the cart. User can actively choose the products to add to cart from the products listing and, through product description. User can remove or, add product so as the quantity of the products. 
+
+##### Out of scope for now. 
+- We can implement newsletter such as if the cart is stale for a while using a timer which awares to take action which varies but, optmistic to make users engage more in the website by giving discounts and, making stuffs more lucrative.  
+- We can add recommendation engines to recommend the products using our products stats and, categorizing users on the basis of the buying behaviour. 
+- We can purposefully implement a blockchain based review system to review the products while user being annonymous to have a blueprint of how product performed over years. And, to which we can have a more open community of users who discussed to improve the products and, create a healthy environment. 
+- We can use the payment integration and, package detection methods to improvise users experience.x
 
 #### Employers end
 1. Product management
 2. Order managment
+- Admin can view all the orders and, can use filter to look through the products as the recent one, or, through status such as pending, success and, so on. 
 3. Dashboard
 
 ### Just JWT stuff

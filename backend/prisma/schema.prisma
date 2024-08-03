@@ -21,7 +21,7 @@ model User {
 
   refreshToken RefreshToken?
   cartItem     CartItem[]
-  order        Order[]
+  orderItem    OrderItem[]
 
   role   Role @relation(fields: [roleId], references: [id])
   roleId Int
@@ -50,21 +50,82 @@ model RefreshToken {
   @@map("refreshtoken")
 }
 
-// using denormalized approach for now for sizes and, colors. 
-// if it needs to improvised later, we will do that. 
+model Clothing {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String?
+  price       Float
+  imageUrl    String?
+  stock       Float
+
+  brand   Brand @relation(fields: [brandId], references: [id])
+  brandId Int
+
+  gender   Gender @relation(fields: [genderId], references: [id])
+  genderId Int
+
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+
+  cartItem  CartItem[]
+  orderItem OrderItem[]
+
+  @@map("clothing")
+}
+
+// Define the CartItem model to represent the items added to a user's shopping cart
+model CartItem {
+  id         String   @id @default(uuid())
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  clothing   Clothing @relation(fields: [clothingId], references: [id])
+  clothingId Int
+  quantity   Int
+  createdAt  DateTime @default(now())
+
+  @@map("cart")
+}
+
+// Define the OrderItem model to represent the individual items within each order
+model OrderItem {
+  id String @id @default(uuid())
+
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  clothing   Clothing @relation(fields: [clothingId], references: [id])
+  clothingId Int
+
+  quantity              Int
+  orderDate             DateTime      @default(now())
+  shippingAddress       String
+  billingAddress        String?
+  orderStatus           OrderStatus   @default(PENDING)
+  paymentStatus         PaymentStatus @default(PENDING)
+  paymentMethod         PaymentMethod
+  totalPrice            Float
+  taxAmount             Float
+  shippingCost          Float
+  discountAmount        Float?
+  trackingNumber        String?
+  estimatedDeliveryDate DateTime?
+  comments              String?
+
+  @@map("orderitem")
+}
 
 model Brand {
   id       Int        @id @default(autoincrement())
   name     String     @unique
   clothing Clothing[]
 
-  @@map("brand")  
+  @@map("brand")
 }
 
 model Gender {
   id       Int        @id @default(autoincrement())
   name     String     @unique
   clothing Clothing[]
+
   @@map("gender")
 }
 
@@ -76,61 +137,23 @@ model Category {
   @@map("category")
 }
 
-model Clothing {
-  id          Int     @id @default(autoincrement())
-  name        String
-  description String?
-  price       Float
-  imageUrl    String?
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELED
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+enum PaymentMethod {
   
-  brand   Brand @relation(fields: [brandId], references: [id])
-  brandId Int
-
-  gender   Gender @relation(fields: [genderId], references: [id])
-  genderId Int
-
-  category Category @relation(fields: [categoryId], references: [id])
-  categoryId Int
-
-  cartItem  CartItem[]
-  orderItem OrderItem[]
-
-  @@map("clothing")
-}
-
-// Define the CartItem model to represent the items added to a user's shopping cart
-model CartItem {
-  id         Int      @id @default(autoincrement())
-  user       User     @relation(fields: [userId], references: [id])
-  userId     String
-  clothing   Clothing @relation(fields: [clothingId], references: [id])
-  clothingId Int
-  quantity   Int
-  createdAt  DateTime @default(now())
-
-  @@map("cart")
-}
-
-// Define the Order model to store information about completed orders
-model Order {
-  id          Int         @id @default(autoincrement())
-  user        User        @relation(fields: [userId], references: [id])
-  userId      String
-  totalAmount Float
-  createdAt   DateTime    @default(now())
-  // Define the relationship with order items
-  items       OrderItem[]
-
-  @@map("order")
-}
-
-// Define the OrderItem model to represent the individual items within each order
-model OrderItem {
-  id         Int      @id @default(autoincrement())
-  order      Order    @relation(fields: [orderId], references: [id])
-  orderId    Int
-  clothing   Clothing @relation(fields: [clothingId], references: [id])
-  clothingId Int
-  quantity   Int
-  price      Float
+  ESEWA
+  BANK_TRANSFER
 }
