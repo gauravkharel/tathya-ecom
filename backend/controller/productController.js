@@ -1,6 +1,8 @@
 const prisma = require("../lib/db");
 
 const getAllProducts = async (req, res) => {
+  const userId = req.userId
+  console.log('User Id from product controller',userId)
   try {
     if (!req.query.take) {
       req.query.take = 10;
@@ -61,6 +63,7 @@ const getAllProducts = async (req, res) => {
 
 const getSingleProduct = async (req, res) => {
   try {
+
     const { id } = req.params;
 
     const existingProduct = await prisma.clothing.findUnique({

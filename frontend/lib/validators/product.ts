@@ -29,6 +29,7 @@ export interface ProductAPIType {
   price?: number;
   imageUrl?: string;
   brand?: { name?: string };
-  genderId?: number;
-  categoryId?: number;
+  gender?: { name?: string };
+  category?: { name?: string };
 }
+

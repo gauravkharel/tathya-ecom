@@ -1,10 +1,16 @@
 "use client"
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { Card } from '../ui/Card'
 import CartItem from './CartItem'
-
+import { CartType } from '@/lib/type/cart.type'
+import { useCart } from '@/providers/CartProvider'
+import { Delete, Trash2 } from 'lucide-react'
+import { Button } from '../ui/Button'
+import { useQueryClient } from '@tanstack/react-query'
+import { useDeleteCartItems } from '@/api/cart'
+import { useToast } from '@/hooks/use-toast'
 interface CartLayoutProps {
-
+  id: String
 }
 
 const CartLayout: FC<CartLayoutProps> = ({ }) => {

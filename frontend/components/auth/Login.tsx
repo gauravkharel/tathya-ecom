@@ -31,7 +31,7 @@ const formObj = [
 const LoginForm = () => {
   console.log("email: wokeantro@outlook.com", "password: 2817928913131")
   const router = useRouter();
-  const toast = useToast()
+  const {toast} = useToast()
   const form = useForm<LoginRequest>({
     resolver: zodResolver(LoginValidator),
     defaultValues: {
@@ -46,6 +46,11 @@ const LoginForm = () => {
     },
     onError: (error) => {
       console.error(error)
+      toast({
+        title: `${error}`,
+        description: `${error.response.data}`,
+        variant: 'destructive'
+      })
     }
   });
 
@@ -66,11 +71,10 @@ const LoginForm = () => {
           >
             <Input type={formEle.type} placeholder={formEle.placeholder} />
           </FormInput>
-        )}
-        <Button className="bg-blue-600 hover:bg-blue-500" type="submit" disabled={isPending}>
-          {isPending ? 'Logging in...' : 'Login'}
-        </Button>
-        {isError && <div className=" text-red-700">{error?.message}</div>}
+        )
+        }
+        <Button type="submit" disabled={isPending}>{isPending ? 'Logging in...' : 'Login'}</Button>
+        {isError && <div>{error?.message}</div>}
       </form>
     </Form>
   );

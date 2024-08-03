@@ -54,3 +54,12 @@ A basic ecommerce app but, with a lot of hope 😅
 ### Just JWT stuff
 ![How JWT is implemented](images/jwt.png)
 
+
+### Problems
+1. Cart Problem
+Cart should retrieve from API and store in react context. And the context should update add to cart function and update cart in the backend and in the frontend over other component. 
+As we used react-query to fetch the cart, the cart needs to get updated in each add to cart function call as cart data is updated. 
+We already had the react query provided to all the component. 
+
+
+

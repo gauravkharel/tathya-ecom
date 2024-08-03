@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import PersistLogin from "@/components/PersistLogin";
 import AuthProviders from "@/providers/AuthProvider";
-import Providers from "@/providers/QueryProvider";
 import Navbar from "@/components/Navbar";
 import { Toaster } from "@/components/ui/Toaster";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-
+import { CartProvider } from "@/providers/CartProvider";
 
 export const metadata: Metadata = {
     title: "Products",
@@ -20,17 +18,16 @@ export default function Layout({
     return (
         <>
             <AuthProviders>
-                <Providers>
-                    <Navbar />
-                    <div className='container max-w-7xl mx-auto h-full pt-12 '>
-                        <PersistLogin>
-                            {/* @ts-ignore */}
-                            {children}
-                        </PersistLogin>
-                    </div>
-                    <Toaster />
-
-                </Providers>
+                    <CartProvider>
+                        <Navbar />
+                        <div className='container max-w-7xl mx-auto h-full pt-12 '>
+                            <PersistLogin>
+                                {/* @ts-ignore */}
+                                {children}
+                            </PersistLogin>
+                        </div>
+                        <Toaster />
+                    </CartProvider>
             </AuthProviders>
         </>
 
