@@ -31,6 +31,10 @@ const formObj = [
 const LoginForm = () => {
   console.log("email: wokeantro@gmail.com", "password: 2817928913131")
   const router = useRouter();
+<<<<<<< refs/remotes/origin/feat/cart
+=======
+  const {toast} = useToast()
+>>>>>>> local
   const form = useForm<LoginRequest>({
     resolver: zodResolver(LoginValidator),
     defaultValues: {
@@ -38,7 +42,24 @@ const LoginForm = () => {
       password: ""
     }
   })
+<<<<<<< refs/remotes/origin/feat/cart
   const { mutate: login, isPending, isError, error } = useLogin();
+=======
+
+  const { mutate: login, isPending, isError, error } = useLogin({
+    onSuccess: () => {
+      router.push('/products')
+    },
+    onError: (error) => {
+      console.error(error)
+      toast({
+        title: `${error}`,
+        description: `${error.response.data}`,
+        variant: 'destructive'
+      })
+    }
+  });
+>>>>>>> local
 
   const onSubmit = async (values: LoginRequest) => {
     const { email, password } = values
@@ -58,10 +79,19 @@ const LoginForm = () => {
           >
             <Input type={formEle.type} placeholder={formEle.placeholder} />
           </FormInput>
+<<<<<<< refs/remotes/origin/feat/cart
         )
         }
         <Button type="submit" disabled={isPending}>{isPending ? 'Logging in...' : 'Login'}</Button>
         {isError && <div>{error?.message}</div>}
+=======
+        )}
+        <Button className="bg-blue-600 hover:bg-blue-500" type="submit" disabled={isPending}>
+          {isPending ? 'Logging in...' : 'Login'}
+        </Button>
+        {/* @ts-ignore */}
+        {isError && <div className=" text-red-700">{error?.response?.data}</div>}
+>>>>>>> local
       </form>
     </Form>
   )

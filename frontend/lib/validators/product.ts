@@ -20,4 +20,19 @@ export const ProductValidator = z.object({
     }).optional()
   })
 
+<<<<<<< refs/remotes/origin/feat/cart
   export type ProductType = z.infer<typeof ProductValidator>
+=======
+export type ProductType = z.infer<typeof ProductValidator>
+
+export interface ProductAPIType {
+  id?: string;
+  name: string;
+  description?: string;
+  price?: number;
+  imageUrl?: string;
+  brand?: { name?: string };
+  gender?: { name?: string };
+  category?: { name?: string };
+}
+>>>>>>> local

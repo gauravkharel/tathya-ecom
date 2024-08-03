@@ -1,14 +1,24 @@
 'use client'
-import { Headset, Heart, HelpCircleIcon, MapIcon, MapPin, Search, ShoppingBag, Smile, StoreIcon, User2Icon } from 'lucide-react'
+import { Headset, Heart, HelpCircleIcon, MapIcon, MapPin, Search, ShoppingBag, ShoppingBagIcon, ShoppingCart, Smile, StoreIcon, User2Icon } from 'lucide-react'
 import Link from 'next/link'
 import { FC } from 'react'
 import MainLogo from '../public/logo.svg'
 import Image from 'next/image'
+<<<<<<< refs/remotes/origin/feat/cart
+=======
+import SearchBar from './product/SearchBar'
+import Logout from './auth/Logout'
+import { useCart } from '@/providers/CartProvider'
+>>>>>>> local
 interface MenubarProps {
 
 }
 
 const Navbar = ({ }) => {
+  const { cart } = useCart();
+
+  if (!cart) return <p>Loading cart...</p>;
+
   return (
     <header className=" sticky overflow-hidden top-0 inset-x-0 h-fit bg-white border-b border-zinc-300 z-[10] py-2">
       {/* ads above navbar */}
@@ -49,10 +59,20 @@ const Navbar = ({ }) => {
           </div>
         </div>
         {/* login/profile component*/}
-        <div className='sm:flex hidden flex-row gap-2 '>
+        <div className='sm:flex hidden flex-row gap-4 '>
           <Heart size={28}>like</Heart>
+<<<<<<< refs/remotes/origin/feat/cart
           <User2Icon size={28}>user</User2Icon>
           <ShoppingBag size={28}>cart</ShoppingBag>
+=======
+          <Logout />
+          <Link href={'/cart'}>
+            <ShoppingCart fill='white' size={28}>cart</ShoppingCart>
+            {cart.length == 0 ? <></> :
+              <div className='relative z-[-1] left-4 bottom-9 w-5 h-5 rounded-full bg-red-600'><span className='relative bottom-1 pl-1.5 text-xs font-bold text-white'>{cart.length}</span></div>
+            }
+          </Link>
+>>>>>>> local
         </div>
       </div>
 
