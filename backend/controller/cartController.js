@@ -156,6 +156,36 @@ const updateCartItem = async (req, res) => {
   }
 };
 
+const deleteCartItems = async (req, res) => {
+  try {
+    const { cartIds } = req.body;
+    if (!cartIds || !Array.isArray(cartIds)) {
+      return res.status(400).json({ message: "Cart IDs are required and should be an array" });
+    }
+
+    const deleteItems = await prisma.cartItem.deleteMany({
+      where: {
+        id: {
+          in: cartIds,
+        },
+      },
+    });
+
+    if (deleteItems.count === 0) {
+      return res.status(404).json({ message: "No items found to delete" });
+    }
+
+    res.status(204).json({
+      message: `${deleteItems.count} item(s) removed from your cart.`,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+module.exports = deleteCartItems;
+
 
 module.exports = {
   addProductToCart,
@@ -164,4 +194,5 @@ module.exports = {
   deleteCartItem,
   deleteAllCarts,
   updateCartItem,
+  deleteCartItems
 };
