@@ -63,7 +63,6 @@ const getAllProducts = async (req, res) => {
 
 const getSingleProduct = async (req, res) => {
   try {
-
     const { id } = req.params;
 
     const existingProduct = await prisma.clothing.findUnique({

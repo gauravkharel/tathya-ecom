@@ -22,6 +22,7 @@ const verifyJWT = async (req, res, next) => {
     }
     
     req.userId = findUser.id;
+    console.log(req.userId)
     next();
   } catch (err) {
     console.error(err);

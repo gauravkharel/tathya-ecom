@@ -3,7 +3,6 @@ const prisma = require("../lib/db");
 const getCarts = async (req, res) => {
   try {
     const { userId } = req.query;
-
     let carts;
     if (userId) {
       carts = await prisma.cartItem.findMany({
@@ -17,6 +16,7 @@ const getCarts = async (req, res) => {
       });
       
       if (!carts || carts.length === 0) {
+        console.log("CartItems: ", carts)
         return res.status(404).json({ message: "No carts found for the specified user." });
       }
     } else {
@@ -31,7 +31,6 @@ const getCarts = async (req, res) => {
         return res.status(404).json({ message: "No carts found." });
       }
     }
-
     return res.status(200).json(carts);
   } catch (err) {
     return res.status(500).json({ message: "Internal server error" });
@@ -63,13 +62,14 @@ const getCartItem = async (req, res) => {
 
 const addProductToCart = async (req, res) => {
   try {
-    const { productId, userId, quantity } = req.body;
-    if (!productId || !userId || !quantity) {
-      return res.status(400).json({ message: 'Product ID, User ID, and Quantity are required' });
+    const userId = req.userId;
+    const { clothingId, quantity } = req.body;
+    if (!clothingId || !quantity) {
+      return res.status(400).json({ message: 'Product ID, and Quantity are required' });
     }
     const existingCartItem = await prisma.cartItem.findFirst({
       where: {
-        clothingId: productId,
+        clothingId: parseInt(clothingId),
         userId: userId,
       }
     });
@@ -80,7 +80,7 @@ const addProductToCart = async (req, res) => {
 
     const productToCart = await prisma.cartItem.create({
       data: {
-        clothingId: productId,
+        clothingId: parseInt(clothingId),
         userId: userId,
         quantity: quantity,
       }
@@ -159,6 +159,7 @@ const updateCartItem = async (req, res) => {
 const deleteCartItems = async (req, res) => {
   try {
     const { cartIds } = req.body;
+    console.log(cartIds)
     if (!cartIds || !Array.isArray(cartIds)) {
       return res.status(400).json({ message: "Cart IDs are required and should be an array" });
     }
@@ -169,7 +170,7 @@ const deleteCartItems = async (req, res) => {
           in: cartIds,
         },
       },
-    });
+    }); 
 
     if (deleteItems.count === 0) {
       return res.status(404).json({ message: "No items found to delete" });
