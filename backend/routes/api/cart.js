@@ -5,7 +5,7 @@ const cartController = require("../../controller/cartController");
 router
   .route("/")
   .get(cartController.getCarts)
-  .delete(cartController.deleteAllCarts)
+  .delete(cartController.deleteCartItems)
   .post(cartController.addProductToCart)
 
   router
