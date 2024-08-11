@@ -1,14 +1,15 @@
-import Product from "@/components/product/Product"
+import Product from "@/components/product/Product";
 
 interface PageProps {
   params: {
-    productId: number
-  }
-}
-const page = ({ params }: { params: { productId: number } }) => {
-  return (
-    <><Product productId={params.productId} /></>
-  )
+    productId: number;
+  };
 }
 
-export default page
+const Page: React.FC<PageProps> = ({ params }) => {
+  return (
+    <Product id={params.productId} />
+  );
+};
+
+export default Page;

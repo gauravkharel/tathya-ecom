@@ -7,9 +7,8 @@ import { useCart } from '@/providers/CartProvider';
 const AddProductButton = ({clothingId}:any) => {
   const { addProductToCart } = useCart();
   const [product, setProduct] = useState<CartType>({
-    clothingId: 0,
-    userId: 'c0906bf7-96d8-40f0-8674-08dab1bc8092',
-    quantity: 1,
+    clothingId: clothingId,
+    quantity: 1
   });
 
   const handleAddProduct = () => {

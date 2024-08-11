@@ -18,21 +18,20 @@ export function useGetProducts() {
   })
 }
 
-export function useGetProduct(id:number){
-const axiosPrivate = useAxiosPrivate()
 
+export function useGetProduct(productId: number) {
+  const axiosPrivate = useAxiosPrivate();
   const getProduct = async () => {
-    const response = await axiosPrivate.get<ProductAPIType>(`products/${id}`);
-    console.log('data: ',  response.data)
+    const response = await axiosPrivate.get<ProductAPIType>(`/products/${productId}`);
     return response.data;
-  }
+  };
 
   return useQuery({
-    queryKey: ['product'],
+    queryKey: ['product', productId],
     queryFn: getProduct,
-    refetchOnWindowFocus: true,
-    
-  })
+    // Only fetch if productId is not null or undefined
+    enabled: !!productId, 
+  });
 }
 
 export function useAddNewProduct(options?: {
@@ -40,7 +39,6 @@ export function useAddNewProduct(options?: {
   onError?: (error: any) => void;
 }): UseMutationResult<ProductType, Error, ProductType> {
   const axiosPrivate = useAxiosPrivate()
-
   const addProduct = async (data: ProductType) => {
     const { name, price, images, brand, genderId, description } = data;
     const response = await axiosPrivate.post<ProductType>(Endpoint,
