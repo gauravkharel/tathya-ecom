@@ -2,7 +2,6 @@ const prisma = require("../lib/db");
 
 const getAllProducts = async (req, res) => {
   const userId = req.userId
-  console.log('User Id from product controller',userId)
   try {
     if (!req.query.take) {
       req.query.take = 10;
