@@ -1,19 +1,20 @@
 "use client";
 
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Card } from '../ui/Card';
 import CartItem from './CartItem';
 import { useCart } from '@/providers/CartProvider';
 import { Delete } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { isEmptyArray } from '@/lib/utils';
-import { useGetCart } from '@/api/cart';
+import { useDeleteCartItems, useGetCart } from '@/api/cart';
+import EmptyCart from './EmptyCart';
+import { useToast } from '@/hooks/use-toast';
 
 const CartLayout: FC = () => {
-  const { cart, deleteCartItems } = useCart(); 
-  const {refetch} = useGetCart()
+  const { cart, deleteCartItems  } = useCart();
+  const { refetch, } = useGetCart()
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
-
   const handleCheck = (id: string) => {
     setCheckedItems((prev) => [...prev, id]);
   };
@@ -22,13 +23,15 @@ const CartLayout: FC = () => {
     setCheckedItems((prev) => prev.filter((item) => item !== id));
   };
 
-  const handleDeleteAll = () => {
+  const handleDeleteAll =  () => {
     if (checkedItems.length > 0) {
       deleteCartItems(checkedItems);
       setCheckedItems([]);
+      console.log('checked',checkedItems)
       refetch()
     }
   };
+
 
   return (
     <>
@@ -42,7 +45,7 @@ const CartLayout: FC = () => {
       <div className='flex flex-row gap-4'>
         <div className='w-2/3'>
           {isEmptyArray(cart) ? (
-            <p>Your cart is empty</p>
+            <EmptyCart />
           ) : (
             cart.map((cartItem) => (
               <CartItem
@@ -57,15 +60,20 @@ const CartLayout: FC = () => {
             ))
           )}
         </div>
+
         <div className='w-1/3'>
-          <Card className='p-8'>
-            <h1>Order Summary</h1>
-            <span>Subtotal: {/* Calculate subtotal */}</span>
-            <span>Shipping fee: {/* Calculate shipping fee */}</span>
-            <span>Shipping fee discount: {/* Calculate discount */}</span>
-            <span>Total: {/* Calculate total */}</span>
-            <Button>Proceed to checkout</Button>
-          </Card>
+          {isEmptyArray(cart) ? (<></>) :
+            (
+              <Card className='p-8'>
+                <h1>Order Summary</h1>
+                <span>Subtotal: {/* Calculate subtotal */}</span>
+                <span>Shipping fee: {/* Calculate shipping fee */}</span>
+                <span>Shipping fee discount: {/* Calculate discount */}</span>
+                <span>Total: {/* Calculate total */}</span>
+                <Button>Proceed to checkout</Button>
+              </Card>
+            )
+          }
         </div>
       </div>
     </>

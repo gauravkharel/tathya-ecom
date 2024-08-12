@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { CartType } from '@/lib/type/cart.type';
 import { useCart } from '@/providers/CartProvider';
+import { Button } from '../ui/Button';
 
 const AddProductButton = ({clothingId}:any) => {
   const { addProductToCart } = useCart();
@@ -18,7 +19,7 @@ const AddProductButton = ({clothingId}:any) => {
   };
   return (
     <div>
-      <button onClick={handleAddProduct}>Add to Cart</button>
+      <Button variant={'outline'} className='px-10' onClick={handleAddProduct}>Add to Cart</Button>
     </div>
   );
 }

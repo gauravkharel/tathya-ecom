@@ -14,8 +14,8 @@ export function useGetCart() {
   return useQuery({
     queryKey: [Endpoint],
     queryFn: getCart,
-    refetchOnWindowFocus: false,
-    staleTime: Infinity
+    refetchOnWindowFocus: true,
+    staleTime: 0
   })
 }
 
@@ -63,7 +63,6 @@ export function useDeleteCartItems(options?: {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true
     });
-    console.log(response.data)
     return response.data;
   }
 

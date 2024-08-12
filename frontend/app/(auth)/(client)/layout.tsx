@@ -16,20 +16,17 @@ export default function Layout({
     children: React.ReactNode;
 }>) {
     return (
-        <>
             <AuthProviders>
-                    <CartProvider>
-                        <Navbar />
-                        <div className='container max-w-7xl mx-auto h-full pt-12 '>
-                            <PersistLogin>
-                                {/* @ts-ignore */}
-                                {children}
-                            </PersistLogin>
-                        </div>
-                        <Toaster />
-                    </CartProvider>
+                <CartProvider>
+                    <Navbar />
+                    <div className='container max-w-7xl mx-auto h-full pt-12 '>
+                        <PersistLogin>
+                            {/* @ts-ignore */}
+                            {children}
+                        </PersistLogin>
+                    </div>
+                    <Toaster />
+                </CartProvider>
             </AuthProviders>
-        </>
-
     );
 }

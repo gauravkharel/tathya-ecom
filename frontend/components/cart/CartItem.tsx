@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { Card } from "../ui/Card";
 import { FC, useState } from "react";
+import { useCart } from "@/providers/CartProvider";
+import { useGetCart } from "@/api/cart";
 
 interface CartItemProps {
   name: string | 'Waka';

@@ -14,7 +14,6 @@ interface MenubarProps {
 
 const Navbar = ({ }) => {
   const { cart } = useCart();
-  console.log(cart)
   return (
     <header className=" sticky overflow-hidden top-0 inset-x-0 h-fit bg-white border-b border-zinc-300 z-[10] py-2">
       {/* ads above navbar */}
@@ -61,8 +60,9 @@ const Navbar = ({ }) => {
           <Logout />
           <Link href={'/cart'}>
             <ShoppingCart fill='white' size={28}>cart</ShoppingCart>
-            
-              <div className='relative z-[-1] left-4 bottom-9 w-5 h-5 rounded-full bg-red-600'><span className='relative bottom-1 pl-1.5 text-xs font-bold text-white'></span></div>
+              {isEmptyArray(cart) ? <></> : 
+              <div className='relative z-[-1] left-4 bottom-9 w-5 h-5 rounded-full bg-red-600'><span className='relative bottom-1 pl-1.5 text-xs font-bold text-white'>{cart.length}</span></div>
+              }
             
           </Link>
           

@@ -17,7 +17,7 @@ const getCarts = async (req, res) => {
       
       if (!carts || carts.length === 0) {
         console.log("CartItems: ", carts)
-        return res.status(404).json({ message: "No carts found for the specified user." });
+        return res.status(204).json({ message: "No carts found for the specified user." });
       }
     } else {
       carts = await prisma.cartItem.findMany({
