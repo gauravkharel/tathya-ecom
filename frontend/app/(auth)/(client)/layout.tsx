@@ -19,7 +19,7 @@ export default function Layout({
             <AuthProviders>
                 <CartProvider>
                     <Navbar />
-                    <div className='container max-w-7xl mx-auto h-full pt-12 '>
+                    <div className='container max-w-7xl mx-auto h-full pt-2 '>
                         <PersistLogin>
                             {/* @ts-ignore */}
                             {children}

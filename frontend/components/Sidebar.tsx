@@ -3,7 +3,7 @@
 import { MoreVertical, ChevronLast, ChevronFirst, ArrowUpNarrowWideIcon, Shirt, ShoppingBag, UsersRound, Settings2 } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { useContext, createContext, useState } from "react"
+import { useContext, createContext, useState, ReactComponentElement, ReactElement } from "react"
 import MainLogo from '../public/logo.svg'
 
 //@ts-ignore
@@ -14,7 +14,7 @@ export default function Sidebar() {
     const [active, isActive] = useState(false)
     return (
         <aside className="h-screen">
-            <nav className="h-full  flex flex-col bg-white border-r shadow-sm">
+            <nav className="h-full flex flex-col bg-white border-r shadow-sm">
                 <div className="p-4 pb-2 flex justify-between items-center">
                     {expanded ? <Image
                         priority
@@ -89,9 +89,20 @@ export default function Sidebar() {
     )
 }
 
-export function SidebarItem({ icon, url, active, text, alert }) {
-    const { expanded } = useContext(SidebarContext)
 
+interface SiderbarItemProps{
+    icon: ReactElement | undefined,
+    url: string,
+    active?: boolean,
+    text: string,
+    alert: boolean
+}
+
+
+
+export function SidebarItem({ icon, url, active, text, alert }: SiderbarItemProps) {
+    const { expanded } = useContext(SidebarContext)
+    
     return (
         <Link href={url} >
             <li className={`

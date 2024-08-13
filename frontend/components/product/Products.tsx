@@ -19,6 +19,7 @@ const Products = (): JSX.Element => {
     const observerRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
+        let observerRefValue = null;
         const observer = new IntersectionObserver(
             (entries) => {
                 if (entries[0].isIntersecting && hasNextPage) {
@@ -33,9 +34,8 @@ const Products = (): JSX.Element => {
         }
 
         return () => {
-            if (observerRef.current) {
-                
-                observer.unobserve(observerRef.current);
+            if (observerRefValue) {
+                observer.unobserve(observerRefValue);
             }
         };
     }, [hasNextPage, fetchNextPage]);

@@ -10,6 +10,7 @@ import { isEmptyArray } from '@/lib/utils';
 import { useDeleteCartItems, useGetCart } from '@/api/cart';
 import EmptyCart from './EmptyCart';
 import { useToast } from '@/hooks/use-toast';
+import Title from '../ui/Title';
 
 const CartLayout: FC = () => {
   const { cart, deleteCartItems  } = useCart();
@@ -35,7 +36,7 @@ const CartLayout: FC = () => {
 
   return (
     <>
-      <h1>Your cart</h1>
+      <Title>Your cart</Title>
       {checkedItems.length > 0 && (
         <Button onClick={handleDeleteAll}>
           <Delete />

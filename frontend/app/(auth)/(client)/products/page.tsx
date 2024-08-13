@@ -1,24 +1,22 @@
-import Image from 'next/image'
-import { Card } from '@/components/ui/Card'
 import Products from '@/components/product/Products'
 import Category from '@/components/product/Category'
 
-const page = (): any => {
+const Page = (): any => {
     return (
-        <div >
-            <span className='text-xl font-medium'>
-                Shop your way out
-                <br/>
-                Breadcrumbs
-                <br/>
-                Image here
-            </span>
-            <div className='flex flex-row '>
-                <div className='w-1/3'>
-                    <Category />
+        <div className=''>
+            <div className='sticky top-0 rounded-lg bg-gray-500 text-white'>
+                <div className='p-4'>
+                    <span className='text-xl font-medium'>Breadcrumbs</span>
                 </div>
-                <div className='w-2/3'>
-                    <div className='grid lg:grid-cols-3 md:grid-cols-3 grid-cols-2'>
+            </div>
+            <div className='grid grid-cols-6 gap-4 mt-8'>
+                <div className='col-span-1'>
+                    <div className='sticky top-[80px]'> 
+                        <Category />
+                    </div>
+                </div>
+                <div className='col-span-5'>
+                    <div className='grid lg:grid-cols-3 md:grid-cols-3 grid-cols-2 gap-4'>
                         <Products />
                     </div>
                 </div>
@@ -27,4 +25,4 @@ const page = (): any => {
     )
 }
 
-export default page
+export default Page
