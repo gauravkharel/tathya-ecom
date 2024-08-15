@@ -4,7 +4,7 @@ import Category from '@/components/product/Category'
 const Page = (): any => {
     return (
         <div className=''>
-            <div className='sticky top-0 rounded-lg bg-gray-500 text-white'>
+            <div className='sticky top-0 rounded-lg bg-white text-black'>
                 <div className='p-4'>
                     <span className='text-xl font-medium'>Breadcrumbs</span>
                 </div>
