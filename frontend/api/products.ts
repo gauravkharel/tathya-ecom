@@ -1,23 +1,29 @@
 import useAxiosPrivate from "@/hooks/use-axios-interceptor";
 import { ProductAPIType, ProductType } from "@/lib/validators/product";
-import { useMutation, UseMutationResult, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation, UseMutationResult, useQuery } from "@tanstack/react-query";
 
 const Endpoint = "products";
 
 export function useGetProducts() {
   const axiosPrivate = useAxiosPrivate();
-  const getProducts = async () => {
-    const response = await axiosPrivate.get<ProductAPIType[]>(Endpoint);
+
+  const getProducts = async ({ pageParam = 0 }) => {
+    const response = await axiosPrivate.get<ProductAPIType[]>(`products?skip=${pageParam}&take=10`);
     return response.data;
-  }
-  return useQuery({
+  };
+
+  return useInfiniteQuery({
     queryKey: ['products'],
     queryFn: getProducts,
+    getNextPageParam: (lastPage, allPages) => {
+      if (lastPage.length === 0) return undefined; 
+      return allPages.length * 10;
+    },
+    initialPageParam: 0,
     refetchOnWindowFocus: false,
-    staleTime: Infinity
-  })
+    staleTime: Infinity,
+  });
 }
-
 
 export function useGetProduct(productId: number) {
   const axiosPrivate = useAxiosPrivate();

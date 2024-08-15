@@ -1,54 +1,89 @@
-"use client"
-import { useGetProducts } from '@/api/products'
-import { isEmptyArray } from '@/lib/utils'
-import { ProductAPIType } from '@/lib/validators/product'
-import Image from 'next/image'
-import Link from 'next/link'
+"use client";
+import { useGetProducts } from '@/api/products';
+import { isEmptyArray } from '@/lib/utils';
+import { ProductAPIType } from '@/lib/validators/product';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useEffect, useRef } from 'react';
 
 const Products = (): JSX.Element => {
-    const { data, isLoading, error } = useGetProducts()
+    const {
+        data,
+        isLoading,
+        error,
+        fetchNextPage,
+        hasNextPage,
+        isFetchingNextPage
+    } = useGetProducts();
+
+    const observerRef = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        let observerRefValue = null;
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (entries[0].isIntersecting && hasNextPage) {
+                    fetchNextPage();
+                }
+            },
+            { threshold: 1.0 }
+        );
+
+        if (observerRef.current) {
+            observer.observe(observerRef.current);
+        }
+
+        return () => {
+            if (observerRefValue) {
+                observer.unobserve(observerRefValue);
+            }
+        };
+    }, [hasNextPage, fetchNextPage]);
 
     if (isLoading) {
-        return <div>Loading</div>
+        return <div>Loading</div>;
     }
 
     if (error) {
-        return <div>Error loading products: {error.message}</div>
+        return <div>Error loading products: {error.message}</div>;
     }
 
-    if (!data || isEmptyArray(data)) {
-        return <div>No products available</div>
+    if (!data || isEmptyArray(data.pages)) {
+        return <div>No products available</div>;
     }
 
     return (
         <>
-            {data.map((product: ProductAPIType) => (
-                <Product
-                    imageUrl="https://picsum.photos/id/237/200/300"
-                    key={product.id}
-                    name={product.name}
-                    id={product.id}
-                    brand={product.brand}
-                    price={product.price}
-                />
-            ))}
+            {data.pages.map((page) =>
+                page.map((product: ProductAPIType) => (
+                    <Product
+                        imageUrl="https://picsum.photos/id/237/200/300"
+                        key={product.id}
+                        name={product.name}
+                        id={product.id}
+                        brand={product.brand}
+                        price={product.price}
+                    />
+                ))
+            )}
+            {/* this ref div calls fetchNextPage */}
+            <div ref={observerRef} style={{ height: 20 }}></div>
 
-            
+            {isFetchingNextPage && <div>Loading more...</div>}
         </>
-    )
-}
+    );
+};
 
 interface ProductProps {
     id?: string;
     imageUrl: string;
     name: string;
-    brand?: { name?: string }; // Assuming brand is an object with a name property
+    brand?: { name?: string }; 
     price?: number;
 }
 
 const Product = ({ id, imageUrl, name, brand, price }: ProductProps): JSX.Element => {
     return (
-        <>
         <Link href={`/products/${id}`} key={id}>
             <div>
                 <div>
@@ -63,8 +98,7 @@ const Product = ({ id, imageUrl, name, brand, price }: ProductProps): JSX.Elemen
                 </div>
             </div>
         </Link>
-        </>
-    )
-}
+    );
+};
 
-export default Products
+export default Products;

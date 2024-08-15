@@ -10,6 +10,7 @@ import { isEmptyArray } from '@/lib/utils';
 import { useDeleteCartItems, useGetCart } from '@/api/cart';
 import EmptyCart from './EmptyCart';
 import { useToast } from '@/hooks/use-toast';
+import Title from '../ui/Title';
 
 const CartLayout: FC = () => {
   const { cart, deleteCartItems  } = useCart();
@@ -27,7 +28,6 @@ const CartLayout: FC = () => {
     if (checkedItems.length > 0) {
       deleteCartItems(checkedItems);
       setCheckedItems([]);
-      console.log('checked',checkedItems)
       refetch()
     }
   };
@@ -35,12 +35,9 @@ const CartLayout: FC = () => {
 
   return (
     <>
-      <h1>Your cart</h1>
+      <Title>Your cart</Title>
       {checkedItems.length > 0 && (
-        <Button onClick={handleDeleteAll}>
-          <Delete />
-          Delete Selected
-        </Button>
+          <Delete onClick={handleDeleteAll} />
       )}
       <div className='flex flex-row gap-4'>
         <div className='w-2/3'>

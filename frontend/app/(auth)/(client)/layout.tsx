@@ -4,6 +4,7 @@ import AuthProviders from "@/providers/AuthProvider";
 import Navbar from "@/components/Navbar";
 import { Toaster } from "@/components/ui/Toaster";
 import { CartProvider } from "@/providers/CartProvider";
+import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
     title: "Products",
@@ -19,11 +20,12 @@ export default function Layout({
             <AuthProviders>
                 <CartProvider>
                     <Navbar />
-                    <div className='container max-w-7xl mx-auto h-full pt-12 '>
+                    <div className='container max-w-7xl mx-auto h-full pt-2 '>
                         <PersistLogin>
                             {/* @ts-ignore */}
                             {children}
                         </PersistLogin>
+                    <Footer />
                     </div>
                     <Toaster />
                 </CartProvider>

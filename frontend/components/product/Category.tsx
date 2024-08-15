@@ -6,11 +6,13 @@ interface CategoryProps {
 
 const Category: FC<CategoryProps> = ({ }) => {
   return (
-    <div>
+    <div className='sticky h-10'>
       <div>Browse by category</div>
-      <div> list of category</div>
-      
+      <div>
+        <div>
 
+        </div>
+      </div>
     </div>
   )
 }
