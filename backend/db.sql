@@ -4,35 +4,76 @@ select u.email, r.name, r.id from users u full outer join roles r on u."roleId" 
 
 -- using chatgpt to generate sql data
 -- Insert sample brands
-INSERT INTO brand (name) VALUES
-('Gucci'),
-('Prada'),
-('Nike'),
-('Adidas'),
-('Puma');
 
-INSERT INTO category (id, name) VALUES
-(14, 'Tiia'),
-(15, 'GUU Stran'),
-(16, 'GKgod'),
-(17, 'Tulips'),
-(18, 'YaTa');
+insert into roles (name) values ('User'), ('Admin'), ('Store');
 
-INSERT INTO category (id, name) VALUES
-(8, 'Tig');
--- Insert sample genders
-INSERT INTO gender (id, name) VALUES
-(1, 'Men'),
-(2, 'Women'),
-(3, 'Unisex');
+INSERT INTO brand (id, name) VALUES
+(1, 'Levi''s'),
+(2, 'Nike'),
+(3, 'Zara'),
+(4, 'Adidas'),
+(5, 'H&M'),
+(6, 'Gucci'),
+(7, 'Patagonia'),
+(8, 'Calvin Klein'),
+(9, 'Gap'),
+(10, 'Old Navy'),
+(11, 'Ralph Lauren'),
+(12, 'Tommy Hilfiger'),
+(13, 'Under Armour'),
+(14, 'Uniqlo'),
+(15, 'Supreme'),
+(16, 'Forever 21'),
+(17, 'Abercrombie & Fitch'),
+(18, 'Hollister'),
+(19, 'American Eagle Outfitters'),
+(20, 'Victoria''s Secret');
 
--- Insert sample categories
-INSERT INTO category (name) VALUES
-('Shirts'),
-('Pants'),
-('Shoes'),
-('Jackets'),
-('Accessories');
+-- Top-level categories
+INSERT INTO categories (id, name, parentId) VALUES
+(1, 'Women''s Clothing', NULL),
+(2, 'Men''s Clothing', NULL),
+(3, 'Kids'' Clothing', NULL);
+
+-- Women's subcategories
+INSERT INTO categories (id, name, parentId) VALUES
+(101, 'Dresses', 1),
+(102, 'Tops', 1),
+(103, 'Bottoms', 1),
+(104, 'Outerwear', 1),
+(105, 'Swimwear', 1);
+
+-- Men's subcategories
+INSERT INTO categories (id, name, parentId) VALUES
+(201, 'Shirts', 2),
+(202, 'Pants', 2),  
+(203, 'Suits', 2),
+(204, 'Outerwear', 2),
+(205, 'Swimwear', 2);
+
+-- Kids' subcategories
+INSERT INTO categories (id, name, parentId) VALUES
+(301, 'Girls', 3),
+(302, 'Boys', 3),
+(303, 'Babies', 3);
+
+-- Further nesting for Women's Dresses
+INSERT INTO categories (id, name, parentId) VALUES
+(1001, 'Casual Dresses', 101),
+(1002, 'Formal Dresses', 101),
+(1003, 'Maxi Dresses', 101);
+
+-- Further nesting for Men's Shirts
+INSERT INTO categories (id, name, parentId) VALUES
+(2001, 'T-Shirts', 201),
+(2002, 'Dress Shirts', 201),
+(2003, 'Polo Shirts', 201);
+
+-- Further nesting for Kids' Girls
+INSERT INTO categories (id, name, parentId) VALUES
+(3001, 'Girls'' Dresses', 301),
+(3002, 'Girls'' Tops', 301),
+(3003, 'Girls'' Bottoms', 301);
 
 
 INSERT INTO clothing (name, description, price, stock, "brandId", "genderId", "categoryId")

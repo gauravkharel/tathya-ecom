@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,20 +8,18 @@ datasource db {
 }
 
 model User {
-  id              String  @id @default(uuid())
-  firstName       String  @map("first_name")
-  lastName        String? @map("last_name")
-  profileImageUrl String? @map("profile_image_url")
-  email           String  @unique
+  id              String        @id @default(uuid())
+  firstName       String        @map("first_name")
+  lastName        String?       @map("last_name")
+  profileImageUrl String?       @map("profile_image_url")
+  email           String        @unique
   password        String
   salt            String
-
-  refreshToken RefreshToken?
-  cartItem     CartItem[]
-  orderItem    OrderItem[]
-
-  role   Role @relation(fields: [roleId], references: [id])
-  roleId Int
+  roleId          Int
+  cartItems       CartItem[]
+  orderitem       orderitem[]
+  refreshToken    RefreshToken?
+  role            Role          @relation(fields: [roleId], references: [id])
 
   @@map("users")
 }
@@ -37,64 +32,73 @@ model Role {
   @@map("roles")
 }
 
-// Define the RefreshToken model to store refresh tokens associated with user sessions
 model RefreshToken {
   id        Int      @id @default(autoincrement())
-  user      User     @relation(fields: [userId], references: [id])
   userId    String   @unique
   token     String   @unique
-  expiresAt DateTime @default(dbgenerated("now()"))
+  expiresAt DateTime @default(now())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
 
   @@map("refreshtoken")
 }
 
 model Clothing {
-  id          Int     @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
   name        String
   description String?
   price       Float
   imageUrl    String?
+  brandId     Int
+  categoryId  Int
+  genderId    Int
   stock       Float
-
-  brand   Brand @relation(fields: [brandId], references: [id])
-  brandId Int
-
-  gender   Gender @relation(fields: [genderId], references: [id])
-  genderId Int
-
-  category   Category @relation(fields: [categoryId], references: [id])
-  categoryId Int
-
-  cartItem  CartItem[]
-  orderItem OrderItem[]
+  cartItems   CartItem[]
+  brand       Brand       @relation(fields: [brandId], references: [id])
+  category    category    @relation(fields: [categoryId], references: [id])
+  gender      gender      @relation(fields: [genderId], references: [id])
+  orderitem   orderitem[]
 
   @@map("clothing")
 }
 
-// Define the CartItem model to represent the items added to a user's shopping cart
 model CartItem {
   id         String   @id @default(uuid())
-  user       User     @relation(fields: [userId], references: [id])
   userId     String
-  clothing   Clothing @relation(fields: [clothingId], references: [id])
   clothingId Int
   quantity   Int
   createdAt  DateTime @default(now())
+  clothing   Clothing @relation(fields: [clothingId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
 
   @@map("cart")
 }
 
-// Define the OrderItem model to represent the individual items within each order
-model OrderItem {
-  id String @id @default(uuid())
+model Brand {
+  id       Int        @id @default(autoincrement())
+  name     String     @unique
+  clothing Clothing[]
 
-  user       User     @relation(fields: [userId], references: [id])
-  userId     String
-  clothing   Clothing @relation(fields: [clothingId], references: [id])
-  clothingId Int
+  @@map("brand")
+}
 
+model category {
+  id       Int        @id @default(autoincrement())
+  name     String     @unique
+  clothing Clothing[]
+}
+
+model gender {
+  id       Int        @id @default(autoincrement())
+  name     String     @unique
+  clothing Clothing[]
+}
+
+model orderitem {
+  id                    String        @id
+  userId                String
+  clothingId            Int
   quantity              Int
   orderDate             DateTime      @default(now())
   shippingAddress       String
@@ -109,32 +113,8 @@ model OrderItem {
   trackingNumber        String?
   estimatedDeliveryDate DateTime?
   comments              String?
-
-  @@map("orderitem")
-}
-
-model Brand {
-  id       Int        @id @default(autoincrement())
-  name     String     @unique
-  clothing Clothing[]
-
-  @@map("brand")
-}
-
-model Gender {
-  id       Int        @id @default(autoincrement())
-  name     String     @unique
-  clothing Clothing[]
-
-  @@map("gender")
-}
-
-model Category {
-  id       Int        @id @default(autoincrement())
-  name     String     @unique
-  clothing Clothing[]
-
-  @@map("category")
+  clothing              Clothing      @relation(fields: [clothingId], references: [id])
+  users                 User          @relation(fields: [userId], references: [id])
 }
 
 enum OrderStatus {
@@ -153,7 +133,7 @@ enum PaymentStatus {
 }
 
 enum PaymentMethod {
-  
+  CREDIT_CARD
   ESEWA
   BANK_TRANSFER
 }
