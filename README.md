@@ -54,6 +54,8 @@ A basic ecommerce app but, with a lot of hope 😅
 ### Just JWT stuff
 ![How JWT is implemented](images/jwt.png)
 
+### DB Design
+![ER Diagram](images/tathya-er-diagram.png)
 
 ### Problems
 1. Cart Problem

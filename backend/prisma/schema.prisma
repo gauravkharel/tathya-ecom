@@ -1,3 +1,6 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,18 +11,23 @@ datasource db {
 }
 
 model User {
-  id              String        @id @default(uuid())
-  firstName       String        @map("first_name")
-  lastName        String?       @map("last_name")
-  profileImageUrl String?       @map("profile_image_url")
-  email           String        @unique
+  id              String  @id @default(uuid())
+  firstName       String  
+  lastName        String? 
+  profileImageUrl String? 
+  email           String  @unique
   password        String
   salt            String
-  roleId          Int
-  cartItems       CartItem[]
-  orderitem       orderitem[]
-  refreshToken    RefreshToken?
-  role            Role          @relation(fields: [roleId], references: [id])
+  phoneNumber     String?
+
+  refreshToken RefreshToken?
+  cartItems    CartItem[]
+  orders       Order[]
+  addresses    Address[]
+  payments     Payment[]
+
+  role   Role @relation(fields: [roleId], references: [id])
+  roleId Int
 
   @@map("users")
 }
@@ -34,45 +42,117 @@ model Role {
 
 model RefreshToken {
   id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
   userId    String   @unique
   token     String   @unique
-  expiresAt DateTime @default(now())
+  expiresAt DateTime @default(dbgenerated("now()"))
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id])
 
   @@map("refreshtoken")
 }
 
 model Clothing {
-  id          Int         @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   name        String
   description String?
   price       Float
   imageUrl    String?
-  brandId     Int
-  categoryId  Int
-  genderId    Int
   stock       Float
-  cartItems   CartItem[]
-  brand       Brand       @relation(fields: [brandId], references: [id])
-  category    category    @relation(fields: [categoryId], references: [id])
-  gender      gender      @relation(fields: [genderId], references: [id])
-  orderitem   orderitem[]
+
+  brand   Brand @relation(fields: [brandId], references: [id])
+  brandId Int
+
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+
+  cartItems  CartItem[]
+  orderItems OrderItem[]
 
   @@map("clothing")
 }
 
 model CartItem {
   id         String   @id @default(uuid())
+  user       User     @relation(fields: [userId], references: [id])
   userId     String
+  clothing   Clothing @relation(fields: [clothingId], references: [id])
   clothingId Int
   quantity   Int
   createdAt  DateTime @default(now())
-  clothing   Clothing @relation(fields: [clothingId], references: [id])
-  user       User     @relation(fields: [userId], references: [id])
 
   @@map("cart")
+}
+
+model Order {
+  id                    String        @id @default(uuid())
+  user                  User          @relation(fields: [userId], references: [id])
+  userId                String
+  orderDate             DateTime      @default(now())
+  orderStatus           OrderStatus   @default(PENDING)
+  paymentStatus         PaymentStatus @default(PENDING)
+  totalPrice            Float
+  taxAmount             Float
+  shippingCost          Float
+  discountAmount        Float?
+  trackingNumber        String?
+  estimatedDeliveryDate DateTime?
+  comments              String?
+
+  shippingAddress   Address? @relation("ShippingAddress", fields: [shippingAddressId], references: [id])
+  shippingAddressId String?
+
+  billingAddress   Address? @relation("BillingAddress", fields: [billingAddressId], references: [id])
+  billingAddressId String?
+
+  orderItems OrderItem[]
+  Payment    Payment[]
+
+  @@map("orders")
+}
+
+model Payment {
+  id             String        @id @default(uuid())
+  user           User          @relation(fields: [userId], references: [id])
+  userId         String
+  paymentMethod  PaymentMethod
+  paymentDetails Json?
+  isDefault      Boolean       @default(false)
+
+  order   Order?  @relation(fields: [orderId], references: [id])
+  orderId String?
+
+  @@map("payments")
+}
+
+model OrderItem {
+  id         String   @id @default(uuid())
+  order      Order    @relation(fields: [orderId], references: [id])
+  orderId    String
+  clothing   Clothing @relation(fields: [clothingId], references: [id])
+  clothingId Int
+  quantity   Int
+  price      Float
+
+  @@map("orderitems")
+}
+
+model Address {
+  id           String  @id @default(uuid())
+  user         User    @relation(fields: [userId], references: [id])
+  userId       String
+  addressLine1 String
+  addressLine2 String?
+  city         String
+  state        String
+  postalCode   String
+  country      String
+  isDefault    Boolean @default(false)
+
+  shippingOrders Order[] @relation("ShippingAddress")
+  billingOrders  Order[] @relation("BillingAddress")
+
+  @@map("addresses")
 }
 
 model Brand {
@@ -83,38 +163,18 @@ model Brand {
   @@map("brand")
 }
 
-model category {
-  id       Int        @id @default(autoincrement())
-  name     String     @unique
-  clothing Clothing[]
-}
+model Category {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String?
 
-model gender {
-  id       Int        @id @default(autoincrement())
-  name     String     @unique
-  clothing Clothing[]
-}
+  parent        Category?  @relation("SubCategories", fields: [parentId], references: [id])
+  parentId      Int?
+  subCategories Category[] @relation("SubCategories")
+  clothing      Clothing[]
 
-model orderitem {
-  id                    String        @id
-  userId                String
-  clothingId            Int
-  quantity              Int
-  orderDate             DateTime      @default(now())
-  shippingAddress       String
-  billingAddress        String?
-  orderStatus           OrderStatus   @default(PENDING)
-  paymentStatus         PaymentStatus @default(PENDING)
-  paymentMethod         PaymentMethod
-  totalPrice            Float
-  taxAmount             Float
-  shippingCost          Float
-  discountAmount        Float?
-  trackingNumber        String?
-  estimatedDeliveryDate DateTime?
-  comments              String?
-  clothing              Clothing      @relation(fields: [clothingId], references: [id])
-  users                 User          @relation(fields: [userId], references: [id])
+  @@unique([name, parentId])
+  @@map("categories")
 }
 
 enum OrderStatus {
@@ -133,7 +193,7 @@ enum PaymentStatus {
 }
 
 enum PaymentMethod {
-  CREDIT_CARD
   ESEWA
   BANK_TRANSFER
+  ETH
 }

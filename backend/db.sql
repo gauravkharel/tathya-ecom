@@ -30,13 +30,13 @@ INSERT INTO brand (id, name) VALUES
 (20, 'Victoria''s Secret');
 
 -- Top-level categories
-INSERT INTO categories (id, name, parentId) VALUES
-(1, 'Women''s Clothing', NULL),
-(2, 'Men''s Clothing', NULL),
-(3, 'Kids'' Clothing', NULL);
+INSERT INTO categories (id, name, "parentId") VALUES
+(1, 'Women', NULL),
+(2, 'Men', NULL),
+(3, 'Kids', NULL);
 
 -- Women's subcategories
-INSERT INTO categories (id, name, parentId) VALUES
+INSERT INTO categories (id, name, "parentId") VALUES
 (101, 'Dresses', 1),
 (102, 'Tops', 1),
 (103, 'Bottoms', 1),
@@ -44,7 +44,7 @@ INSERT INTO categories (id, name, parentId) VALUES
 (105, 'Swimwear', 1);
 
 -- Men's subcategories
-INSERT INTO categories (id, name, parentId) VALUES
+INSERT INTO categories (id, name, "parentId") VALUES
 (201, 'Shirts', 2),
 (202, 'Pants', 2),  
 (203, 'Suits', 2),
@@ -52,61 +52,73 @@ INSERT INTO categories (id, name, parentId) VALUES
 (205, 'Swimwear', 2);
 
 -- Kids' subcategories
-INSERT INTO categories (id, name, parentId) VALUES
+INSERT INTO categories (id, name, "parentId") VALUES
 (301, 'Girls', 3),
 (302, 'Boys', 3),
 (303, 'Babies', 3);
 
 -- Further nesting for Women's Dresses
-INSERT INTO categories (id, name, parentId) VALUES
-(1001, 'Casual Dresses', 101),
-(1002, 'Formal Dresses', 101),
-(1003, 'Maxi Dresses', 101);
+INSERT INTO categories (id, name, "parentId") VALUES
+(1001, 'Casuals', 101),
+(1002, 'Formals', 101),
+(1003, 'Maxi', 101);
 
 -- Further nesting for Men's Shirts
-INSERT INTO categories (id, name, parentId) VALUES
+INSERT INTO categories (id, name, "parentId") VALUES
 (2001, 'T-Shirts', 201),
 (2002, 'Dress Shirts', 201),
 (2003, 'Polo Shirts', 201);
 
 -- Further nesting for Kids' Girls
-INSERT INTO categories (id, name, parentId) VALUES
+INSERT INTO categories (id, name, "parentId") VALUES
 (3001, 'Girls'' Dresses', 301),
 (3002, 'Girls'' Tops', 301),
 (3003, 'Girls'' Bottoms', 301);
 
 
-INSERT INTO clothing (name, description, price, stock, "brandId", "genderId", "categoryId")
-VALUES
-('Gucci Shirt', 'Stylish Gucci shirt for men', 150.00, 50, 1, 1, 1),
-('Versace Dress', 'Elegant Versace dress for women', 300.00, 30, 2, 2, 2),
-('Nike Sneakers', 'Comfortable Nike sneakers', 120.00, 100, 3, 1, 3),
-('Adidas Hoodie', 'Warm Adidas hoodie for men', 80.00, 70, 4, 1, 4),
-('Calvin Klein Jeans', 'Classic Calvin Klein jeans', 90.00, 60, 5, 1, 5),
-('Chanel Perfume', 'Luxurious Chanel perfume', 250.00, 20, 6, 2, 6),
-('Tommy Hilfiger T-Shirt', 'Casual Tommy Hilfiger t-shirt', 50.00, 80, 7, 1, 7),
-('Prada Handbag', 'Fashionable Prada handbag', 500.00, 25, 8, 2, 8),
-('Hugo Boss Suit', 'Sophisticated Hugo Boss suit', 600.00, 10, 9, 1, 9),
-('Fendi Sunglasses', 'Trendy Fendi sunglasses', 180.00, 40, 10, 2, 10),
-('Louis Vuitton Belt', 'Luxury Louis Vuitton belt', 300.00, 35, 11, 1, 11),
-('Dolce & Gabbana Dress', 'Chic Dolce & Gabbana dress', 400.00, 15, 12, 2, 12),
-('Puma Joggers', 'Comfortable Puma joggers', 70.00, 90, 13, 1, 13),
-('Burberry Scarf', 'Stylish Burberry scarf', 120.00, 55, 14, 1, 14),
-('Armani Watch', 'Elegant Armani watch', 700.00, 5, 15, 1, 15),
-('Gucci Backpack', 'Fashionable Gucci backpack', 400.00, 30, 1, 1, 16),
-('Ralph Lauren Polo', 'Classic Ralph Lauren polo shirt', 80.00, 75, 2, 1, 17),
-('Michael Kors Handbag', 'Stylish Michael Kors handbag', 250.00, 18, 3, 2, 18),
-('Supreme Hoodie', 'Trendy Supreme hoodie', 150.00, 65, 4, 1, 1),
-('Givenchy Perfume', 'Luxurious Givenchy perfume', 280.00, 22, 5, 2, 2),
-('Balenciaga Sneakers', 'Fashionable Balenciaga sneakers', 350.00, 45, 6, 1, 2),
-('Alexander McQueen Jacket', 'Edgy Alexander McQueen jacket', 550.00, 12, 7, 1, 2),
-('Christian Dior Sunglasses', 'Stylish Christian Dior sunglasses', 320.00, 38, 8, 2, 2),
-('Yves Saint Laurent Dress', 'Elegant Yves Saint Laurent dress', 450.00, 8, 9, 2, 2),
-('Bottega Veneta Bag', 'Luxury Bottega Veneta bag', 600.00, 28, 10, 1, 2),
-('Hublot Watch', 'Luxurious Hublot watch', 900.00, 28, 10, 1, 2);
+INSERT INTO clothing (name, description, price, stock, "brandId", "categoryId") VALUES
+('Levi''s 501 Original Fit Jeans', 'Classic straight-leg jeans in durable denim.', 59.99, 100, 1, 202),
+('Nike Air Max 90', 'Iconic sneakers with a timeless design.', 129.99, 50, 2, 2001),
+('Zara Basic Blouse', 'Simple and elegant blouse for everyday wear.', 39.99, 75, 3, 102),
+('Adidas UltraBoost', 'High-performance running shoes with superior comfort.', 180.00, 60, 4, 2001),
+('H&M Cotton T-Shirt', 'Soft cotton T-shirt for casual outings.', 12.99, 200, 5, 201),
+('Gucci GG Marmont Shoulder Bag', 'Luxury shoulder bag with a classic design.', 1500.00, 10, 6, 101),
+('Patagonia Down Sweater', 'Lightweight, windproof, and warm jacket.', 229.00, 30, 7, 204),
+('Calvin Klein Slim Fit Suit', 'Modern and stylish slim fit suit.', 450.00, 20, 8, 203),
+('Gap Hoodie', 'Comfortable hoodie for everyday wear.', 49.99, 120, 9, 104),
+('Old Navy Swim Trunks', 'Quick-dry swim trunks with a comfortable fit.', 25.00, 80, 10, 205),
+('Ralph Lauren Polo Shirt', 'Classic polo shirt with the iconic logo.', 85.00, 40, 11, 2003),
+('Tommy Hilfiger Oxford Shirt', 'Timeless oxford shirt for formal occasions.', 75.00, 60, 12, 2002),
+('Under Armour Performance T-Shirt', 'Moisture-wicking T-shirt for active lifestyles.', 30.00, 90, 13, 2001),
+('Uniqlo Ultra Light Down Jacket', 'Compact and warm down jacket.', 69.90, 50, 14, 204),
+('Supreme Box Logo Hoodie', 'Iconic hoodie with the Supreme box logo.', 180.00, 25, 15, 104),
+('Forever 21 Skinny Jeans', 'Trendy skinny jeans for a sleek look.', 22.99, 150, 16, 103),
+('Abercrombie & Fitch Chinos', 'Versatile chinos for casual and formal wear.', 60.00, 70, 17, 202),
+('Hollister Graphic Tee', 'Casual graphic tee with a relaxed fit.', 20.00, 110, 18, 201),
+('American Eagle Outfitters Cargo Shorts', 'Comfortable cargo shorts with plenty of pockets.', 45.00, 65, 19, 202),
+('Victoria''s Secret Lace Bra', 'Elegant lace bra with a comfortable fit.', 55.00, 50, 20, 102),
+('Levi''s 721 High Rise Skinny Jeans', 'Figure-enhancing skinny jeans with a high rise.', 89.99, 100, 1, 103),
+('Nike Sportswear Club Fleece Hoodie', 'Soft and comfortable fleece hoodie.', 55.00, 75, 2, 104),
+('Zara Printed Dress', 'Stylish dress with a unique print.', 59.99, 80, 3, 101),
+('Adidas Trefoil T-Shirt', 'Classic T-shirt with the iconic Trefoil logo.', 30.00, 150, 4, 201),
+('H&M Denim Jacket', 'Casual denim jacket for a versatile look.', 49.99, 90, 5, 104),
+('Gucci Ace Sneakers', 'Luxury sneakers with a timeless design.', 650.00, 15, 6, 2001),
+('Patagonia Synchilla Fleece Pullover', 'Warm fleece pullover for outdoor adventures.', 129.00, 40, 7, 204),
+('Calvin Klein Wool Coat', 'Elegant wool coat for colder weather.', 320.00, 25, 8, 204),
+('Gap Straight Fit Khakis', 'Comfortable khakis with a classic fit.', 44.99, 100, 9, 202),
+('Old Navy Flip Flops', 'Affordable and comfortable flip flops.', 4.99, 200, 10, 205),
+('Ralph Lauren Cable Knit Sweater', 'Cozy cable knit sweater for a timeless look.', 120.00, 30, 11, 104),
+('Tommy Hilfiger Puffer Jacket', 'Warm puffer jacket with a modern design.', 160.00, 50, 12, 204),
+('Under Armour HeatGear Leggings', 'Compression leggings for enhanced performance.', 50.00, 70, 13, 103),
+('Uniqlo Supima Cotton T-Shirt', 'High-quality cotton T-shirt for everyday wear.', 14.90, 150, 14, 201),
+('Supreme Beanie', 'Trendy beanie with the Supreme logo.', 50.00, 60, 15, 104),
+('Forever 21 Midi Skirt', 'Chic midi skirt for a stylish outfit.', 25.99, 100, 16, 101),
+('Abercrombie & Fitch Denim Shorts', 'Casual denim shorts with a comfortable fit.', 45.00, 80, 17, 103),
+('Hollister Plaid Shirt', 'Classic plaid shirt for a laid-back look.', 35.00, 120, 18, 201),
+('American Eagle Outfitters Flannel Shirt', 'Cozy flannel shirt for chilly days.', 39.99, 90, 19, 201),
+('Victoria''s Secret Silk Robe', 'Luxurious silk robe for a comfortable feel.', 120.00, 20, 20, 101);
 
 
-INSERT INTO clothing (name, description, price, stock, "brandId", "genderId", "categoryId") VALUES ('Puma Casual Jacket', 'A casual jacket from Puma, ideal for everyday wear.', 129.99, 60, 5, 3, 4);
 
 
 -- Ensure the foreign key references are correct and present in your database.

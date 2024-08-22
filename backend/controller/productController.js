@@ -1,7 +1,7 @@
 const prisma = require("../lib/db");
+const getAllCategoryIds = require("../lib/utils/getAllCategoriesIds")
 
 const getAllProducts = async (req, res) => {
-  const userId = req.userId
   try {
     if (!req.query.take) {
       req.query.take = 10;
@@ -20,36 +20,38 @@ const getAllProducts = async (req, res) => {
       }
     }
 
-    const { category, brand, gender } = req.body;
+    const { categories, brands} = req.query;
     const filters = {};
 
-    if (category) {
-      filters.category = {
-        name: category
-      };
-    }
-    if (brand) {
-      filters.brand = {
-        name: brand
-      };
-    }
-    if (gender) {
-      filters.gender = {
-        name: gender
-      };
-    }
+    if (categories && Array.isArray(categories)) {
+      const allCategoryIds = await getAllCategoryIds(categories);
 
+      filters.category = {
+        id: { in: allCategoryIds },
+      };
+    }
+    if (brands && Array.isArray(brands)) {
+      filters.brand = {
+        name: { in: brands },
+      };
+    }
+   
+    
     const products = await prisma.clothing.findMany({
       skip: +req.query.skip,
       take: +req.query.take,
       where: filters,
       include: {
         brand: true,
-        gender: true,
-        category: true,
+        category: {
+          include: {
+            parent: true
+          }
+        },
       },
     });
 
+    console.log(products)
     if (!products) {
       return res.status(204).json({ message: "No products found" });
     }
@@ -59,6 +61,8 @@ const getAllProducts = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+
 
 const getSingleProduct = async (req, res) => {
   try {
@@ -77,6 +81,8 @@ const getSingleProduct = async (req, res) => {
     res.status(204).json({ message: "No product found." });
   }
 };
+
+
 
 // to create new product/product product
 const createNewProduct = async (req, res) => {
