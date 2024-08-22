@@ -12,8 +12,9 @@ interface CartItemProps {
   price: number | undefined;
   onCheck: (id: string) => void;
   onUncheck: (id: string) => void;
-}
 
+}
+  
 const CartItem: FC<CartItemProps> = ({ name, id, price, onCheck, onUncheck }) => {
   const [isChecked, setIsChecked] = useState(false);
 

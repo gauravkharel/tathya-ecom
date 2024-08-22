@@ -24,6 +24,7 @@ A basic ecommerce app but, with a lot of hope 😅
 
 [7.How to push Docker Postgres image with persistent data?] (https://seration.medium.com/how-to-push-docker-postgres-image-with-persistent-data-777783df09cb)
 
+[8. Flat list to Nested Tree](https://www.geeksforgeeks.org/build-tree-array-from-flat-array-in-javascript/)
 
 ### Developing feature by feature from backend to frontend (Also, product flow or, say, user story.)
 #### Customer end:

@@ -2,7 +2,7 @@ import React from 'react';
 import { Category, useGetCategory } from '@/api/category';
 import { buildCategoryTree } from '@/lib/utils';
 
-const FilterNav = () => {
+const NestedMenu = () => {
     const { data: categories, isLoading, isError } = useGetCategory();
     if (isLoading) return <div>Loading...</div>;
     if (isError) return <div>Error loading categories</div>;
@@ -13,7 +13,7 @@ const FilterNav = () => {
                     {category.name}
                 </span>
                 {category.children && category.children.length > 0 && (
-                    <ul className=" pt-2 pl-1 mt-2 font-medium ">
+                    <ul className=" pl-4 mt-2 font-medium new">
                         {category.children.map((child: Category) => (
                             <CategoryTree key={child.id} category={child} />
                         ))}
@@ -25,8 +25,8 @@ const FilterNav = () => {
     //@ts-ignore
     const categoryTree = buildCategoryTree(categories);
     return (
-        <div className=" gap-3 ">
-            <ul className=" " >
+        <div className="pt-4 container text-lg border-b border-zinc-200 max-w-7xl h-full mx-auto sm:flex items-start justify-start gap-3 ">
+            <ul className="flex text-xl gap-6" >
                 {categoryTree.map((category: Category) => (
                     <CategoryTree key={category.id} category={category} />
                 ))}
@@ -35,4 +35,4 @@ const FilterNav = () => {
     );
 };
 
-export default FilterNav;
+export default NestedMenu;

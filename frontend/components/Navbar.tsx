@@ -9,6 +9,7 @@ import SearchBar from './product/SearchBar'
 import Logout from './auth/Logout'
 import { useCart } from '@/providers/CartProvider'
 import { isEmptyArray } from '@/lib/utils'
+import NestedMenu from './navbar/NestedMenu'
 
 const Navbar = () => {
   const [isVisible, setIsVisible] = useState(true);
@@ -90,12 +91,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      <div className='pt-4 container text-lg border-b border-zinc-200 max-w-7xl h-full mx-auto sm:flex items-start justify-start gap-3 hidden'>
-        <Link href={'/products'} className='font-bold'>ALL</Link>
-        <div>WOMEN</div>
-        <div>MEN</div>
-        <div>KIDS</div>
-      </div>
+<NestedMenu />
       <div className='container text-base max-w-7xl h-full mx-auto sm:flex justify-between gap-2 hidden'>
         <div>Empty for now | nav later</div>
         <SearchBar />

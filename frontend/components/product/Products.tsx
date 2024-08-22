@@ -5,6 +5,7 @@ import { ProductAPIType } from '@/lib/validators/product';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import FilterNav from './FilterNav';
 
 
 const Products = (): JSX.Element => {
@@ -62,18 +63,10 @@ const Products = (): JSX.Element => {
         <>
             <div className='col-span-1'>
                 <div className='sticky top-[80px]'>
-                    <div className='sticky h-10'>
+                    <div className='sticky'>
                         <div>Browse by category</div>
                         <div>
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    value="Men"
-                                // checked={includes("Men")}
-                                // onChange={handleGenderChange}
-                                />
-                                Men
-                            </label>
+                            <FilterNav />
                         </div>
                     </div>
                 </div>
