@@ -4,19 +4,32 @@ import { useInfiniteQuery, useMutation, UseMutationResult, useQuery } from "@tan
 
 const Endpoint = "products";
 
-export function useGetProducts() {
+interface GetProductsQueryParams {
+  categories?: string[]
+  brands?: string[]
+}
+
+export function useGetProducts({ categories = [], brands = [] }: GetProductsQueryParams) {
   const axiosPrivate = useAxiosPrivate();
 
   const getProducts = async ({ pageParam = 0 }) => {
-    const response = await axiosPrivate.get<ProductAPIType[]>(`products?skip=${pageParam}&take=10`);
+    const params = new URLSearchParams({
+      skip: pageParam.toString(),
+      take: '10',
+      ...(categories.length > 0 && { categories: categories.join(',') }),
+      ...(brands.length > 0 && { brands: brands.join(',') }),
+    });
+
+
+    const response = await axiosPrivate.get<ProductAPIType[]>(`products?${params.toString()}`);
     return response.data;
   };
 
   return useInfiniteQuery({
-    queryKey: ['products'],
+    queryKey: ['products', { categories, brands }],
     queryFn: getProducts,
     getNextPageParam: (lastPage, allPages) => {
-      if (lastPage.length === 0) return undefined; 
+      if (lastPage.length === 0) return undefined;
       return allPages.length * 10;
     },
     initialPageParam: 0,
@@ -36,7 +49,7 @@ export function useGetProduct(productId: number) {
     queryKey: ['product', productId],
     queryFn: getProduct,
     // Only fetch if productId is not null or undefined
-    enabled: !!productId, 
+    enabled: !!productId,
   });
 }
 
@@ -46,9 +59,9 @@ export function useAddNewProduct(options?: {
 }): UseMutationResult<ProductType, Error, ProductType> {
   const axiosPrivate = useAxiosPrivate()
   const addProduct = async (data: ProductType) => {
-    const { name, price, images, brand, genderId, description } = data;
+    const { name, price, images, brand, description } = data;
     const response = await axiosPrivate.post<ProductType>(Endpoint,
-      { name, price, images, brand, genderId, description },
+      { name, price, images, brand, description },
       {
         headers: { 'Content-Type': 'application/json' },
         withCredentials: true

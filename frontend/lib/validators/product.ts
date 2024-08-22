@@ -8,7 +8,7 @@ export const ProductValidator = z.object({
   // productImageUrl: z.string().array().nonempty().max(4, {message: "Just 4 photos only"}),
   price: z.coerce.number().nonnegative(),
   brand: z.string().optional(),
-  genderId: z.coerce.number().nonnegative().optional(),
+  // genderId: z.coerce.number().nonnegative().optional(),
   images: z.object({
     image: z
       .any()
@@ -29,7 +29,7 @@ export interface ProductAPIType {
   price?: number;
   imageUrl?: string;
   brand?: { name?: string };
-  gender?: { name?: string };
+  // gender?: { name?: string };
   category?: { name?: string };
 }
 
