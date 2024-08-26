@@ -16,7 +16,6 @@ const getCarts = async (req, res) => {
       });
       
       if (!carts || carts.length === 0) {
-        console.log("CartItems: ", carts)
         return res.status(204).json({ message: "No carts found for the specified user." });
       }
     } else {
@@ -159,7 +158,6 @@ const updateCartItem = async (req, res) => {
 const deleteCartItems = async (req, res) => {
   try {
     const { cartIds } = req.body;
-    console.log(cartIds)
     if (!cartIds || !Array.isArray(cartIds)) {
       return res.status(400).json({ message: "Cart IDs are required and should be an array" });
     }

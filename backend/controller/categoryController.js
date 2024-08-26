@@ -7,7 +7,6 @@ const getAllCategories = async (req, res) => {
                 parent: true
             }
         })
-        console.log(categories)
         res.status(200).json(categories)
     } catch (err) {
         console.error(err);

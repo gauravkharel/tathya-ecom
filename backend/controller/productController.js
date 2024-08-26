@@ -21,22 +21,28 @@ const getAllProducts = async (req, res) => {
     }
 
     const { categories, brands} = req.query;
-    const filters = {};
-
-    if (categories && Array.isArray(categories)) {
-      const allCategoryIds = await getAllCategoryIds(categories);
-
-      filters.category = {
-        id: { in: allCategoryIds },
-      };
-    }
-    if (brands && Array.isArray(brands)) {
-      filters.brand = {
-        name: { in: brands },
-      };
-    }
-   
     
+    const filters = {};
+    if (categories) {
+      let categoryArray = new Array();
+      categoryArray = categories.split(',');
+
+      const allCategoryIds = await getAllCategoryIds(categoryArray);
+        filters.category = {
+          id: { in: allCategoryIds },
+        };
+        console.log('Categories ID: ', allCategoryIds); // Logging category IDs
+      
+    }
+    if (brands) {
+      let brandArray = new Array();
+      brandArray = brands.split(',')
+      filters.brand = {
+        name: { in: brandArray },
+      };
+      console.log('Brand', brand)
+    }
+       
     const products = await prisma.clothing.findMany({
       skip: +req.query.skip,
       take: +req.query.take,
@@ -45,13 +51,13 @@ const getAllProducts = async (req, res) => {
         brand: true,
         category: {
           include: {
-            parent: true
+            parent: true,
+            subCategories: true
           }
         },
       },
     });
 
-    console.log(products)
     if (!products) {
       return res.status(204).json({ message: "No products found" });
     }
