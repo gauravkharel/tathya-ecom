@@ -14,10 +14,10 @@ type FilterComponentProps = {
 const NestedMenu = () => {
     const { data: category, isLoading, isError } = useGetCategory();
     const{filters, handleFilterChange, setFilters } = useProductFilter()
-    const handleChange = (newFilter: FilterType ) => {
+    const handleChange = (categoryName: string ) => {
         const updatedFilters = {
             ...filters,
-            categories: newFilter.categories ? [...(filters.categories || []), ...newFilter.categories] : filters.categories,
+            categories: [categoryName],
           };
         setFilters(updatedFilters);
         handleFilterChange(updatedFilters);
@@ -32,7 +32,7 @@ const NestedMenu = () => {
                     <NavigationMenu>
                         <NavigationMenuItem>
                             <NavigationMenuTrigger asChild className='p-1  font-medium'>
-                                <button type="button" onClick={() => handleChange({categories:[ category.name]})} className="cursor-pointer flex hover:text-gray-600 transition-colors">
+                                <button type="button" onClick={() => handleChange(category.name)} className="cursor-pointer flex hover:text-gray-600 transition-colors">
                                     {category.name}
                                 </button>
                             </NavigationMenuTrigger>
@@ -48,7 +48,7 @@ const NestedMenu = () => {
         } else {
             return (
                 <li key={category.id}>
-                    <Link href={'/products'} type="button" onClick={() => handleChange({categories:[ category.name]})} className="cursor-pointer flex hover:text-black text-medium">
+                    <Link href={'/products'} type="button" onClick={() => handleChange(category.name)} className="cursor-pointer flex hover:text-black text-medium">
                         {category.name}
                     </Link>
                 </li>

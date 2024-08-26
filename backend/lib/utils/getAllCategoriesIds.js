@@ -12,7 +12,6 @@ async function getAllCategoryIds(selectedCategories) {
       )
       SELECT id FROM CategoryTree
     `;
-    console.log("from: ", categories.map(category => category.id))
     return categories.map(category => category.id);
   }
 
