@@ -1,5 +1,4 @@
 import Products from '@/components/product/Products'
-import Category from '@/components/product/Category'
 
 const Page = (): any => {
     return (

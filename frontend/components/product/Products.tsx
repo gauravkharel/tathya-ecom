@@ -1,17 +1,17 @@
 "use client";
-import { useGetProducts } from '@/api/products';
+import { GetProductsQueryParams, useGetProducts } from '@/api/products';
 import { isEmptyArray } from '@/lib/utils';
 import { ProductAPIType } from '@/lib/validators/product';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import FilterNav from './FilterNav';
-
+import { useProductFilter } from '@/providers/FilterProvider';
 
 const Products = (): JSX.Element => {
-    const [categories, setCategories] = useState<string[]>([])
-    const [brands, setBrands] = useState<string[]>([])
-    const [gender, setGender] = useState<string | undefined>();
+    // const [categories, setCategories] = useState<string[]>([])
+    // const [brands, setBrands] = useState<string[]>([])
+    const {filters}  = useProductFilter()
     const {
         data,
         isLoading,
@@ -20,10 +20,8 @@ const Products = (): JSX.Element => {
         hasNextPage,
         isFetchingNextPage,
         refetch
-    } = useGetProducts({ categories, brands, });
-
+    } = useGetProducts( {categories: filters.categories, brands: filters.brands});
     const observerRef = useRef<HTMLDivElement | null>(null);
-
     useEffect(() => {
         let observerRefValue = null;
         const observer = new IntersectionObserver(

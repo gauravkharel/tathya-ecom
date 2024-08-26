@@ -4,14 +4,13 @@ import { useInfiniteQuery, useMutation, UseMutationResult, useQuery } from "@tan
 
 const Endpoint = "products";
 
-interface GetProductsQueryParams {
-  categories?: string[]
+export interface GetProductsQueryParams {
+  categories?: string[] | void
   brands?: string[]
 }
 
 export function useGetProducts({ categories = [], brands = [] }: GetProductsQueryParams) {
   const axiosPrivate = useAxiosPrivate();
-
   const getProducts = async ({ pageParam = 0 }) => {
     const params = new URLSearchParams({
       skip: pageParam.toString(),
@@ -19,8 +18,7 @@ export function useGetProducts({ categories = [], brands = [] }: GetProductsQuer
       ...(categories.length > 0 && { categories: categories.join(',') }),
       ...(brands.length > 0 && { brands: brands.join(',') }),
     });
-
-
+    console.log('Categories from api',categories)
     const response = await axiosPrivate.get<ProductAPIType[]>(`products?${params.toString()}`);
     return response.data;
   };
@@ -67,7 +65,6 @@ export function useAddNewProduct(options?: {
         withCredentials: true
       }
     )
-    console.log('data: ', response.data)
     return response.data;
   }
 
