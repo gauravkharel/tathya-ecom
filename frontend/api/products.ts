@@ -18,7 +18,7 @@ export function useGetProducts({ categories = [], brands = [] }: GetProductsQuer
       ...(categories.length > 0 && { categories: categories.join(',') }),
       ...(brands.length > 0 && { brands: brands.join(',') }),
     })
-    console.log('Categories from api',categories)
+
     const response = await axiosPrivate.get<ProductAPIType[]>(`products?${params.toString()}`);
     return response.data;
   };

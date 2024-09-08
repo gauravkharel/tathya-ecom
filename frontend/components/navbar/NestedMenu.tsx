@@ -8,20 +8,20 @@ import { GetProductsQueryParams, useGetProducts } from '@/api/products';
 import { FilterType, useProductFilter } from '@/providers/FilterProvider';
 
 type FilterComponentProps = {
-    onFilterChange: ({categories, brands}: GetProductsQueryParams) => void;
-  };
-  
+    onFilterChange: ({ categories, brands }: GetProductsQueryParams) => void;
+};
+
 const NestedMenu = () => {
     const { data: category, isLoading, isError } = useGetCategory();
-    const{filters, handleFilterChange, setFilters } = useProductFilter()
-    const handleChange = (categoryName: string ) => {
+    const { filters, handleFilterChange, setFilters } = useProductFilter()
+    const handleChange = (categoryName: string) => {
         const updatedFilters = {
             ...filters,
             categories: [categoryName],
-          };
+        };
         setFilters(updatedFilters);
         handleFilterChange(updatedFilters);
-      };
+    };
     if (isLoading) return <div>Loading...</div>;
     if (isError) return <div>Error loading categories</div>;
 
@@ -62,13 +62,14 @@ const NestedMenu = () => {
     return (
         <div className="pt-4 container text-lg border-b border-zinc-200 max-w-7xl h-full mx-auto sm:flex items-start justify-start gap-3 hidden">
             <ul className='flex flex-row gap-4'>
+                <Link href={'/products'} className=''>All</Link>
                 {categoryTree.map((category: Category) => (
                     <CategoryTree key={category.id} category={category} />
                 ))}
             </ul>
         </div>
 
-        
+
     );
 };
 
