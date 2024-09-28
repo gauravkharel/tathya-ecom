@@ -1,13 +1,5 @@
 import { z } from "zod";
-
-const OrderStatusEnum = z.enum([
-  "PENDING",
-  "SHIPPED",
-  "DELIVERED",
-  "CANCELLED",
-]);
-const PaymentStatusEnum = z.enum(["PENDING", "PAID", "FAILED"]);
-const PaymentMethodEnum = z.enum(["ESEWA", "BANK_TRANSFER"]);
+import { OrderStatusEnum, PaymentStatusEnum, PaymentMethodEnum } from "../types/common.types";
 
 export const OrderSchema = z.object({
   id: z.string().uuid(),
@@ -29,4 +21,4 @@ export const OrderSchema = z.object({
   comments: z.string().optional(),
 });
 
-export type OrderType = z.infer<typeof OrderSchema>;
+export type OrderSchemaType = z.infer<typeof OrderSchema>;
