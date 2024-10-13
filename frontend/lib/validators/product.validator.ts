@@ -6,15 +6,17 @@ export const ProductSchema = z.object({
   description: z.string(),
   price: z.coerce.number().nonnegative(),
   brand: z.string().optional(),
-  images: z.object({
-    image: z
-      .any()
-      .refine((file) => file?.size <= MAX_FILE_SIZE, `Max image size is 5MB.`)
-      .refine(
-        (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
-        "Only .jpg, .jpeg, .png and .webp formats are supported."
-      ),
-  }).optional(),
+  images: z.array(z.string()).min(1, "At least one image is required").max(5, "Maximum 5 images allowed"),
 });
 
 export type ProductFormData = z.infer<typeof ProductSchema>;
+
+export interface PresignedUrlResponse {
+  presignedUrl: string;
+  imageUrl: string;
+}
+
+export interface PresignedUrlRequest {
+  fileName: string;
+  fileType: string;
+}

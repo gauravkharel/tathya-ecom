@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
-import PersistLogin from "@/components/PersistLogin";
-import { LucideArrowLeft, LucideSmile } from "lucide-react";
-import Link from "next/link";
-import { Button } from "@/components/ui/Button";
 import "../../globals.css"
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/admin/layout/Sidebar";
+import Header from "@/components/admin/layout/Header";
 
 export const metadata: Metadata = {
-    title: "Warehouse",
+    title: `Warehouse`,
     description: "New gen dashboard for new gen needs.",
 };
 
@@ -19,17 +16,12 @@ export default function layout({
     return (
         <div className="flex flex-row">
             <Sidebar />
-            {/* <div className=" w-full h-full">
-                <div className="flex flex-col p-10 m-10 text-2xl font-bold text-medium">
-                    <Link href={'/products'}><Button><LucideArrowLeft></LucideArrowLeft> Back to Home</Button></Link>
-                    Under development. Building on second iteration. 😃 🏝️
+            <div className="flex flex-col  w-full">
+                <Header />
+                <div className="px-[200px] text-lg py-6">
+                    {children}
                 </div>
-            </div> */}
-            <div className="p-6">
-
-            dasohdahodh
             </div>
-            {children}
         </div>
 
     );

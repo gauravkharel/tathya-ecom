@@ -1,17 +1,19 @@
 "use client"
 
-import { MoreVertical, ChevronLast, ChevronFirst, ArrowUpNarrowWideIcon, Shirt, ShoppingBag, UsersRound, Settings2 } from "lucide-react"
+import { MoreVertical, ChevronLast, ChevronFirst, Shirt, ShoppingBag, UsersRound, Settings2 } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { useContext, createContext, useState, ReactComponentElement, ReactElement } from "react"
-import MainLogo from '../public/logo.svg'
+import { useContext, createContext, useState, ReactElement } from "react"
+import MainLogo from '@/public/logo.svg'
 
-//@ts-ignore
-const SidebarContext = createContext()
+export interface SidebarType {
+    expanded: boolean
+    // setExpanded:  React.Dispatch<React.SetStateAction<boolean>>
+}
+const SidebarContext = createContext<SidebarType>({ expanded: true})
 
 export default function Sidebar() {
     const [expanded, setExpanded] = useState(true)
-    const [active, isActive] = useState(false)
     return (
         <aside className="h-screen">
             <nav className="h-full flex flex-col bg-white border-r shadow-sm">
@@ -90,7 +92,7 @@ export default function Sidebar() {
 }
 
 
-interface SiderbarItemProps{
+interface SiderbarItemProps {
     icon: ReactElement | undefined,
     url: string,
     active?: boolean,
@@ -102,7 +104,7 @@ interface SiderbarItemProps{
 
 export function SidebarItem({ icon, url, active, text, alert }: SiderbarItemProps) {
     const { expanded } = useContext(SidebarContext)
-    
+
     return (
         <Link href={url} >
             <li className={`
@@ -110,14 +112,14 @@ export function SidebarItem({ icon, url, active, text, alert }: SiderbarItemProp
                     font-medium rounded-md cursor-pointer
                     transition-colors group
                     ${active
-                        ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800"
-                        : "hover:bg-indigo-50 text-gray-600"
-                    }
+                    ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800"
+                    : "hover:bg-indigo-50 text-gray-600"
+                }
                     `}
-             >
+            >
                 {icon}
-                <span className={`overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0" }`}>{text}</span>
-                {alert && (<div className={`absolute right-2 w-2 h-2 rounded bg-indigo-400 ${expanded ? "" : "top-2" }`} /> )}
+                <span className={`overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"}`}>{text}</span>
+                {alert && (<div className={`absolute right-2 w-2 h-2 rounded bg-indigo-400 ${expanded ? "" : "top-2"}`} />)}
 
                 {!expanded && (
                     <div className={`

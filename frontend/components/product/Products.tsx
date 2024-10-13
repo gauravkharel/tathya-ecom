@@ -1,17 +1,18 @@
 "use client";
 import { GetProductsQueryParams, useGetProducts } from '@/api/products';
 import { isEmptyArray } from '@/lib/utils';
-import { ProductAPIType } from '@/lib/validators/product';
+import { ProductResponse } from '@/lib/type/validators/product';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import FilterNav from './FilterNav';
 import { useProductFilter } from '@/providers/FilterProvider';
+import { Slider } from '../ui/Slider';
 
 const Products = (): JSX.Element => {
     // const [categories, setCategories] = useState<string[]>([])
     // const [brands, setBrands] = useState<string[]>([])
-    const {filters}  = useProductFilter()
+    const { filters } = useProductFilter()
     const {
         data,
         isLoading,
@@ -20,7 +21,7 @@ const Products = (): JSX.Element => {
         hasNextPage,
         isFetchingNextPage,
         refetch
-    } = useGetProducts( {categories: filters.categories, brands: filters.brands});
+    } = useGetProducts({ categories: filters.categories, brands: filters.brands });
     const observerRef = useRef<HTMLDivElement | null>(null);
     useEffect(() => {
         let observerRefValue = null;
@@ -63,8 +64,13 @@ const Products = (): JSX.Element => {
                 <div className='sticky top-[80px]'>
                     <div className='sticky'>
                         <div>Browse by category</div>
-                        <div>
+                        <div className='flex flex-col gap-6'>
                             <FilterNav />
+                            <div className='disabled text-gray-300'>
+                                <span className='pb-4'>By price</span> <br />
+                                <span className='text-gray-300'>Feature for later</span>
+                                <Slider className='pt-3 text-gray-100' defaultValue={[33]} max={100} step={1} />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -72,7 +78,7 @@ const Products = (): JSX.Element => {
             <div className='col-span-5'>
                 <div className='grid lg:grid-cols-3 md:grid-cols-3 grid-cols-2 gap-4'>
                     {data.pages.map((page) =>
-                        page.map((product: ProductAPIType) => (
+                        page.map((product: ProductResponse) => (
                             <Product
                                 key={product.id}
                                 imageUrl="https://picsum.photos/id/237/200/300"
@@ -103,7 +109,7 @@ interface ProductProps {
     name: string;
     brand?: { name?: string };
     price?: number;
-    category?: { 
+    category?: {
         id: number;
         name: string;
         parentId: number | null;

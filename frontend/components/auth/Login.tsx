@@ -5,13 +5,14 @@ import { useForm } from "react-hook-form"
 import { Button } from "@/components/ui/Button"
 import { Form } from "@/components/ui/Form"
 import { Input } from "@/components/ui/Input"
-import { LoginRequest, LoginValidator } from "@/lib/validators/user"
 import { useRouter } from 'next/navigation'
 import FormInput from "../form/FormInput"
 import { useLogin } from "@/api/auth"
 import { Card, CardContent } from "../ui/Card"
 import Image from "next/image"
 import { useToast } from "@/hooks/use-toast"
+import { LoginRequest } from "@/lib/types"
+import { LoginValidator } from "@/lib/validators"
 
 const formObj = [
   {

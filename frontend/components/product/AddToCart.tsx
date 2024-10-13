@@ -1,9 +1,9 @@
 "use client"
 
 import React, { useState } from 'react';
-import { CartType } from '@/lib/type/cart.type';
 import { useCart } from '@/providers/CartProvider';
 import { Button } from '../ui/Button';
+import { CartType } from '@/lib/types';
 
 const AddProductButton = ({clothingId}:any) => {
   const { addProductToCart } = useCart();
@@ -14,7 +14,6 @@ const AddProductButton = ({clothingId}:any) => {
 
   const handleAddProduct = () => {
     setProduct((prevProduct) => ({ ...prevProduct, clothingId:clothingId }));
-    console.log(product)
     addProductToCart({ ...product, clothingId:clothingId });
   };
   return (

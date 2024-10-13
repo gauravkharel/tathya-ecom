@@ -1,5 +1,6 @@
 import useAxiosPrivate from "@/hooks/use-axios-interceptor";
-import { ProductAPIType, ProductType } from "@/lib/validators/product";
+import { ProductResponse } from "@/lib/types";
+import { PresignedUrlRequest, PresignedUrlResponse, ProductFormData } from "@/lib/validators/product.validator";
 import { useInfiniteQuery, useMutation, UseMutationResult, useQuery } from "@tanstack/react-query";
 
 const Endpoint = "products";
@@ -19,7 +20,7 @@ export function useGetProducts({ categories = [], brands = [] }: GetProductsQuer
       ...(brands.length > 0 && { brands: brands.join(',') }),
     })
 
-    const response = await axiosPrivate.get<ProductAPIType[]>(`products?${params.toString()}`);
+    const response = await axiosPrivate.get<ProductResponse[]>(`products?${params.toString()}`);
     return response.data;
   };
 
@@ -39,7 +40,7 @@ export function useGetProducts({ categories = [], brands = [] }: GetProductsQuer
 export function useGetProduct(productId: number) {
   const axiosPrivate = useAxiosPrivate();
   const getProduct = async () => {
-    const response = await axiosPrivate.get<ProductAPIType>(`/products/${productId}`);
+    const response = await axiosPrivate.get<ProductResponse>(`/products/${productId}`);
     return response.data;
   };
 
@@ -51,61 +52,4 @@ export function useGetProduct(productId: number) {
   });
 }
 
-export function useAddNewProduct(options?: {
-  onSuccess?: (data: ProductType) => void;
-  onError?: (error: any) => void;
-}): UseMutationResult<ProductType, Error, ProductType> {
-  const axiosPrivate = useAxiosPrivate()
-  const addProduct = async (data: ProductType) => {
-    const { name, price, images, brand, description } = data;
-    const response = await axiosPrivate.post<ProductType>(Endpoint,
-      { name, price, images, brand, description },
-      {
-        headers: { 'Content-Type': 'application/json' },
-        withCredentials: true
-      }
-    )
-    return response.data;
-  }
-
-  return useMutation({
-    mutationFn: addProduct,
-    onSuccess: (data) => {
-      options?.onSuccess?.(data);
-
-    },
-    onError: (error) => {
-      console.error(error);
-      options?.onError?.(error);
-    }
-
-  })
-}
-
-
-export function useDeleteProduct(options?: {
-  onSuccess?: (data: ProductAPIType) => void;
-  onError?: (error: any) => void;
-}): UseMutationResult<ProductAPIType, Error, ProductAPIType> {
-  const axiosPrivate = useAxiosPrivate()
-  const addProduct = async (data: ProductAPIType) => {
-    const { id } = data;
-    const response = await axiosPrivate.delete<ProductAPIType>(`products/${id}`
-    )
-    console.log('data: ', response.data)
-    return response.data;
-  }
-  return useMutation({
-    mutationFn: addProduct,
-    throwOnError: true,
-    onSuccess: (data) => {
-      options?.onSuccess?.(data);
-
-    },
-    onError: (error) => {
-      console.error(error);
-      options?.onError?.(error);
-    }
-  })
-}
 

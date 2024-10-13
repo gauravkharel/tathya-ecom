@@ -1,4 +1,4 @@
-import axios from "@/api/axios";
+import axios from "@/lib/axios";
 import useAuth from "./use-auth";
 import { useToast } from "./use-toast";
 

@@ -9,7 +9,7 @@ import {
   Form
 } from "@/components/ui/Form"
 import { Input } from "@/components/ui/Input"
-import { UserRequest, UserValidator } from "@/lib/validators/user"
+import { UserFormType, UserValidator } from "@/lib/type/validators/user"
 import axios from "axios"
 import { useToast } from "../../hooks/use-toast"
 import { useRouter } from "next/navigation"
@@ -48,7 +48,7 @@ const formObj = [
 export function RegsiterUserForm() {
   const { toast } = useToast()
   const router = useRouter();
-  const form = useForm<UserRequest>({
+  const form = useForm<UserFormType>({
     resolver: zodResolver(UserValidator),
     defaultValues: {
       firstname: "",
@@ -68,7 +68,7 @@ export function RegsiterUserForm() {
   }
   )
 
-  const onSubmit = async (values: UserRequest) => {
+  const onSubmit = async (values: UserFormType) => {
     const { firstname, lastname, email, password } = values
     register({ firstname, lastname, email, password })
   }

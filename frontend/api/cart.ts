@@ -1,7 +1,7 @@
-import { CartType } from "@/lib/type/cart.type";
 import { useMutation, UseMutationResult, useQuery } from "@tanstack/react-query";
 import { queryClient } from "./query-client";
 import useAxiosPrivate from "@/hooks/use-axios-interceptor";
+import { CartType } from "@/lib/types";
 
 const Endpoint = 'carts';
 

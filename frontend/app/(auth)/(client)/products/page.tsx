@@ -5,7 +5,7 @@ const Page = (): any => {
         <div className=''>
             <div className='sticky top-0 rounded-lg bg-white text-black'>
                 <div className='p-4'>
-                    <span className='text-xl font-medium'>Breadcrumbs</span>
+                    <span className='text-xl font-medium'>All Products</span>
                 </div>
             </div>
             <div className='grid grid-cols-6 gap-4 mt-8'>

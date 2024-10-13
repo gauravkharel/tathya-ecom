@@ -8,7 +8,6 @@ import { isEmptyArray } from '@/lib/utils';
 import { useGetCart } from '@/api/cart';
 import EmptyCart from './EmptyCart';
 import Title from '../ui/Title';
-import OrderSummary from '../order/OrderSummary';
 
 const CartLayout: FC = () => {
   const { cart, deleteCartItems } = useCart();
@@ -61,15 +60,15 @@ const CartLayout: FC = () => {
                   price={cartItem.clothing?.price}
                   onCheck={handleCheck}
                   onUncheck={handleUncheck}
+                  quantity={cartItem.quantity}
                 />
-                {cartItem.quantity}
               </div>
             ))
           )}
         </div>
 
         <div className='w-1/3'>
-                   </div>
+        </div>
       </div>
     </>
   );

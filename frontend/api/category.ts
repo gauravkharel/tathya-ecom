@@ -1,4 +1,4 @@
-import axios from "./axios"
+import axios from "../lib/axios"
 import { useQuery } from "@tanstack/react-query"
 const Endpoint = "category"
 

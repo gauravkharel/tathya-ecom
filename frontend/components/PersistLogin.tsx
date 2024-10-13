@@ -3,8 +3,7 @@
 import useRefreshToken from "@/hooks/use-refresh-token"
 import useAuth from "@/hooks/use-auth"
 import { useState, useEffect } from 'react'
-import { useToast } from "@/hooks/use-toast"
-import { AuthContextType } from "@/lib/types"
+
 type Props = {
     children: string | JSX.Element | JSX.Element[] | (() => JSX.Element)
 }

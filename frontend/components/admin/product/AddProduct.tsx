@@ -17,7 +17,6 @@ import { Textarea } from "@/components/ui/Textarea";
 import Combobox from "@/components/ui/Combobox";
 import FormInput from "@/components/form/FormInput";
 import { ProductFormData, ProductSchema } from "@/lib/validators/product.validator";
-import { useAddNewProduct, useGetPresignedUrl } from "@/api/products";
 import { useDropzone } from 'react-dropzone';
 import Image from 'next/image';
 interface FileWithPreview extends File {
@@ -43,6 +42,7 @@ export function AddProductForm() {
         resolver: zodResolver(ProductSchema)
     });
 
+
     const onDrop = useCallback((acceptedFiles: File[]) => {
         const filesWithPreview = acceptedFiles.map(file =>
             Object.assign(file, {
@@ -59,7 +59,7 @@ export function AddProductForm() {
             'image/*': ['.jpeg', '.jpg', '.png', '.webp']
         },
         maxFiles: 5,
-        maxSize: 5 * 1024 * 1024 //limit is 5mb
+        maxSize: 5 * 1024 * 1024 // 5MB
     });
 
     useEffect(() => {
@@ -89,7 +89,7 @@ export function AddProductForm() {
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                <FormField
+            <FormField
                     control={form.control}
                     name='images'
                     render={({ field }) => (
@@ -101,7 +101,7 @@ export function AddProductForm() {
                                     {isDragActive ? (
                                         <p>Drop the files here ...</p>
                                     ) : (
-                                        <p>Drag  drop some files here, or click to select files</p>
+                                        <p>Drag &apos;n&apos; drop some files here, or click to select files</p>
                                     )}
                                 </div>
                             </FormControl>
@@ -110,8 +110,8 @@ export function AddProductForm() {
                                     {files.map((file) => (
                                         <div key={file.name} className="relative">
                                             <Image
-                                                width={240}
-                                                height={240}
+                                                width={200}
+                                                height={200}
                                                 src={file.preview}
                                                 alt={file.name}
                                                 className="object-cover rounded-md"

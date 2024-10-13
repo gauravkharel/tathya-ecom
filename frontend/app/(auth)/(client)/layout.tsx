@@ -27,7 +27,7 @@ export default function Layout({
                             {/* @ts-ignore */}
                             {children}
                         </PersistLogin>
-                        <Footer />
+                        {/* <Footer /> */}
                     </div>
                     <Toaster />
                 </FilterProvider>

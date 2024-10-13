@@ -108,7 +108,7 @@ const FilterNav = () => {
               />
               <label
                 htmlFor={`category-${category.id}`}
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                className="text-md font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
                 {category.name}
               </label>
@@ -130,7 +130,7 @@ const FilterNav = () => {
   const categoryTree = buildCategoryTree(category);
 
   return (
-    <div className="pt-4 container text-lg border-b border-zinc-200 max-w-7xl h-full mx-auto sm:flex items-start justify-start gap-3 hidden">
+    <div className="pt-4 container text-lg border-zinc-200 max-w-7xl h-full mx-auto sm:flex items-start justify-start gap-3 hidden">
       <Accordion 
         type="multiple" 
         className="w-full" 

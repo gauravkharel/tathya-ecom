@@ -8,7 +8,7 @@ import { EmblaOptionsType } from 'embla-carousel';
 import '../../public/embla.css';
 import { Button } from '../ui/Button';
 import { useGetProduct } from '@/api/products';
-import { ProductAPIType } from '@/lib/validators/product';
+import { ProductResponse } from '@/lib/type/validators/product';
 import AddProductButton from './AddToCart';
 
 const OPTIONS: EmblaOptionsType = {};
@@ -30,7 +30,7 @@ const Product: React.FC<ProductProps> = ({ id }) => {
     <div>
       <h2>Breadcrumb section</h2>
       <br /><div>
-      <Link href={`/`} className='flex'>
+      <Link href={`/products`} className='flex gap-2 pr-6'>
         <ArrowLeft />
         <h3 className='font-medium'>Sneakers</h3>
       </Link>

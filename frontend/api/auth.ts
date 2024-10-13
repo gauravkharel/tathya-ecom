@@ -1,7 +1,7 @@
-import axios from './axios'
+import axios from '../lib/axios'
 import { UseMutationResult, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { LoginRequest, UserRequest } from '@/lib/validators/user';
 import useAuth from '@/hooks/use-auth';
+import { LoginRequest, UserFormType } from '@/lib/types';
 
 interface LoginResponse {
     accessToken: string;
@@ -51,10 +51,10 @@ export function useLogin(options?: {
 
 
 export function useRegister(options?: {
-    onSuccess?: (data: UserRequest) => void;
+    onSuccess?: (data: UserFormType) => void;
     onError?: (error: any) => void;
-}): UseMutationResult<UserRequest, Error, UserRequest> {
-    const registerRequest = async (data: UserRequest) => {
+}): UseMutationResult<UserFormType, Error, UserFormType> {
+    const registerRequest = async (data: UserFormType) => {
         const { firstname, lastname, email, password } = data
         const response = await axios.post('/register',
             JSON.stringify({ fname: firstname, lname: lastname, email: email, password: password }),
