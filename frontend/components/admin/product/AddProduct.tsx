@@ -19,6 +19,7 @@ import FormInput from "@/components/form/FormInput";
 import { ProductFormData, ProductSchema } from "@/lib/validators/product.validator";
 import { useDropzone } from 'react-dropzone';
 import Image from 'next/image';
+import { useCreateProduct } from '@/api/products';
 interface FileWithPreview extends File {
     preview: string;
 }
@@ -42,16 +43,41 @@ export function AddProductForm() {
         resolver: zodResolver(ProductSchema)
     });
 
+    const createProductMutation = useCreateProduct({
+        onSuccess: (data) => {
+            toast({
+                title: "Product added",
+                description: `${data.name} has been added successfully.`,
+            });
+            form.reset();
+            setFiles([]);
+        },
+        onError: (error) => {
+            toast({
+                title: 'Error',
+                description: error instanceof Error ? error.message : "There was a problem adding the product.",
+                variant: 'destructive'
+            });
+        },
+    });
 
     const onDrop = useCallback((acceptedFiles: File[]) => {
         const filesWithPreview = acceptedFiles.map(file =>
             Object.assign(file, {
-                preview: URL.createObjectURL(file)
+                preview: URL.createObjectURL(file),
             })
         );
+
         setFiles(filesWithPreview);
-        form.setValue('images', filesWithPreview.map(file => file.name));
+
+        form.setValue('images', filesWithPreview.map(file => ({
+            file,
+            name: file.name,
+            type: file.type,
+            size: file.size,
+        })));
     }, [form]);
+
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop,
@@ -69,6 +95,11 @@ export function AddProductForm() {
     const onSubmit = async (values: ProductFormData) => {
         try {
 
+            createProductMutation.mutate({
+                ...values,
+                //@ts-ignore
+                images: files, // Use the files to be uploaded
+            });
             toast({
                 title: `${values.name} has been added`,
                 description: "You will be redirected to Product Lists."
@@ -89,7 +120,7 @@ export function AddProductForm() {
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <FormField
+                <FormField
                     control={form.control}
                     name='images'
                     render={({ field }) => (
@@ -119,13 +150,22 @@ export function AddProductForm() {
                                             <button
                                                 type="button"
                                                 onClick={() => {
-                                                    setFiles(files.filter(f => f.name !== file.name));
-                                                    form.setValue('images', files.filter(f => f.name !== file.name).map(f => f.name));
+                                                    const updatedFiles = files.filter(f => f.name !== file.name);
+                                                    setFiles(updatedFiles);
+
+                                                    // Update form's 'images' field with the remaining files, preserving the expected object structure
+                                                    form.setValue('images', updatedFiles.map(f => ({
+                                                        file: f,           // The actual File object
+                                                        name: f.name,      // The file name
+                                                        type: f.type,      // The file MIME type
+                                                        size: f.size,      // The file size in bytes
+                                                    })));
                                                 }}
                                                 className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center"
                                             >
                                                 ×
                                             </button>
+                                            aa
                                         </div>
                                     ))}
                                 </div>
@@ -171,6 +211,8 @@ export function AddProductForm() {
                     placeholder="Select brand"
                     description="This is the brand that will be used in the dashboard."
                 />
+
+
                 <Button type="submit">Add Product</Button>
             </form>
         </Form>

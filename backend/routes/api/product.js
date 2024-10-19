@@ -1,5 +1,4 @@
 const express = require("express");
-const prisma = require("../../lib/db");
 const router = express.Router();
 const productController = require("../../controller/productController");
 router
@@ -7,10 +6,12 @@ router
   .get(productController.getAllProducts)
   .post(productController.createNewProduct);
 
+router.route("/presigned-urls").post(productController.getPresignedUrls)
+
 router
   .route("/:id")
   .put(productController.updateProduct)
   .delete(productController.deleteProduct)
-  .get(productController.getSingleProduct)
+  .get(productController.getSingleProduct);
 
 module.exports = router;

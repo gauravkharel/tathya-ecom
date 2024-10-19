@@ -1,5 +1,16 @@
 const prisma = require("../lib/db");
 const getAllCategoryIds = require("../lib/utils/getAllCategoriesIds")
+const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
+const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
+const crypto = require("crypto");
+const s3Client = new S3Client({
+  region: process.env.AWS_REGION ,
+  credentials: {
+      accessKeyId: process.env.AWS_ACCESS_ID,
+      secretAccessKey: process.env.AWS_ACCESS_KEY
+  }
+})
+
 
 const getAllProducts = async (req, res) => {
   try {
@@ -31,7 +42,7 @@ const getAllProducts = async (req, res) => {
         filters.category = {
           id: { in: allCategoryIds },
         };
-        console.log('Categories ID: ', allCategoryIds); // Logging category IDs
+        console.log('Categories ID: ', allCategoryIds)
       
     }
     if (brands) {
@@ -90,45 +101,72 @@ const getSingleProduct = async (req, res) => {
 
 
 
-// to create new product/product product
+const getPresignedUrls = async (req, res) => {
+  try {
+    const userId = req.userId;
+    console.log(userId)
+    const imageRequests = req.body;
+    console.log(imageRequests)
+
+    if (!imageRequests || imageRequests.length === 0) {
+      return res.status(400).json({ message: "No image provided." });
+    }
+    const presignedUrls = await Promise.all(
+      imageRequests.map(async (image) => {
+        const { fileName, fileType } = image;
+        const urlString = `uploads/user-uploads/${userId}/products/${fileName}`
+        console.log(urlString)
+        const command = new PutObjectCommand({
+          Bucket: process.env.S3_BUCKET_NAME,
+          Key: urlString,
+          ContentType: fileType,
+        });
+
+        const presignedUrl = await getSignedUrl(s3Client, command, { expiresIn: 120 });
+
+        const imageUrl = `https://${process.env.S3_BUCKET_NAME}.s3.amazonaws.com/${urlString}`;
+
+        return { imageUrl, presignedUrl };
+      })
+    );
+
+    res.status(200).json(presignedUrls);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 const createNewProduct = async (req, res) => {
   try {
+    const { userId } = req.query;
     const {
       name,
       description,
       price,
-      imageUrl,
       brand,
-      gender,
       category,
       stock,
+      images
     } = req.body;
 
-    // Validate the incoming data
-    if (!name || !price || !brand || !gender || !category || !stock) {
+    if (!name || !price || !brand || !stock || !images || images.length === 0) {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
-    // Check if brand, genders, and category already exist, if not create them
-    const [existingBrand, existingGender, existingCategory] = await Promise.all(
-      [
-        prisma.brand.findUnique({ where: { name: brand } }),
-        prisma.gender.findUnique({ where: { name: gender } }),
-        prisma.category.findUnique({ where: { name: category } }),
-      ]
-    );
+    const [existingBrand, existingCategory] = await Promise.all([
+      prisma.brand.findUnique({ where: { name: brand } }),
+      prisma.category.findUnique({ where: { name: category } }),
+    ]);
 
     const brandData = existingBrand
       ? { connect: { id: existingBrand.id } }
       : { create: { name: brand } };
-    const genderData = existingGender
-      ? { connect: { id: existingGender.id } }
-      : { create: { name: gender } };
+
     const categoryData = existingCategory
       ? { connect: { id: existingCategory.id } }
       : { create: { name: category } };
 
-    // Create new product item
     const newProduct = await prisma.clothing.create({
       data: {
         name,
@@ -136,22 +174,25 @@ const createNewProduct = async (req, res) => {
         price,
         stock,
         brand: brandData,
-        gender: genderData,
         category: categoryData,
+        imageUrls: images, 
       },
       include: {
         brand: true,
-        gender: true,
         category: true,
       },
     });
 
-    res.status(201).json({ newProduct, message: "New product created" });
+    res.status(201).json({
+      newProduct,
+      message: "New product created successfully",
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
 
 const updateProduct = async (req, res) => {
   try {
@@ -224,5 +265,6 @@ module.exports = {
   createNewProduct,
   updateProduct,
   deleteProduct,
+  getPresignedUrls,
   getSingleProduct,
 };

@@ -52,4 +52,78 @@ export function useGetProduct(productId: number) {
   });
 }
 
+export function useCreateProduct(options?: {
+  onSuccess?: (data: ProductResponse) => void;
+  onError?: (error: any) => void;
+}): UseMutationResult<ProductResponse, Error, ProductFormData> {
+  const axiosPrivate = useAxiosPrivate();
+
+  const createProduct = async (data: ProductFormData) => {
+    // Send metadata to get pre-signed URLs
+    const imageRequests: PresignedUrlRequest[] = data.images.map(image => ({
+      fileName: image.name, 
+      fileType: image.type || "image/jpeg",
+    }));
+    console.log(imageRequests)
+    const presignedUrlsResponse = await axiosPrivate.post<PresignedUrlResponse[]>(`/products/presigned-urls`, imageRequests);
+    
+    //Upload images to pre-signed URLs
+    await Promise.all(
+      presignedUrlsResponse.data.map((urlResponse, index) => {
+        const file = data.images[index]
+        return axiosPrivate.put(urlResponse.presignedUrl, file, {
+          headers: { "Content-Type": file.type || "image/jpeg" } 
+        });
+      })
+    );
+
+    // Submit final product with image URLs
+    const finalProduct = {
+      ...data,
+      images: presignedUrlsResponse.data.map(urlRes => urlRes.imageUrl),
+    };
+
+    const response = await axiosPrivate.post<ProductResponse>(`/products`, finalProduct);
+    return response.data;
+  };
+
+  return useMutation({
+    mutationFn: createProduct,
+    throwOnError: true,
+    onSuccess: (data) => {
+      options?.onSuccess?.(data);
+    },
+    onError: (error) => {
+      console.error(error);
+      options?.onError?.(error);
+    }
+  });
+}
+
+
+export function useDeleteProduct(options?: {
+  onSuccess?: (data: ProductResponse) => void;
+  onError?: (error: any) => void;
+}): UseMutationResult<ProductResponse, Error, ProductResponse> {
+  const axiosPrivate = useAxiosPrivate()
+  const addProduct = async (data: ProductResponse) => {
+    const { id } = data;
+    const response = await axiosPrivate.delete<ProductResponse>(`products/${id}`
+    )
+    console.log('data: ', response.data)
+    return response.data;
+  }
+  return useMutation({
+    mutationFn: addProduct,
+    throwOnError: true,
+    onSuccess: (data) => {
+      options?.onSuccess?.(data);
+
+    },
+    onError: (error) => {
+      console.error(error);
+      options?.onError?.(error);
+    }
+  })
+}
 

@@ -57,7 +57,7 @@ model Clothing {
   name        String
   description String?
   price       Float
-  imageUrl    String?
+  imageUrl    String[]
   stock       Float
 
   brand   Brand @relation(fields: [brandId], references: [id])

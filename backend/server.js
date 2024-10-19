@@ -25,9 +25,6 @@ app.use(bodyParser.json());
 
 app.use(cookies());
 
-//serve static files
-// app.use("/", express.static(path.join(__dirname, "/public")));
-
 //routes
 app.use("/register", require("./routes/register"));
 app.use("/login", require("./routes/login"));
@@ -38,7 +35,6 @@ app.use("/category", require("./routes/api/category"))
 app.use(verifyJWT);
 app.use("/products", require("./routes/api/product"));
 app.use("/carts", require("./routes/api/cart"));
-// app.use("/api/uplwwoadthing", require('./routes/uploadthing'))
 app.use("/orders", require("./routes/api/order"));
 
 app.use(errorHandler, errorLogger, errorNotFound);

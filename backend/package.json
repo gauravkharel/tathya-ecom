@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "build": "nodemon build"
   },
   "repository": {
     "type": "git",
@@ -25,10 +26,12 @@
   "homepage": "https://github.com/gauravkharel/tathya-ecom-mern#readme",
   "devDependencies": {
     "nodemon": "^3.0.3",
-    "prisma": "^5.9.1"
+    "prisma": "^5.20.0"
   },
   "dependencies": {
-    "@prisma/client": "^5.9.1",
+    "@aws-sdk/client-s3": "^3.658.1",
+    "@aws-sdk/s3-request-presigner": "^3.658.1",
+    "@prisma/client": "^5.20.0",
     "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
