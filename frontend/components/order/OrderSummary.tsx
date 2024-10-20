@@ -1,20 +1,32 @@
-import { FC } from 'react';
-import { Card } from '../ui/Card';
-import { Button } from '../ui/Button';
+"use client";
+
+import React from "react";
 
 interface OrderSummaryProps {
-  subtotal: number;
-  shippingFee: number;
-  discount: number;
-  total: number;
+  selectedItems: any[];
 }
 
-const OrderSummary: FC<OrderSummaryProps> = ({ subtotal, shippingFee, discount, total }) => {
+const OrderSummary: React.FC<OrderSummaryProps> = ({ selectedItems }) => {
+  const totalAmount = selectedItems.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0
+  );
+
   return (
-    <Card className='p-8'>
-      <h1>Order Summary</h1>
-      <Button>Proceed to checkout</Button>
-    </Card>
+    <div>
+      <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
+      <ul className="space-y-2">
+        {selectedItems.map((item) => (
+          <li key={item.id} className="flex justify-between">
+            <span>{item.clothing?.name}</span>
+            <span>${(item.price * item.quantity).toFixed(2)}</span>
+          </li>
+        ))}
+      </ul>
+      <div className="mt-4 border-t pt-4 text-right font-bold text-lg">
+        Total: ${totalAmount.toFixed(2)}
+      </div>
+    </div>
   );
 };
 

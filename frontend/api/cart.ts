@@ -27,7 +27,6 @@ export function useAddProductToCart(options?: {
 
   const addProduct = async (product: CartType) => {
     const { clothingId, quantity } = product;
-    // console.log("From useAddProduct", clothingId, quantity)
     const response = await axiosPrivate.post<CartType>(Endpoint,
     { clothingId, quantity },
       {
@@ -79,3 +78,4 @@ export function useDeleteCartItems(options?: {
     }
   });
 }
+

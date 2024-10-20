@@ -128,7 +128,8 @@ const deleteAllCarts = async (req, res) => {
 const updateCartItem = async (req, res) => {
   try {
     const { cartId } = req.params;
-    const { quantity} = req.body
+    const { quantity } = req.body;
+
     if (!cartId || !quantity) {
       return res.status(400).json({ message: 'Cart ID and Quantity are required' });
     }
@@ -141,19 +142,17 @@ const updateCartItem = async (req, res) => {
       return res.status(404).json({ message: 'Cart item not found' });
     }
 
-    const updateCartItem = await prisma.cartItem.update({
-      where: {
-        id: parseInt(cartId)
-      },
-      data: {
-        quantity: quantity
-       }
-    })
-    res.status(204).json({message: "Cart is updated."})
+    const updatedCartItem = await prisma.cartItem.update({
+      where: { id: parseInt(cartId) },
+      data: { quantity },
+    });
+
+    return res.status(200).json(updatedCartItem);
   } catch (err) {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
 
 const deleteCartItems = async (req, res) => {
   try {
@@ -193,5 +192,5 @@ module.exports = {
   deleteCartItem,
   deleteAllCarts,
   updateCartItem,
-  deleteCartItems
+  deleteCartItems,
 };
