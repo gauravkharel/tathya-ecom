@@ -9,7 +9,7 @@ A basic ecommerce app but, with a lot of hope 😅
 - PostgreSQL
 - Prisma ORM
 
-![](images/howappworks.gif)
+![](images/howappwork.gif)
 
 ### Blogs:
 [1. Token Authentication in a SPA App : Recommendation](https://medium.com/lightrail/getting-token-authentication-right-in-a-stateless-single-page-application-57d0c6474e3)
