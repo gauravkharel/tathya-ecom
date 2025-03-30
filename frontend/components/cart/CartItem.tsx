@@ -1,7 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/providers/CartProvider";
+import { Minus, Plus } from "lucide-react";
 
 interface CartItemProps {
   id: string;
@@ -12,53 +14,76 @@ interface CartItemProps {
   onUncheck: (id: string) => void;
 }
 
-const CartItem: React.FC<CartItemProps> = ({ id, name, price, quantity, onCheck, onUncheck }) => {
+const CartItem = ({ id, name, price, quantity, onCheck, onUncheck }: CartItemProps) => {
   const { updateCartQuantityLocally } = useCart();
-  const [currentQuantity, setCurrentQuantity] = useState(quantity);
   const [checked, setChecked] = useState(false);
 
-  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newQuantity = parseInt(e.target.value, 10);
+  const handleQuantityChange = useCallback((newQuantity) => {
     if (newQuantity > 0) {
-      setCurrentQuantity(newQuantity);
       updateCartQuantityLocally(id, newQuantity);
     }
-  };
+  }, [id, updateCartQuantityLocally]);
 
-  const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCheck = useCallback((e) => {
     setChecked(e.target.checked);
     if (e.target.checked) {
       onCheck(id);
     } else {
       onUncheck(id);
     }
-  };
+  }, [id, onCheck, onUncheck]);
 
   return (
-    <div className="flex justify-between items-center py-4 border-b border-gray-200">
-      <div className="flex items-center space-x-4">
-        <input
-          type="checkbox"
-          checked={checked}
-          onChange={handleCheck}
-          className="w-4 h-4"
+    <motion.div 
+      className="bg-white rounded-lg shadow-sm p-4 flex items-center gap-4"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      layout
+    >
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={handleCheck}
+        className="w-5 h-5 rounded border-gray-300 focus:ring-blue-500"
+      />
+      
+      <div className="h-24 w-24 rounded-md overflow-hidden bg-gray-100">
+        <img
+          src="/api/placeholder/96/96"
+          alt={name}
+          className="w-full h-full object-cover"
         />
-        <div className="flex flex-col">
-          <h3 className="text-lg font-medium">{name}</h3>
-          <span className="text-gray-500">${price}</span>
-        </div>
       </div>
-      <div className="flex items-center space-x-4">
-        <input
-          type="number"
-          value={currentQuantity}
-          min={1}
-          onChange={handleQuantityChange}
-          className="w-16 text-center border border-gray-300 rounded"
-        />
-        <span className="text-lg font-bold">${(price * currentQuantity).toFixed(2)}</span>
+
+      <div className="flex-1">
+        <h3 className="font-medium text-lg text-gray-900">{name}</h3>
+        <p className="text-gray-500">${price?.toFixed(2)}</p>
       </div>
-    </div>
+
+      <div className="flex items-center gap-3">
+        <button
+          onClick={() => handleQuantityChange(quantity - 1)}
+          className="p-1 rounded-full hover:bg-gray-100"
+          disabled={quantity <= 1}
+        >
+          <Minus className="w-4 h-4" />
+        </button>
+        
+        <span className="w-12 text-center font-medium">{quantity}</span>
+        
+        <button
+          onClick={() => handleQuantityChange(quantity + 1)}
+          className="p-1 rounded-full hover:bg-gray-100"
+        >
+          <Plus className="w-4 h-4" />
+        </button>
+      </div>
+
+      <div className="text-lg font-semibold text-gray-900">
+        ${(price * quantity).toFixed(2)}
+      </div>
+    </motion.div>
   );
 };
 

@@ -1,100 +1,102 @@
 "use client";
 
-import { FC, useState, useEffect } from "react";
-import CartItem from "./CartItem";
+import { useState, useEffect, useCallback } from "react";
+import { Trash2 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/providers/CartProvider";
-import { Delete } from "lucide-react";
-import { isEmptyArray } from "@/lib/utils";
-import { useGetCart } from "@/api/cart";
+import CartItem from "./CartItem";
 import EmptyCart from "./EmptyCart";
-import Title from "../ui/Title";
 import OrderSummary from "../order/OrderSummary";
-import { motion } from "framer-motion";
+import { CartType } from "@/lib/types";
+import { useGetCart } from "@/api/cart";
 
-const CartLayout: FC = () => {
+const CartLayout = () => {
+  const {refetch} = useGetCart()
   const { cart, deleteCartItems } = useCart();
-  const { refetch } = useGetCart();
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
-  const [selectedItems, setSelectedItems] = useState<any[]>([]);
-  const [updatedCart, setUpdatedCart] = useState<any[]>([]);
+  const [selectedItems, setSelectedItems] = useState<CartType[]>([]);
+  const [isCartEmpty, setIsCartEmpty] = useState<boolean>(cart.length === 0);
 
   useEffect(() => {
-    // Filter cart items that are checked and reflect their updated quantities
-    const selectedProducts = cart.filter(item => checkedItems.includes(item.id));
-    setUpdatedCart(selectedProducts);
-  }, [checkedItems, cart]);
+    setIsCartEmpty(cart.length === 0);
+  }, [cart, isCartEmpty]);
 
   useEffect(() => {
-    console.log("Cart data on refetch:", cart);
-  }, [cart]);
+    const updatedSelectedItems = cart
+      .filter(item => checkedItems.includes(item.id!))
+      .map(item => ({
+        ...item,
+        price: item.clothing?.price || 0
+      }));
+    setSelectedItems(updatedSelectedItems);
+  }, [cart, checkedItems]);
 
+  const handleCheck = useCallback((id: string) => {
+    setCheckedItems(prev => [...prev, id]);
+  }, []);
 
-  const handleCheck = (id: string) => {
-    const selectedItem = cart.find(item => item.id === id);
-    if (selectedItem) {
-      setSelectedItems((prev) => [...prev, selectedItem]);
-      setCheckedItems((prev) => [...prev, id]);
-    }
-  };
+  const handleUncheck = useCallback((id: string) => {
+    setCheckedItems(prev => prev.filter(item => item !== id));
+  }, []);
 
-  const handleUncheck = (id: string) => {
-    setCheckedItems((prev) => prev.filter((item) => item !== id));
-    setSelectedItems((prev) => prev.filter((item) => item.id !== id));
-  };
-
-  const handleDeleteAll = () => {
+  const handleDeleteSelected = useCallback(() => {
     if (checkedItems.length > 0) {
       deleteCartItems(checkedItems);
       setCheckedItems([]);
-      setSelectedItems([]);
-      refetch();
     }
-  };
+
+  }, [checkedItems, deleteCartItems]);
+
+  if (isCartEmpty) {
+    return <EmptyCart />;
+  }
 
   return (
     <div className="container mx-auto p-4 lg:px-0">
       <div className="flex justify-between items-center mb-6">
-        <Title>Your Cart</Title>
+        <h1 className="text-2xl font-bold">Shopping Cart ({cart.length})</h1>
         {checkedItems.length > 0 && (
-          <button
-            onClick={handleDeleteAll}
-            className="flex items-center bg-red-600 text-white px-3 py-2 rounded-md hover:bg-red-700 transition"
+          <motion.button
+            onClick={handleDeleteSelected}
+            className="flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
-            <Delete className="mr-2" /> Remove Selected
-          </button>
+            <Trash2 className="w-4 h-4" />
+            Remove Selected
+          </motion.button>
         )}
       </div>
+
       <div className="flex flex-col lg:flex-row gap-8">
         <div className="w-full lg:w-2/3">
-          {isEmptyArray(cart) ? (
-            <EmptyCart />
-          ) : (
-            <div className="space-y-6">
-              {cart.map((cartItem) => (
-                <motion.div
-                  key={cartItem.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  layout
-                >
-                  <CartItem
-                    key={cartItem.id}
-                    name={cartItem.clothing.name}
-                    id={cartItem.id!}
-                    price={cartItem.clothing.price}
-                    onCheck={handleCheck}
-                    onUncheck={handleUncheck}
-                    quantity={cartItem.quantity}
-                  />
-                </motion.div>
-              ))}
-            </div>
-          )}
+          <AnimatePresence mode="wait">
+            {cart.map((item) => (
+              <CartItem
+                key={item.id}
+                id={item.id!}
+                name={item.clothing?.name}
+                price={item.clothing?.price}
+                quantity={item.quantity}
+                onCheck={handleCheck}
+                onUncheck={handleUncheck}
+              />
+            ))}
+          </AnimatePresence>
         </div>
 
-        <div className="w-full lg:w-1/3 bg-white p-6 shadow-lg rounded-lg">
-          {selectedItems.length > 0 && <OrderSummary selectedItems={selectedItems} />}
+        <div className="w-full lg:w-1/3 sticky top-4">
+          <AnimatePresence>
+            {selectedItems.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+              >
+                <OrderSummary selectedItems={selectedItems} />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </div>

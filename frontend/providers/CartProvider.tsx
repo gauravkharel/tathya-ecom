@@ -28,7 +28,6 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const { toast } = useToast();
   const [localCart, setLocalCart] = useState<CartType[]>(cartData); 
   useEffect(() => {
-    // Only update localCart if the data from the backend (cart) is actually different
     if (cartData && JSON.stringify(cartData) !== JSON.stringify(localCart)) {
       setLocalCart(cartData); 
     }
@@ -57,7 +56,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         title: 'Successfully deleted items from cart',
         variant: 'lessdestructive',
       });
-      refetch();
+      
     },
     onError: (error) => {
       toast({
